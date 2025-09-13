@@ -66,15 +66,21 @@
                     <p class="section-subtitle">Tell us about your requirements and we'll provide a detailed quote within 4 hours during business hours</p>
                 </div>
 
-                <form class="quote-form" id="quoteForm">
+                <!-- NETLIFY FORM - Updated with netlify attributes -->
+                <form class="quote-form" name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <!-- Hidden field for bot protection -->
+                    <p style="display: none;">
+                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
+
                     <div class="form-section">
                         <h3>Contact Information</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <input type="text" name="firstName" placeholder="First Name *" required>
+                                <input type="text" name="first-name" placeholder="First Name *" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="lastName" placeholder="Last Name *" required>
+                                <input type="text" name="last-name" placeholder="Last Name *" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -94,7 +100,7 @@
                         <h3>Project Details</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <select name="projectType" required>
+                                <select name="project-type" required>
                                     <option value="">Project Type *</option>
                                     <option value="new-installation">New Installation</option>
                                     <option value="system-upgrade">System Upgrade</option>
@@ -131,7 +137,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <select name="buildingType">
+                                <select name="building-type">
                                     <option value="">Building Type</option>
                                     <option value="office">Office Building</option>
                                     <option value="retail">Retail/Commercial</option>
@@ -160,14 +166,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea name="additional" rows="3" placeholder="Any additional information, special requirements, or questions..."></textarea>
+                            <textarea name="additional-info" rows="3" placeholder="Any additional information, special requirements, or questions..."></textarea>
                         </div>
                     </div>
 
                     <div class="form-section">
                         <div class="form-group">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="tradeAccount" value="yes">
+                                <input type="checkbox" name="trade-account" value="yes">
                                 I'm interested in opening a trade account for ongoing purchases
                             </label>
                         </div>

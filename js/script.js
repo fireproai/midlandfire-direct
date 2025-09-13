@@ -1,233 +1,288 @@
-// Calculate years since August 1996, incrementing Sept 1st  
-function calculateYearsExperience() {
-    const startDate = new Date('1996-08-01');
-    const currentDate = new Date();
-    
-    let years = currentDate.getFullYear() - startDate.getFullYear();
-    
-    // Check if we've passed September 1st this year for increment
-    const currentMonth = currentDate.getMonth(); // 0-based (August = 7, September = 8)
-    const currentDay = currentDate.getDate();
-    
-    // If we haven't reached September 1st yet this year, subtract 1
-    if (currentMonth < 8 || (currentMonth === 8 && currentDay < 1)) {
-        years -= 1;
-    }
-    
-    return years;
-}
+// Update copyright year
+document.getElementById('year').textContent = new Date().getFullYear();
 
-// Update all year counters
-function updateYearCounters() {
-    const years = calculateYearsExperience();
-    
-    // Update specific IDs
-    const yearElements = [
-        'yearsExperience',
-        'yearsCounter', 
-        'yearsCounter2',
-        'aboutYears'
-    ];
-    
-    yearElements.forEach(elementId => {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.textContent = years;
-        }
-    });
-    
-    // Update class-based elements
-    const yearDisplays = document.querySelectorAll('.years-display');
-    yearDisplays.forEach(element => {
-        element.textContent = years;
-    });
-}
+// Calculate and update years of experience (started 1996)
+const currentYear = new Date().getFullYear();
+const startYear = 1996;
+const yearsExperience = currentYear - startYear;
 
-// Set current year in footer
-function setFooterYear() {
-    const yearElement = document.getElementById('year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
-}
+// Update all years experience displays across the site
+document.querySelectorAll('.years-display, #yearsExperience, #yearsCounter').forEach(element => {
+    element.textContent = yearsExperience;
+});
 
-// Mobile Menu Toggle
-function initMobileMenu() {
-    const toggle = document.querySelector('.mobile-menu-toggle');
-    const nav = document.querySelector('.mobile-nav');
+// Mobile menu toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
     
-    if (toggle && nav) {
-        toggle.addEventListener('click', function() {
-            toggle.classList.toggle('active');
-            nav.classList.toggle('active');
-            
-            // Animate hamburger
-            const spans = toggle.querySelectorAll('span');
-            if (toggle.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-            } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!toggle.contains(e.target) && !nav.contains(e.target)) {
-                toggle.classList.remove('active');
-                nav.classList.remove('active');
-                // Reset hamburger
-                const spans = toggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
+    if (mobileMenuToggle && mobileNav) {
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
         });
         
         // Close mobile menu when clicking on a link
-        nav.querySelectorAll('a').forEach(link => {
+        const mobileNavLinks = mobileNav.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
-                toggle.classList.remove('active');
-                nav.classList.remove('active');
-                // Reset hamburger
-                const spans = toggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
+                mobileNav.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
             });
         });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuToggle.contains(event.target) && !mobileNav.contains(event.target)) {
+                mobileNav.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+            }
+        });
     }
-}
-
-// Enhanced Form Handling
-function initFormHandling() {
-    document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            // Show loading state
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            try {
-                // Simulate form submission
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                // Success message
-                showFormMessage(form, 'Thank you for your enquiry! We will get back to you within 4 hours during business hours.', 'success');
-                form.reset();
-                
-            } catch (error) {
-                // Error message
-                showFormMessage(form, 'Sorry, there was an error sending your message. Please try again or call us directly on 0844 997 0001.', 'error');
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-    });
-}
-
-function showFormMessage(form, message, type) {
-    // Remove existing messages
-    const existingMessages = form.querySelectorAll('.form-message');
-    existingMessages.forEach(msg => msg.remove());
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `form-message ${type}`;
-    messageDiv.innerHTML = `
-        <span class="message-icon">${type === 'success' ? '✓' : '⚠'}</span>
-        <span>${message}</span>
-    `;
-    
-    form.insertBefore(messageDiv, form.firstChild);
-    
-    // Auto-remove after 8 seconds
-    setTimeout(() => {
-        messageDiv.remove();
-    }, 8000);
-}
-
-// Smooth scrolling for anchor links
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = target.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// Header scroll effects
-function initHeaderEffects() {
-    const header = document.querySelector('.header');
-    if (!header) return;
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.boxShadow = 'none';
-        }
-    });
-}
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    updateYearCounters();
-    setFooterYear();
-    initMobileMenu();
-    initFormHandling();
-    initSmoothScrolling();
-    initHeaderEffects();
-    
-    console.log('Midland Fire Direct website loaded successfully!');
 });
 
-// Update counters every hour to catch the September 1st increment
-setInterval(updateYearCounters, 3600000);
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
 
-// Add styles for form messages
-const messageStyles = document.createElement('style');
-messageStyles.textContent = `
-.form-message {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-weight: 500;
+// Form validation and enhanced UX
+document.addEventListener('DOMContentLoaded', function() {
+    // Add loading states to forms
+    const forms = document.querySelectorAll('form[data-netlify="true"]');
+    
+    forms.forEach(form => {
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton ? submitButton.textContent : '';
+        
+        form.addEventListener('submit', function(e) {
+            if (submitButton) {
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+                submitButton.style.opacity = '0.7';
+            }
+        });
+        
+        // Reset button if form submission fails
+        form.addEventListener('error', function() {
+            if (submitButton) {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+                submitButton.style.opacity = '1';
+            }
+        });
+    });
+});
+
+// Enhanced phone number formatting
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+    input.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // Format UK phone numbers
+        if (value.startsWith('44')) {
+            value = '+44 ' + value.substring(2);
+        } else if (value.startsWith('0')) {
+            // Format as UK local number
+            if (value.length > 10) {
+                value = value.substring(0, 11);
+            }
+        }
+        
+        e.target.value = value;
+    });
+});
+
+// Add active states to navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
+    
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href');
+        if (linkPage === currentPage || 
+           (currentPage === '' && linkPage === 'index.html') ||
+           (currentPage === 'index.html' && linkPage === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// Lazy loading for images (enhanced performance)
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+});
+
+// Contact form auto-suggestions
+document.addEventListener('DOMContentLoaded', function() {
+    const companyInput = document.querySelector('input[name="company"]');
+    const enquirySelect = document.querySelector('select[name="enquiry-type"]');
+    
+    if (companyInput && enquirySelect) {
+        // Auto-suggest enquiry type based on company name patterns
+        companyInput.addEventListener('blur', function() {
+            const company = this.value.toLowerCase();
+            
+            if (company.includes('fire') || company.includes('safety') || company.includes('security')) {
+                if (!enquirySelect.value) {
+                    enquirySelect.value = 'quote';
+                }
+            }
+        });
+    }
+});
+
+// Enhanced quote form functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const projectTypeSelect = document.querySelector('select[name="project-type"]');
+    const urgencySelect = document.querySelector('select[name="urgency"]');
+    
+    if (projectTypeSelect && urgencySelect) {
+        projectTypeSelect.addEventListener('change', function() {
+            // Auto-suggest urgency based on project type
+            if (this.value === 'emergency') {
+                urgencySelect.value = 'emergency';
+            } else if (this.value === 'replacement-parts') {
+                urgencySelect.value = 'urgent';
+            }
+        });
+    }
+});
+
+// Dynamic form field validation
+document.addEventListener('DOMContentLoaded', function() {
+    const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    
+    requiredFields.forEach(field => {
+        field.addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                this.style.borderColor = '#ff6b6b';
+            } else {
+                this.style.borderColor = '#28a745';
+            }
+        });
+        
+        field.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                this.style.borderColor = '#28a745';
+            }
+        });
+    });
+});
+
+// Professional email validation
+function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
 }
 
-.form-message.success {
-    background: #10b981;
-    color: white;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInputs = document.querySelectorAll('input[type="email"]');
+    
+    emailInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.value && !validateEmail(this.value)) {
+                this.style.borderColor = '#ff6b6b';
+                this.setCustomValidity('Please enter a valid email address');
+            } else {
+                this.style.borderColor = this.value ? '#28a745' : '';
+                this.setCustomValidity('');
+            }
+        });
+    });
+});
 
-.form-message.error {
-    background: #ef4444;
-    color: white;
-}
+// Scroll-to-top functionality (appears after scrolling down)
+document.addEventListener('DOMContentLoaded', function() {
+    // Create scroll-to-top button
+    const scrollButton = document.createElement('button');
+    scrollButton.innerHTML = '↑';
+    scrollButton.className = 'scroll-to-top';
+    scrollButton.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #b30004;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        cursor: pointer;
+        display: none;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    `;
+    
+    document.body.appendChild(scrollButton);
+    
+    // Show/hide scroll button based on scroll position
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollButton.style.display = 'block';
+        } else {
+            scrollButton.style.display = 'none';
+        }
+    });
+    
+    // Smooth scroll to top when clicked
+    scrollButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
 
-.message-icon {
-    font-weight: bold;
-    font-size: 1.2em;
-}
-`;
-document.head.appendChild(messageStyles);
+// Performance optimization - preload critical pages
+document.addEventListener('DOMContentLoaded', function() {
+    const criticalPages = ['products.html', 'quote.html', 'contact.html'];
+    
+    criticalPages.forEach(page => {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = page;
+        document.head.appendChild(link);
+    });
+});
+
+// Console message for developers
+console.log(`
+🔥 Midland Fire Direct Website
+Elite Gent Technology Centre
+${yearsExperience}+ Years of Excellence
+Built with professional standards
+
+Need technical support? Call 0844 997 0001
+`);
+
+// Track page views (privacy-friendly - no external services)
+document.addEventListener('DOMContentLoaded', function() {
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    console.log(`Page loaded: ${page} at ${new Date().toISOString()}`);
+});

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Quote - Midland Fire Direct | Gent Fire Detection</title>
+    <meta name="description" content="Request a quote for Gent by Honeywell fire detection products and services. Professional pricing for fire safety contractors.">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="images/mfd_logo.svg" alt="Midland Fire Direct" class="logo">
+                </div>
+                <nav class="main-nav">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="products.html">Products</a>
+                    <a href="services.html">Services</a>
+                    <a href="quote.html" class="active">Quote</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <div class="header-cta">
+                    <span class="phone-number">0844 997 0001</span>
+                    <a href="contact.html" class="btn btn-primary btn-header">Contact Us</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <nav class="mobile-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="services.html">Services</a>
+                <a href="quote.html" class="active">Quote</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span>💷 Professional Pricing</span>
+                    </div>
+                    <h1 class="hero-title">Request Your Quote</h1>
+                    <p class="hero-subtitle">
+                        Get competitive pricing on genuine Gent by Honeywell products with fast response from our expert team.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="container">
+                <div class="quote-intro">
+                    <h2 class="section-title">Professional Quote Service</h2>
+                    <p class="section-subtitle">Tell us about your requirements and we'll provide a detailed quote within 4 hours during business hours</p>
+                </div>
+
+                <form class="quote-form" id="quoteForm">
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="firstName" placeholder="First Name *" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="lastName" placeholder="Last Name *" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email Address *" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="phone" placeholder="Phone Number *" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="company" placeholder="Company Name *" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Project Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <select name="projectType" required>
+                                    <option value="">Project Type *</option>
+                                    <option value="new-installation">New Installation</option>
+                                    <option value="system-upgrade">System Upgrade</option>
+                                    <option value="replacement-parts">Replacement Parts</option>
+                                    <option value="maintenance">Maintenance Contract</option>
+                                    <option value="emergency">Emergency Repair</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="urgency" required>
+                                    <option value="">Urgency Level *</option>
+                                    <option value="standard">Standard (1-2 weeks)</option>
+                                    <option value="priority">Priority (2-5 days)</option>
+                                    <option value="urgent">Urgent (24-48 hours)</option>
+                                    <option value="emergency">Emergency (Same day)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="location" placeholder="Project Location (City/Postcode) *" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>System Requirements</h3>
+                        <div class="form-group">
+                            <textarea name="requirements" rows="6" placeholder="Please describe your requirements in detail. Include:
+• System type (Vigilon, Nano, etc.)
+• Number of zones/loops required
+• Types of devices needed (detectors, call points, sounders)
+• Any specific part numbers if known
+• Building type and size
+• Any special requirements or constraints" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <select name="buildingType">
+                                    <option value="">Building Type</option>
+                                    <option value="office">Office Building</option>
+                                    <option value="retail">Retail/Commercial</option>
+                                    <option value="industrial">Industrial/Warehouse</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="healthcare">Healthcare Facility</option>
+                                    <option value="education">Educational</option>
+                                    <option value="hospitality">Hotel/Hospitality</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="zones" placeholder="Approximate Number of Zones">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Additional Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="budget" placeholder="Estimated Budget Range (Optional)">
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="deadline" placeholder="Required Completion Date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="additional" rows="3" placeholder="Any additional information, special requirements, or questions..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="tradeAccount" value="yes">
+                                I'm interested in opening a trade account for ongoing purchases
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="marketing" value="yes">
+                                I'd like to receive updates about new Gent products and services
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large btn-full">Submit Quote Request</button>
+                    
+                    <div class="form-note">
+                        <p><strong>Response Time:</strong> We aim to respond to all quote requests within 4 hours during business hours (Mon-Fri 8:30 AM - 5:00 PM). For urgent requirements, please call <strong>0844 997 0001</strong>.</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose Our Quote Service?</h2>
+                    <p class="section-subtitle">Professional service backed by <span class="years-display">29</span>+ years expertise</p>
+                </div>
+                
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="overview-icon">⚡</div>
+                        <h3>Fast Response</h3>
+                        <p>Quote responses within 4 hours during business hours. Emergency quotes available same day.</p>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-icon">💰</div>
+                        <h3>Competitive Pricing</h3>
+                        <p>Best prices on genuine Gent products with volume discounts for larger projects.</p>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-icon">🎯</div>
+                        <h3>Accurate Specifications</h3>
+                        <p>Expert system design ensures you get exactly what you need - no over-specification.</p>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-icon">📞</div>
+                        <h3>Personal Service</h3>
+                        <p>Direct access to our technical team for clarifications and ongoing support.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Need Help With Your Quote?</h2>
+                    <p>Our expert team is available to discuss your requirements and provide guidance.</p>
+                    <div class="cta-actions">
+                        <div class="cta-phone">
+                            <span>Call our team directly:</span>
+                            <a href="tel:08449970001" class="phone-link">0844 997 0001</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="images/mfd_logo.svg" alt="Midland Fire Direct">
+                        <div class="footer-company">
+                            <h4>MIDLAND FIRE DIRECT</h4>
+                            <p>Elite Technology Centre</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">Elite Gent Technology Centre with <span class="years-display">29</span>+ years expertise in Gent by Honeywell solutions.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Products</h4>
+                        <ul>
+                            <li><a href="products.html">Vigilon Panels</a></li>
+                            <li><a href="products.html">Nano Systems</a></li>
+                            <li><a href="products.html">S-Quad Sensors</a></li>
+                            <li><a href="products.html">Detection Devices</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="services.html">System Design</a></li>
+                            <li><a href="services.html">Technical Support</a></li>
+                            <li><a href="services.html">Parts Supply</a></li>
+                            <li><a href="services.html">Emergency Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="tel:08449970001">0844 997 0001</a></li>
+                            <li><a href="mailto:sales@midlandfire.direct">sales@midlandfire.direct</a></li>
+                            <li>Mon-Fri 8:30 AM - 5:00 PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; <span id="year"></span> Midland Fire Direct Ltd. All rights reserved.</p>
+                </div>
+                <div class="footer-certifications">
+                    <p>Elite Technology Centre • Est. 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const page = window.location.pathname.split('/').pop() || 'index.html';
     console.log(`Page loaded: ${page} at ${new Date().toISOString()}`);
 });
-// Hero Rotator
+// Hero Rotator with fade, pause on hover, arrows + dots
 document.addEventListener('DOMContentLoaded', function () {
     const heroData = [
         {
@@ -323,7 +323,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const staticContent = document.querySelector(".hero-static");
     const dynamicContent = document.querySelector(".hero-dynamic");
 
-    function updateHero() {
+    // Create controls dynamically
+    const controls = document.createElement("div");
+    controls.classList.add("hero-controls");
+    controls.innerHTML = `
+        <button class="hero-prev">‹</button>
+        <div class="hero-dots"></div>
+        <button class="hero-next">›</button>
+    `;
+    heroSection.appendChild(controls);
+
+    const prevBtn = controls.querySelector(".hero-prev");
+    const nextBtn = controls.querySelector(".hero-next");
+    const dotsContainer = controls.querySelector(".hero-dots");
+
+    // Create dots
+    heroData.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.addEventListener("click", () => {
+            currentIndex = i;
+            showHero(true); // true = manual action
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll("button");
+
+    function showHero(manual = false) {
         const data = heroData[currentIndex];
         heroSection.style.backgroundImage = `url(${data.image})`;
         heroSection.style.backgroundPosition = "center";
@@ -332,13 +358,43 @@ document.addEventListener('DOMContentLoaded', function () {
         badgeEl.textContent = data.badge;
         titleEl.textContent = data.title;
         subtitleEl.textContent = data.subtitle;
+
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[currentIndex].classList.add("active");
+
+        if (!manual) {
+            currentIndex = (currentIndex + 1) % heroData.length;
+        }
+    }
+
+    // Manual nav
+    nextBtn.addEventListener("click", () => {
+        showHero(true);
         currentIndex = (currentIndex + 1) % heroData.length;
+    });
+
+    prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + heroData.length) % heroData.length;
+        showHero(true);
+    });
+
+    // Start/stop rotation
+    let heroInterval;
+    function startHeroRotation() {
+        heroInterval = setInterval(showHero, 8000);
+    }
+    function stopHeroRotation() {
+        clearInterval(heroInterval);
     }
 
     if (heroSection) {
         staticContent.style.display = "none";
         dynamicContent.style.display = "block";
-        updateHero();
-        setInterval(updateHero, 8000); // rotate every 8s
+        showHero();
+        startHeroRotation();
+
+        // Pause on hover
+        heroSection.addEventListener("mouseenter", stopHeroRotation);
+        heroSection.addEventListener("mouseleave", startHeroRotation);
     }
 });

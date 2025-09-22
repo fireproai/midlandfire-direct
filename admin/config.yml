@@ -1,0 +1,28 @@
+# /admin/config.yml
+
+backend:
+  name: github
+  repo: fireproai/midlandfire-direct
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "about"
+    label: "About Page"
+    files:
+      - label: "About Content"
+        name: "about"
+        file: "about.html"
+        fields:
+          - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "services"
+    label: "Services Page"
+    files:
+      - label: "Services Content"
+        name: "services"
+        file: "services.html"
+        fields:
+          - { label: "Body", name: "body", widget: "markdown" }

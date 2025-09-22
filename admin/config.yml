@@ -1,14 +1,66 @@
-# /admin/config.yml
+# Midland Fire Direct CMS Configuration
+# Gent by Honeywell Elite Technology Centre
 
 backend:
   name: github
   repo: fireproai/midlandfire-direct
   branch: main
+  auth_type: pkce
+  open_authoring: true
 
+# Media management
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
+# Site settings
+site_url: https://midlandfire.direct
+display_url: https://midlandfire.direct
+logo_url: /images/mfd_logo.png
+
+# Publishing settings
+publish_mode: editorial_workflow
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+# Collections
 collections:
+  # Site Settings
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Site Configuration"
+        name: "site"
+        file: "_data/site.yml"
+        create: true
+        fields:
+          - { label: "Site Title", name: "title", widget: "string", default: "Midland Fire Direct" }
+          - { label: "Site Description", name: "description", widget: "text" }
+          - { label: "Contact Phone", name: "phone", widget: "string", default: "0844 997 0001" }
+          - { label: "Contact Email", name: "email", widget: "string", default: "sales@midlandfire.direct" }
+          - { label: "Company Address", name: "address", widget: "text" }
+          - { label: "Business Hours", name: "hours", widget: "string" }
+
+  # Home Page
+  - name: "homepage"
+    label: "Home Page"
+    files:
+      - label: "Home Content"
+        name: "home"
+        file: "index.md"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "Home - Midland Fire Direct" }
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Main Heading", name: "heading", widget: "string" }
+              - { label: "Subheading", name: "subheading", widget: "text" }
+              - { label: "Primary Button Text", name: "primary_button", widget: "string" }
+              - { label: "Secondary Button Text", name: "secondary_button", widget: "string" }
+          - { label: "Meta Description", name: "meta_description", widget: "text" }
+
+  # About Page
   - name: "about"
     label: "About Page"
     files:
@@ -16,8 +68,14 @@ collections:
         name: "about"
         file: "about.html"
         fields:
-          - { label: "Body", name: "body", widget: "markdown" }
+          - { label: "Page Title", name: "title", widget: "string", default: "About Us - Midland Fire Direct" }
+          - { label: "Main Heading", name: "heading", widget: "string" }
+          - { label: "About Content", name: "body", widget: "markdown" }
+          - { label: "Company History", name: "history", widget: "markdown" }
+          - { label: "Certifications", name: "certifications", widget: "list", field: { label: "Certification", name: "cert", widget: "string" } }
+          - { label: "Meta Description", name: "meta_description", widget: "text" }
 
+  # Services Page
   - name: "services"
     label: "Services Page"
     files:
@@ -25,4 +83,137 @@ collections:
         name: "services"
         file: "services.html"
         fields:
-          - { label: "Body", name: "body", widget: "markdown" }
+          - { label: "Page Title", name: "title", widget: "string", default: "Services - Midland Fire Direct" }
+          - { label: "Main Heading", name: "heading", widget: "string" }
+          - { label: "Services Introduction", name: "intro", widget: "markdown" }
+          - label: "Services List"
+            name: "services_list"
+            widget: "list"
+            fields:
+              - { label: "Service Name", name: "name", widget: "string" }
+              - { label: "Service Description", name: "description", widget: "text" }
+              - { label: "Service Icon", name: "icon", widget: "image", required: false }
+          - { label: "Meta Description", name: "meta_description", widget: "text" }
+
+  # Products Page
+  - name: "products"
+    label: "Products Page"
+    files:
+      - label: "Products Content"
+        name: "products"
+        file: "products.html"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "Products - Midland Fire Direct" }
+          - { label: "Main Heading", name: "heading", widget: "string" }
+          - { label: "Products Introduction", name: "intro", widget: "markdown" }
+          - label: "Product Categories"
+            name: "product_categories"
+            widget: "list"
+            fields:
+              - { label: "Category Name", name: "name", widget: "string" }
+              - { label: "Category Description", name: "description", widget: "text" }
+              - { label: "Category Image", name: "image", widget: "image", required: false }
+              - label: "Products"
+                name: "products"
+                widget: "list"
+                fields:
+                  - { label: "Product Name", name: "name", widget: "string" }
+                  - { label: "Product Code", name: "code", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Product Image", name: "image", widget: "image", required: false }
+                  - { label: "Datasheet", name: "datasheet", widget: "file", required: false }
+          - { label: "Meta Description", name: "meta_description", widget: "text" }
+
+  # Contact Page
+  - name: "contact"
+    label: "Contact Page"
+    files:
+      - label: "Contact Content"
+        name: "contact"
+        file: "contact.html"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "Contact - Midland Fire Direct" }
+          - { label: "Main Heading", name: "heading", widget: "string" }
+          - { label: "Contact Information", name: "contact_info", widget: "markdown" }
+          - label: "Office Locations"
+            name: "locations"
+            widget: "list"
+            fields:
+              - { label: "Office Name", name: "name", widget: "string" }
+              - { label: "Address", name: "address", widget: "text" }
+              - { label: "Phone", name: "phone", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+          - { label: "Meta Description", name: "meta_description", widget: "text" }
+
+  # Quote Page
+  - name: "quote"
+    label: "Quote Page"
+    create: true
+    file: "quote.html"
+    fields:
+      - { label: "Page Title", name: "title", widget: "string", default: "Request Quote - Midland Fire Direct" }
+      - { label: "Main Heading", name: "heading", widget: "string" }
+      - { label: "Quote Introduction", name: "intro", widget: "markdown" }
+      - { label: "Form Instructions", name: "form_instructions", widget: "text" }
+      - { label: "Meta Description", name: "meta_description", widget: "text" }
+
+  # Blog Posts
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Author", name: "author", widget: "string", default: "Midland Fire Direct" }
+      - { label: "Categories", name: "categories", widget: "list", default: ["News"] }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Content", name: "body", widget: "markdown" }
+      - { label: "SEO Description", name: "meta_description", widget: "text" }
+
+  # Case Studies
+  - name: "case_studies"
+    label: "Case Studies"
+    folder: "_case_studies"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Client Name", name: "client", widget: "string" }
+      - { label: "Project Date", name: "date", widget: "datetime" }
+      - { label: "Project Type", name: "project_type", widget: "select", options: ["Commercial", "Industrial", "Healthcare", "Education", "Residential"] }
+      - { label: "Featured Image", name: "featured_image", widget: "image" }
+      - { label: "Project Overview", name: "overview", widget: "text" }
+      - { label: "Challenge", name: "challenge", widget: "markdown" }
+      - { label: "Solution", name: "solution", widget: "markdown" }
+      - { label: "Results", name: "results", widget: "markdown" }
+      - label: "Products Used"
+        name: "products_used"
+        widget: "list"
+        field: { label: "Product", name: "product", widget: "string" }
+      - { label: "Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
+
+  # Technical Resources
+  - name: "resources"
+    label: "Technical Resources"
+    folder: "_resources"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Resource Type", name: "type", widget: "select", options: ["Manual", "Datasheet", "Installation Guide", "Technical Note", "Wiring Diagram"] }
+      - { label: "Product Category", name: "category", widget: "select", options: ["Panels", "Detectors", "Call Points", "Interfaces", "Accessories"] }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "File", name: "file", widget: "file" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Download Count", name: "downloads", widget: "number", default: 0 }
+
+# Editor settings
+editor:
+  preview: true
+
+# Local development
+local_backend: true

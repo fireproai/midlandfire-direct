@@ -1,19 +1,114 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Midland Fire CMS</title>
-  </head>
-  <body>
-    <!-- Mount point for Decap CMS -->
-    <div id="nc-root"></div>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midland Fire Direct - Content Management System</title>
+  <meta name="description" content="Content Management System for Midland Fire Direct - Gent by Honeywell Elite Technology Centre" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://unpkg.com/decap-cms@latest/dist/decap-cms.js" as="script" />
+  
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fb;
+    }
+    
+    #nc-root {
+      min-height: 100vh;
+    }
+    
+    /* Loading state styling */
+    .cms-loading {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f8f9fb;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #e0e0e0;
+      border-top: 3px solid #b30004;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .loading-subtext {
+      color: #666;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading state -->
+  <div id="loading-state" class="cms-loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading Midland Fire CMS</div>
+    <div class="loading-subtext">Gent by Honeywell Elite Technology Centre</div>
+  </div>
 
-    <!-- Load Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
-    <script>
+  <!-- Mount point for Decap CMS -->
+  <div id="nc-root"></div>
+
+  <!-- Load Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+  
+  <script>
+    // Hide loading state when CMS loads
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        const loadingState = document.getElementById('loading-state');
+        if (loadingState) {
+          loadingState.style.display = 'none';
+        }
+      }, 2000);
+    });
+
+    // Initialize CMS with error handling
+    try {
       CMS.init({
         config: "/admin/config.yml"
       });
-    </script>
-  </body>
+      
+      // Custom styling for the CMS interface
+      CMS.registerPreviewStyle("/css/style.css");
+      
+      // Register custom widgets if needed
+      CMS.registerWidget("color", "text");
+      
+      console.log("Midland Fire CMS initialized successfully");
+    } catch (error) {
+      console.error("Failed to initialize CMS:", error);
+      document.getElementById('loading-state').innerHTML = `
+        <div style="color: #b30004; text-align: center;">
+          <h2>CMS Loading Error</h2>
+          <p>Failed to load the content management system.</p>
+          <p>Please check your configuration and try again.</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
 </html>

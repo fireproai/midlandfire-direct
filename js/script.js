@@ -12,27 +12,27 @@ document.querySelectorAll('.years-display, #yearsExperience, #yearsCounter').for
 });
 
 // Mobile menu toggle functionality
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileNav = document.querySelector('.mobile-nav');
-    
+
     if (mobileMenuToggle && mobileNav) {
-        mobileMenuToggle.addEventListener('click', function() {
+        mobileMenuToggle.addEventListener('click', function () {
             mobileNav.classList.toggle('active');
             mobileMenuToggle.classList.toggle('active');
         });
-        
+
         // Close mobile menu when clicking on a link
         const mobileNavLinks = mobileNav.querySelectorAll('a');
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 mobileNav.classList.remove('active');
                 mobileMenuToggle.classList.remove('active');
             });
         });
-        
+
         // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (!mobileMenuToggle.contains(event.target) && !mobileNav.contains(event.target)) {
                 mobileNav.classList.remove('active');
                 mobileMenuToggle.classList.remove('active');
@@ -56,24 +56,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Form validation and enhanced UX
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Add loading states to forms
     const forms = document.querySelectorAll('form[data-netlify="true"]');
-    
+
     forms.forEach(form => {
         const submitButton = form.querySelector('button[type="submit"]');
         const originalButtonText = submitButton ? submitButton.textContent : '';
-        
-        form.addEventListener('submit', function(e) {
+
+        form.addEventListener('submit', function (e) {
             if (submitButton) {
                 submitButton.textContent = 'Sending...';
                 submitButton.disabled = true;
                 submitButton.style.opacity = '0.7';
             }
         });
-        
+
         // Reset button if form submission fails
-        form.addEventListener('error', function() {
+        form.addEventListener('error', function () {
             if (submitButton) {
                 submitButton.textContent = originalButtonText;
                 submitButton.disabled = false;
@@ -85,9 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Enhanced phone number formatting
 document.querySelectorAll('input[type="tel"]').forEach(input => {
-    input.addEventListener('input', function(e) {
+    input.addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, '');
-        
+
         // Format UK phone numbers
         if (value.startsWith('44')) {
             value = '+44 ' + value.substring(2);
@@ -97,30 +97,30 @@ document.querySelectorAll('input[type="tel"]').forEach(input => {
                 value = value.substring(0, 11);
             }
         }
-        
+
         e.target.value = value;
     });
 });
 
 // Add active states to navigation
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
-    
+
     navLinks.forEach(link => {
         const linkPage = link.getAttribute('href');
-        if (linkPage === currentPage || 
-           (currentPage === '' && linkPage === 'index.html') ||
-           (currentPage === 'index.html' && linkPage === 'index.html')) {
+        if (linkPage === currentPage ||
+            (currentPage === '' && linkPage === 'index.html') ||
+            (currentPage === 'index.html' && linkPage === 'index.html')) {
             link.classList.add('active');
         }
     });
 });
 
 // Lazy loading for images (enhanced performance)
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const images = document.querySelectorAll('img[loading="lazy"]');
-    
+
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -131,21 +131,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
+
         images.forEach(img => imageObserver.observe(img));
     }
 });
 
 // Contact form auto-suggestions
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const companyInput = document.querySelector('input[name="company"]');
     const enquirySelect = document.querySelector('select[name="enquiry-type"]');
-    
+
     if (companyInput && enquirySelect) {
         // Auto-suggest enquiry type based on company name patterns
-        companyInput.addEventListener('blur', function() {
+        companyInput.addEventListener('blur', function () {
             const company = this.value.toLowerCase();
-            
+
             if (company.includes('fire') || company.includes('safety') || company.includes('security')) {
                 if (!enquirySelect.value) {
                     enquirySelect.value = 'quote';
@@ -156,12 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Enhanced quote form functionality
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const projectTypeSelect = document.querySelector('select[name="project-type"]');
     const urgencySelect = document.querySelector('select[name="urgency"]');
-    
+
     if (projectTypeSelect && urgencySelect) {
-        projectTypeSelect.addEventListener('change', function() {
+        projectTypeSelect.addEventListener('change', function () {
             // Auto-suggest urgency based on project type
             if (this.value === 'emergency') {
                 urgencySelect.value = 'emergency';
@@ -173,19 +173,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Dynamic form field validation
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-    
+
     requiredFields.forEach(field => {
-        field.addEventListener('blur', function() {
+        field.addEventListener('blur', function () {
             if (this.value.trim() === '') {
                 this.style.borderColor = '#ff6b6b';
             } else {
                 this.style.borderColor = '#28a745';
             }
         });
-        
-        field.addEventListener('input', function() {
+
+        field.addEventListener('input', function () {
             if (this.value.trim() !== '') {
                 this.style.borderColor = '#28a745';
             }
@@ -199,11 +199,11 @@ function validateEmail(email) {
     return emailRegex.test(email);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const emailInputs = document.querySelectorAll('input[type="email"]');
-    
+
     emailInputs.forEach(input => {
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
             if (this.value && !validateEmail(this.value)) {
                 this.style.borderColor = '#ff6b6b';
                 this.setCustomValidity('Please enter a valid email address');
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Scroll-to-top functionality (appears after scrolling down)
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Create scroll-to-top button
     const scrollButton = document.createElement('button');
     scrollButton.innerHTML = '↑';
@@ -238,20 +238,20 @@ document.addEventListener('DOMContentLoaded', function() {
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
     `;
-    
+
     document.body.appendChild(scrollButton);
-    
+
     // Show/hide scroll button based on scroll position
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (window.pageYOffset > 300) {
             scrollButton.style.display = 'block';
         } else {
             scrollButton.style.display = 'none';
         }
     });
-    
+
     // Smooth scroll to top when clicked
-    scrollButton.addEventListener('click', function() {
+    scrollButton.addEventListener('click', function () {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -260,9 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Performance optimization - preload critical pages
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const criticalPages = ['products.html', 'quote.html', 'contact.html'];
-    
+
     criticalPages.forEach(page => {
         const link = document.createElement('link');
         link.rel = 'prefetch';
@@ -282,7 +282,63 @@ Need technical support? Call 0844 997 0001
 `);
 
 // Track page views (privacy-friendly - no external services)
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const page = window.location.pathname.split('/').pop() || 'index.html';
     console.log(`Page loaded: ${page} at ${new Date().toISOString()}`);
+});
+// Hero Rotator
+document.addEventListener('DOMContentLoaded', function () {
+    const heroData = [
+        {
+            image: "images/hero/S-Quad-Banner.webp",
+            badge: "Gent Elite Technology Centre",
+            title: "Gent S-Quad Multi-Sensor Fire Detectors",
+            subtitle: "Advanced Gent S-Quad multi-sensor detectors with dual optical, heat, and CO sensing for fast and reliable fire detection with minimal false alarms."
+        },
+        {
+            image: "images/hero/interface-Banner.webp",
+            badge: "Gent Elite Technology Centre",
+            title: "Gent S4 Interfaces",
+            subtitle: "Flexible Gent S4 loop-powered and mains interfaces for plant control, system integration, and EN54 compliance."
+        },
+        {
+            image: "images/hero/MCP-Banner.webp",
+            badge: "Gent Elite Technology Centre",
+            title: "Gent Manual Call Points",
+            subtitle: "Addressable Gent manual call points with resettable elements, protective covers, and weatherproof options for robust alarm activation."
+        },
+        {
+            image: "images/hero/sounder-Banner.webp",
+            badge: "Gent Elite Technology Centre",
+            title: "Gent S-Cubed Sounders & VADs",
+            subtitle: "Loop-powered Gent S-Cubed sounders and EN54-23 compliant VADs providing clear audible and visual alarm signalling."
+        }
+    ];
+
+    let currentIndex = 0;
+    const heroSection = document.getElementById("hero-section");
+    const badgeEl = document.getElementById("hero-badge");
+    const titleEl = document.getElementById("hero-title");
+    const subtitleEl = document.getElementById("hero-subtitle");
+    const staticContent = document.querySelector(".hero-static");
+    const dynamicContent = document.querySelector(".hero-dynamic");
+
+    function updateHero() {
+        const data = heroData[currentIndex];
+        heroSection.style.backgroundImage = `url(${data.image})`;
+        heroSection.style.backgroundPosition = "center";
+        heroSection.style.backgroundSize = "cover";
+        heroSection.style.backgroundRepeat = "no-repeat";
+        badgeEl.textContent = data.badge;
+        titleEl.textContent = data.title;
+        subtitleEl.textContent = data.subtitle;
+        currentIndex = (currentIndex + 1) % heroData.length;
+    }
+
+    if (heroSection) {
+        staticContent.style.display = "none";
+        dynamicContent.style.display = "block";
+        updateHero();
+        setInterval(updateHero, 8000); // rotate every 8s
+    }
 });

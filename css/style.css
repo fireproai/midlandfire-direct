@@ -185,11 +185,17 @@ body {
     width: 100%;
 }
 
-/* Hero Section */
-.hero { 
-    text-align: center; 
-    padding: 120px 20px; 
-    background: linear-gradient(135deg, #f8f9fb 0%, #e8f0fe 100%);
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+  background: url('../images/hero/S-Quad-Banner.webp') center/cover no-repeat; /* fallback */
+  min-height: 500px;
+  color: #111;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-image 1s ease-in-out; /* fade effect */
 }
 
 .hero-badge {

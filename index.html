@@ -144,21 +144,21 @@
     </header>
 
     <main>
-        <section class="hero">
+        <!-- Hero Section -->
+        <section class="hero contact-hero">
             <div class="container">
                 <div class="hero-content">
-                    <div class="hero-badge">
-                        <span>📞 Get In Touch</span>
-                    </div>
+                    <div class="hero-badge">Get In Touch</div>
                     <h1 class="hero-title">Contact Our Expert Team</h1>
                     <p class="hero-subtitle">
-                        Ready to help with your Gent fire detection requirements. <span class="years-display">29</span>+
-                        years of expertise at your service.
+                        Ready to help with your Gent fire detection requirements.
+                        <span class="years-display">29</span>+ years of expertise at your service.
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- Overview Section -->
         <section class="overview-section">
             <div class="container">
                 <div class="section-header">
@@ -167,52 +167,84 @@
                 </div>
 
                 <div class="overview-grid">
+                    <!-- Phone -->
                     <div class="overview-card">
-                        <div class="overview-icon">📞</div>
+                        <div class="overview-icon">
+                            <!-- Phone Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="#b30004" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.6 12.6 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.6 12.6 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
                         <h3>Phone Support</h3>
                         <p><strong>0844 997 0001</strong></p>
-                        <p>Mon-Fri: 8:30 AM - 5:00 PM<br>Emergency support available</p>
+                        <p>Mon-Fri: 8:30 AM – 5:00 PM<br>Emergency support available</p>
                         <a href="tel:08449970001" class="card-link">Call Now →</a>
                     </div>
 
+                    <!-- Email -->
                     <div class="overview-card">
-                        <div class="overview-icon">📧</div>
+                        <div class="overview-icon">
+                            <!-- Email Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="#b30004" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
                         <h3>Email Support</h3>
                         <p><strong>sales@midlandfire.direct</strong></p>
                         <p>Response within 4 hours during business hours</p>
                         <a href="mailto:sales@midlandfire.direct" class="card-link">Send Email →</a>
                     </div>
 
+                    <!-- Quote -->
                     <div class="overview-card">
-                        <div class="overview-icon">💷</div>
+                        <div class="overview-icon">
+                            <!-- Quote/Document Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="#b30004" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="8" y1="13" x2="16" y2="13" />
+                                <line x1="8" y1="17" x2="16" y2="17" />
+                            </svg>
+                        </div>
                         <h3>Request Quote</h3>
                         <p>Get competitive pricing on all Gent products</p>
                         <p>Fast response with detailed specifications</p>
                         <a href="quote.html" class="card-link">Get Quote →</a>
                     </div>
-
                 </div>
             </div>
         </section>
 
+        <!-- Contact Form Section -->
         <section class="featured-products">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Send Us a Message</h2>
-                    <p class="section-subtitle">Use the form below for general enquiries, technical questions, or to
-                        open a trade account</p>
+                    <p class="section-subtitle">
+                        Use the form below for general enquiries, technical questions, or to open a trade account
+                    </p>
                 </div>
 
-                <!-- NETLIFY FORM - Updated with netlify attributes -->
+                <!-- Netlify Form -->
                 <form class="contact-form" name="contact" method="POST" data-netlify="true"
                     netlify-honeypot="bot-field">
 
-                    <!-- Hidden field for bot protection -->
-                    <p style="display: none;">
-                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    <!-- Hidden bot-field -->
+                    <p style="display:none;">
+                        <label>Don’t fill this out if you’re human:
+                            <input name="bot-field">
+                        </label>
                     </p>
 
-                    <!-- Hidden input for Netlify to register form -->
+                    <!-- Hidden form-name -->
                     <input type="hidden" name="form-name" value="contact">
 
                     <div class="form-row">
@@ -242,70 +274,17 @@
                     <div class="form-group">
                         <label class="checkbox-label">
                             <input type="checkbox" name="marketing" value="yes">
-                            I'd like to receive updates about new Gent products and services
+                            I’d like to receive updates about new Gent products and services
                         </label>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-large btn-full">Send Message</button>
-
-                    <div class="form-note">
-                        <p>We aim to respond to all enquiries within 4 hours during business hours. For urgent matters,
-                            please call <strong>0844 997 0001</strong>.</p>
-                    </div>
                 </form>
-
-            </div>
-        </section>
-
-        <section class="home-testimonials">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Business Hours & Support</h2>
-                    <p class="section-subtitle">When we're available to help</p>
-                </div>
-
-                <div class="overview-grid">
-                    <div class="overview-card">
-                        <h3>Business Hours</h3>
-                        <p><strong>Monday - Friday:</strong> 8:30 AM - 5:00 PM<br>
-                            <strong>Saturday:</strong> Closed<br>
-                            <strong>Sunday:</strong> Closed
-                        </p>
-                    </div>
-
-                    <div class="overview-card">
-                        <h3>Response Times</h3>
-                        <p><strong>Phone:</strong> Immediate during business hours<br>
-                            <strong>Email:</strong> Within 4 hours<br>
-                            <strong>Quotes:</strong> Same day response
-                        </p>
-                    </div>
-
-                    <div class="overview-card">
-                        <h3>Coverage Area</h3>
-                        <p><strong>UK-Wide Service</strong> with next-day delivery available to most locations.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="home-cta">
-            <div class="container">
-                <div class="cta-content">
-                    <h2>Ready to Start Working Together?</h2>
-                    <p>Join hundreds of fire safety professionals who trust Midland Fire Direct for their Gent
-                        requirements.</p>
-                    <div class="cta-actions">
-                        <a href="quote.html" class="btn btn-primary btn-large">Open Trade Account</a>
-                        <div class="cta-phone">
-                            <span>Or call to discuss:</span>
-                            <a href="tel:08449970001" class="phone-link">0844 997 0001</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
+
+
 
     <footer class="footer">
         <div class="container">

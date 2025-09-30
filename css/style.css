@@ -190,7 +190,7 @@ body {
     padding: 120px 20px;
     background: url('../images/hero/S-Quad-Banner.webp') center/cover no-repeat;
     /* fallback */
-    min-height: 500px;
+    min-height:450px;
     color: #111;
     position: relative;
     display: flex;
@@ -223,66 +223,68 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
-    color: #666;
-    margin-bottom: 40px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 800px;
+    /* keep the wider cap */
+    margin: 0 auto 40px auto;
+    /* center + add bottom space */
+    font-size: 1.2rem;
+    /* compromise between 1.25rem and 1.1rem */
+    line-height: 1.6;
+    color: #333;
+    /* darker grey for readability */
     animation: fadeInUp 0.8s ease-out 0.2s both;
+    /* keep the animation */
 }
 
-.hero-subtitle {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #333;
-}
 
 /* Hero Controls (arrows + dots) */
 .hero-controls {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    margin-top: 30px;
+    /* space below subtitle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* arrows + dots centered */
+    gap: 20px;
+    /* spacing between arrows and dots */
+    position: static;
+    /* flow under hero text, no overlap */
 }
 
+
 .hero-controls button {
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  font-size: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .hero-controls button:hover {
-  background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .hero-dots {
-  display: flex;
-  gap: 8px;
+    display: flex;
+    gap: 8px;
 }
 
 .hero-dots button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: background 0.3s ease;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .hero-dots button.active {
-  background: #e30613; /* Gent red */
+    background: #e30613;
+    /* Gent red */
 }
 
 

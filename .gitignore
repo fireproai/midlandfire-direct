@@ -1,2 +1,8 @@
 ﻿# Private seed data – never deploy
 data/sku_seed/
+# Local secrets
+.env
+
+# MFD SEO pipeline (local only)
+mfd/seo/inputs/
+mfd/seo/generated/

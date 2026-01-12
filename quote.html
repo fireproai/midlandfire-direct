@@ -80,8 +80,244 @@
     
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .quick-add-panel {
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+            padding: 16px;
+            background: #fafafa;
+            margin-bottom: 24px;
+        }
+        .quick-add-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #777;
+            margin: 0 0 6px;
+        }
+        .page-quote .quick-add-panel .quick-add-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-template-rows: auto auto;
+            column-gap: 16px;
+            row-gap: 6px;
+            align-items: end;
+        }
+        .page-quote .quick-add-panel .quick-add-label-sku { grid-column: 1; grid-row: 1; }
+        .page-quote .quick-add-panel .quick-add-label-qty { grid-column: 2; grid-row: 1; }
+        .page-quote .quick-add-panel .quick-add-sku { grid-column: 1; grid-row: 2; }
+        .page-quote .quick-add-panel .quick-add-actions { grid-column: 2; grid-row: 2; display: flex; gap: 10px; align-items: center; }
+        .page-quote .quick-add-panel .quick-add-actions input[type="number"] { width: 88px; }
+        .quick-add-row label {
+            font-size: 0.9rem;
+            color: #555;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .quick-add-row input {
+            height: var(--qa-control-height);
+        }
+        .quick-add-row button {
+            height: var(--qa-control-height);
+        }
+        .quick-add-actions {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .quick-add-qty input {
+            width: 90px;
+        }
+        .quick-add-subtext {
+            margin: 6px 0 16px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .quick-add-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            table-layout: fixed;
+        }
+        .quick-add-table th,
+        .quick-add-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #e6e6e6;
+            text-align: left;
+            word-break: break-word;
+            vertical-align: top;
+        }
+        .quick-add-table th:nth-child(1),
+        .quick-add-table td:nth-child(1) {
+            width: 120px;
+        }
+        .quick-add-table th:nth-child(2),
+        .quick-add-table td:nth-child(2) {
+            width: auto;
+        }
+        .quick-add-table th:nth-child(3),
+        .quick-add-table td:nth-child(3) {
+            width: 70px;
+        }
+        .quick-add-table th:nth-child(4),
+        .quick-add-table td:nth-child(4) {
+            width: 70px;
+        }
+        .sku-suggest {
+            position: relative;
+        }
+        .sku-suggest-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-top: 4px;
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 5;
+            display: none;
+        }
+        .sku-suggest-item {
+            padding: 8px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .sku-suggest-item strong {
+            display: inline-block;
+            min-width: 120px;
+        }
+        .sku-suggest-item.active,
+        .sku-suggest-item:hover {
+            background: #f2f2f2;
+        }
+        .sku-suggest-more {
+            display: block;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            color: #666;
+            text-decoration: none;
+            border-top: 1px solid #eee;
+        }
+        .hero {
+            padding: 32px 0;
+        }
+        .quote-section {
+            padding-top: 12px;
+        }
+        .page-quote .quote-card {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        #quick-sku {
+            font-size: 1.05rem;
+        }
+        .quick-add-remove {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0;
+            line-height: 1;
+        }
+        .quick-add-remove svg {
+            display: block;
+            width: 16px;
+            height: 16px;
+        }
+        .quick-add-remove:hover {
+            color: #b12424;
+        }
+        .quote-contact {
+            margin-top: 12px;
+        }
+        .quote-form .form-section {
+            margin-top: 12px;
+        }
+        .quote-form .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 16px;
+        }
+        .quote-form .form-group {
+            margin-bottom: 10px;
+        }
+        .quote-form .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .quote-form .quick-add-panel input,
+        .quote-form .quick-add-panel textarea {
+            font-size: 0.95rem;
+            padding: 8px 10px;
+            min-height: 40px;
+            line-height: 1.3;
+        }
+        .quote-form .quick-add-panel textarea {
+            min-height: 90px;
+            padding: 10px;
+        }
+        .page-quote .contact-fields input {
+            height: 44px;
+            font-size: 16px;
+            padding: 10px 12px;
+        }
+        .page-quote .contact-fields textarea {
+            font-size: 16px;
+            padding: 10px 12px;
+            min-height: 110px;
+        }
+        .quote-help {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #b12424;
+            display: none;
+        }
+        @media (max-width: 720px) {
+            .quick-add-row {
+                grid-template-columns: 1fr;
+            }
+            .quote-form .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .page-quote .container { max-width: 1400px !important; }
+        .page-quote .quote-card { max-width: 1200px !important; width: 100%; margin: 0 auto; }
+        .page-quote .quote-form { max-width: none !important; width: 100% !important; }
+        .page-quote {
+            --qa-control-h: 38px;
+        }
+        .page-quote .quick-add-panel input,
+        .page-quote .contact-fields input,
+        .page-quote .contact-fields select {
+            height: var(--qa-control-h);
+            padding: 0 10px;
+            font-size: 14px;
+        }
+        .page-quote .quick-add-panel button {
+            height: var(--qa-control-h);
+            padding: 0 12px;
+            line-height: var(--qa-control-h);
+            font-size: 14px;
+        }
+        .page-quote .contact-fields textarea {
+            font-size: 14px;
+            padding: 10px 12px;
+            min-height: 110px;
+        }
+        .page-quote .quick-add-actions {
+            align-items: center;
+        }
+        .page-quote .quick-add-qty input {
+            width: 88px;
+        }
+    </style>
 </head>
-<body>
+<body class="page-quote">
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -91,7 +327,7 @@
                 <nav class="main-nav">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
-                    <a href="products.html">Products</a>
+                    <a href="/products.html">Products</a>
                     <a href="services.html">Services</a>
                     <a href="quote.html" class="active">Quote</a>
                     <a href="contact.html">Contact</a>
@@ -109,7 +345,7 @@
             <nav class="mobile-nav">
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
-                <a href="products.html">Products</a>
+                <a href="/products.html">Products</a>
                 <a href="services.html">Services</a>
                 <a href="quote.html" class="active">Quote</a>
                 <a href="contact.html">Contact</a>
@@ -134,186 +370,79 @@
 
         <section class="quote-section">
             <div class="container">
-                <div class="quote-intro">
-                    <h2 class="section-title">Professional Quote Service</h2>
-                    <p class="section-subtitle">Tell us about your requirements and we'll provide a detailed quote within 4 hours during business hours</p>
-                </div>
-
                 <!-- NETLIFY FORM - Updated with netlify attributes -->
                 <form class="quote-form" name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                     <!-- Hidden field for bot protection -->
                     <p style="display: none;">
                         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                     </p>
+                    <textarea name="quote_items" id="quote-items" style="display: none;"></textarea>
 
-                    <div class="form-section">
-                        <h3>Contact Information</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" name="first-name" placeholder="First Name *" required>
+                    <div class="quote-card">
+                        <div class="quick-add-panel">
+                            <p class="quick-add-label">Add items</p>
+                            <p class="quick-add-subtext">Enter a SKU, press Enter, type quantity, press Enter to add.</p>
+                        <div class="quick-add-row">
+                            <label for="quick-sku" class="quick-add-label-sku">SKU</label>
+                            <label for="quick-qty" class="quick-add-label-qty">Qty</label>
+                            <div class="quick-add-sku">
+                                <div class="sku-suggest">
+                                    <input type="text" id="quick-sku" placeholder="Enter SKU">
+                                    <div class="sku-suggest-list" id="sku-suggest-list"></div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" name="last-name" placeholder="Last Name *" required>
+                            <div class="quick-add-actions">
+                                <input type="number" id="quick-qty" min="1" value="1">
+                                <button type="button" class="btn btn-primary" id="quick-add-btn">Add</button>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Email Address *" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Phone Number *" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="company" placeholder="Company Name *" required>
-                        </div>
+                        <table class="quick-add-table" id="quick-add-table">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Description</th>
+                                    <th>Qty</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="quick-add-list"></tbody>
+                        </table>
+                        <p class="quote-help" id="quote-help">Add at least one SKU above.</p>
                     </div>
 
-                    <div class="form-section">
-                        <h3>Project Details</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <select name="project-type" required>
-                                    <option value="">Project Type *</option>
-                                    <option value="new-installation">New Installation</option>
-                                    <option value="system-upgrade">System Upgrade</option>
-                                    <option value="replacement-parts">Replacement Parts</option>
-                                    <option value="maintenance">Maintenance Contract</option>
-                                    <option value="emergency">Emergency Repair</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="urgency" required>
-                                    <option value="">Urgency Level *</option>
-                                    <option value="standard">Standard (1-2 weeks)</option>
-                                    <option value="priority">Priority (2-5 days)</option>
-                                    <option value="urgent">Urgent (24-48 hours)</option>
-                                    <option value="emergency">Emergency (Same day)</option>
-                                </select>
+                        <div class="quick-add-panel quote-contact contact-fields" id="quote-contact">
+                        <div class="form-section">
+                            <h3>Contact Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Name *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="Email *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="company" placeholder="Company *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" name="phone" placeholder="Phone (optional)">
+                                </div>
+                                <div class="form-group full-width">
+                                    <input type="text" name="address" placeholder="Address (optional)">
+                                </div>
+                                <div class="form-group full-width">
+                                    <textarea name="notes" rows="3" placeholder="Notes / additional info (optional)"></textarea>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="location" placeholder="Project Location (City/Postcode) *" required>
-                        </div>
-                    </div>
 
-                    <div class="form-section">
-                        <h3>System Requirements</h3>
-                        <div class="form-group">
-                            <textarea name="requirements" rows="6" placeholder="Please describe your requirements in detail. Include:
-• System type (Vigilon, Nano, etc.)
-• Number of zones/loops required
-• Types of devices needed (detectors, call points, sounders)
-• Any specific part numbers if known
-• Building type and size
-• Any special requirements or constraints" required></textarea>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <select name="building-type">
-                                    <option value="">Building Type</option>
-                                    <option value="office">Office Building</option>
-                                    <option value="retail">Retail/Commercial</option>
-                                    <option value="industrial">Industrial/Warehouse</option>
-                                    <option value="residential">Residential</option>
-                                    <option value="healthcare">Healthcare Facility</option>
-                                    <option value="education">Educational</option>
-                                    <option value="hospitality">Hotel/Hospitality</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="zones" placeholder="Approximate Number of Zones">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Additional Information</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" name="budget" placeholder="Estimated Budget Range (Optional)">
-                            </div>
-                            <div class="form-group">
-                                <input type="date" name="deadline" placeholder="Required Completion Date">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="additional-info" rows="3" placeholder="Any additional information, special requirements, or questions..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-section">
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="trade-account" value="yes">
-                                I'm interested in opening a trade account for ongoing purchases
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="marketing" value="yes">
-                                I'd like to receive updates about new Gent products and services
-                            </label>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-large btn-full">Submit Quote Request</button>
+                    <button type="submit" class="btn btn-primary btn-large btn-full" id="quote-submit">Submit Quote Request</button>
                     
                     <div class="form-note">
                         <p><strong>Response Time:</strong> We aim to respond to all quote requests within 4 hours during business hours (Mon-Fri 8:30 AM - 5:00 PM). For urgent requirements, please call <strong>0844 997 0001</strong>.</p>
                     </div>
+                    </div>
+                    </div>
                 </form>
-            </div>
-        </section>
-
-        <section class="featured-products">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Why Choose Our Quote Service?</h2>
-                    <p class="section-subtitle">Professional service backed by <span class="years-display">29</span>+ years expertise</p>
-                </div>
-                
-                <div class="overview-grid">
-                    <div class="overview-card">
-                        <div class="overview-icon">⚡</div>
-                        <h3>Fast Response</h3>
-                        <p>Quote responses within 4 hours during business hours. Emergency quotes available same day.</p>
-                    </div>
-                    
-                    <div class="overview-card">
-                        <div class="overview-icon">💰</div>
-                        <h3>Competitive Pricing</h3>
-                        <p>Best prices on genuine Gent products with volume discounts for larger projects.</p>
-                    </div>
-                    
-                    <div class="overview-card">
-                        <div class="overview-icon">🎯</div>
-                        <h3>Accurate Specifications</h3>
-                        <p>Expert system design ensures you get exactly what you need - no over-specification.</p>
-                    </div>
-                    
-                    <div class="overview-card">
-                        <div class="overview-icon">📞</div>
-                        <h3>Personal Service</h3>
-                        <p>Direct access to our technical team for clarifications and ongoing support.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="home-cta">
-            <div class="container">
-                <div class="cta-content">
-                    <h2>Need Help With Your Quote?</h2>
-                    <p>Our expert team is available to discuss your requirements and provide guidance.</p>
-                    <div class="cta-actions">
-                        <div class="cta-phone">
-                            <span>Call our team directly:</span>
-                            <a href="tel:08449970001" class="phone-link">0844 997 0001</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -371,6 +500,285 @@
         </div>
     </footer>
 
+    <script>
+const SKU_DATA = [{"sku": "04390-31", "desc": "Magnet Door Holder 24V DC 22mA"}, {"sku": "04390-55", "desc": "Magnet Door Holder 240V AC 17.5mA"}, {"sku": "04390-92", "desc": "Door Holder Floor Plate"}, {"sku": "04390-99", "desc": "Door Plate Assembly (Spare)"}, {"sku": "04390-41", "desc": "Magnet Door Holder Floor Mounted 24V DC 45mA"}, {"sku": "HLS-PSU-TR20", "desc": "Transformer Rectifier 24VDC 2.0A"}, {"sku": "HLS-PSU-TR40", "desc": "Transformer Rectifier 24VDC 4.0A"}, {"sku": "HLSPS50", "desc": "24VDC 5amp EN54-4 Power Supply"}, {"sku": "HLSPS25", "desc": "24VDC 2.5amp EN54-4 Power Supply\ufffd"}, {"sku": "HLS-DOCBOX", "desc": "Lockable Enclosure for Storage of Site Documentation"}, {"sku": "ISP-001", "desc": "ICAM Replacement black filter element - course (20 ppi)\r\nPack of 10\r\nAvailable until 31-12-2023"}, {"sku": "ISP-002", "desc": "ICAM Replacement black filter element - fine (45ppi)\r\nPack of 10\r\nAvailable until 31-12-2023"}, {"sku": "FLX-010", "desc": "Single channel ASD Unit"}, {"sku": "FLX-020", "desc": "Dual channel ASD unit"}, {"sku": "MI-FLX-010", "desc": "Single channel ASD Unit -System Sensor Protocol Addressable loop connected"}, {"sku": "MI-FLX-020", "desc": "Dual channel ASD unit - System Sensor Protocol Addressable loop connected"}, {"sku": "S4-34440-ASD", "desc": "ASD Mains Powered Interface for FAAST LT. Batteries not included - requires 2 x 4015-604-YFR (Power Sonic Flame Retardant 12V 14Ah) to meet compliance regulations."}, {"sku": "VSINT-PCB-ASD", "desc": "Spare PCB for Vigilon ASD Interface"}, {"sku": "VSINT-PCB-LT", "desc": "Connection PCB for FAAST Interface (FAAST LT)"}, {"sku": "F-A3384-000", "desc": "AIR FILTER FOR FAAST 7100E, 8100E & 9400X"}, {"sku": "FL-IF-2", "desc": "FAAST LT Spare Filter, Pack of 2"}, {"sku": "F-INF-25", "desc": "FAAST LT200 External Pipe Filter"}, {"sku": "F-INF-25-RF", "desc": "FAAST LT200 External Pipe Filter - Replacement Filter Pack. Pack of 4."}, {"sku": "F-LT-EB", "desc": "FAAST LT Earth Bar"}, {"sku": "FLT2-AB-SA2", "desc": "FAAST LT200 Standalone dual channel accessories box"}, {"sku": "F-SEN-SSE", "desc": "Replacement sensor for FAAST LT200 - Standalone"}, {"sku": "G07-0199-000", "desc": "FAAST LT Replacement Fan Gasket"}, {"sku": "P87-0511-001", "desc": "FAAST LT Replacement Fan Assembly"}, {"sku": "FLX-SP-01", "desc": "FAAST Flex Aspirating Smoke Detector Accessory: Sensing Module"}, {"sku": "FLX-SP-02", "desc": "FAAST FlexAspirating Smoke Detector Accessory: Metal Filter: Pack of 6"}, {"sku": "FLX-SP-03-EN", "desc": "FAAST Flex Aspirating Smoke Detector Accessory: Front Cover"}, {"sku": "FLX-SP-04", "desc": "FAAST Flex"}, {"sku": "FLX-SP-05-EN", "desc": "FAAST Flex Aspirating Smoke Detector Accessory: Internal Cover Set"}, {"sku": "FLX-SP-06", "desc": "FAAST FLEX ADAPTER SET"}, {"sku": "F-BO-AFE70-2", "desc": "FAAST Automatic Purging Unit"}, {"sku": "F-BO-AFE70-3", "desc": "FAAST Automatic Purging Unit- Freezer Applications"}, {"sku": "VEP-A00-P", "desc": "4 Pipe VEP with FOK LED's - Black Plastic"}, {"sku": "VEP-A10-P", "desc": "4 Pipe VEP with 3.5\" Touchscreen Display - Black Plastic"}, {"sku": "VEP-A00-1P", "desc": "Single Pipe VEP with FOK LED's - Black Plastic"}, {"sku": "VEU-A00", "desc": "VEU with LEDs"}, {"sku": "VEU-A10", "desc": "VEU with 3.5\" Display"}, {"sku": "VES-A10-P", "desc": "VESDA-E VE Scanner detector with 3.5\" Display"}, {"sku": "020-050-E", "desc": "ASD ENCL IP66 VESDA-E"}, {"sku": "VSP-960", "desc": "VESDA-E Mounting Bracket"}, {"sku": "VSP-962", "desc": "VESDA-E Filter"}, {"sku": "VSP-962-20", "desc": "VESDA-E Filter - Pack of 20"}, {"sku": "VSP-963", "desc": "VESDA-E Aspirator"}, {"sku": "VSP-964-04", "desc": "VEU, VEP, VEP-1P, VES. Spare Smoke Detection Chamber\ufffd"}, {"sku": "VSP-965", "desc": "VESDA-E Sampling Chamber"}, {"sku": "VSP-966", "desc": "VESDA-E VEU-A00 Front Cover LEDs"}, {"sku": "VSP-967", "desc": "VESDA-E VEU-A10 Front Cover 3.5\" Display"}, {"sku": "VSP-967-04", "desc": "VEU-A10 Front Cover - Aluminium - LCD - 3.5\" Display"}, {"sku": "VSP-968", "desc": "VESDA-E VEP-A00-P/1P Front Cover Plastic LEDs"}, {"sku": "VSP-969", "desc": "VESDA-E VEP-A10-P Front Cover Plastic 3.5\" Display"}, {"sku": "VSP-969-04", "desc": "VEP-A10-P Front Cover - Plastic - LCD - 3.5\" Display"}, {"sku": "VSP-969-04-S", "desc": "VES-A10-P Front Cover - Plastic - LCD - 3.5\" Display"}, {"sku": "VSP-955", "desc": "VESDA-E VES SCANNER MANIFOLD"}, {"sku": "VSP-955-04", "desc": "VES Scanner Manifold"}, {"sku": "VSP-956", "desc": "VESDA-E SERIES VEP/VEU Manifold"}, {"sku": "VSP-956-04", "desc": "VEU, VEP, VEP-1P spare manfold"}, {"sku": "VSP-964-03", "desc": "VESDA-E DET CHAMBER MK3"}, {"sku": "VSP-969-S", "desc": "VESDA-E COVER FR 3.5\" DISP VES-A10-P"}, {"sku": "VKT-855", "desc": "VESDA-E VE Scanner demo kit"}, {"sku": "VPS-220-STX5", "desc": "VESDA-E STX PSU 0.5A (7-14AH) - BLACK"}, {"sku": "VPS-250-STX5", "desc": "VESDA-E STX PSU 3A (7-24AH) - BLACK"}, {"sku": "VPS-220-STX5-SLV", "desc": "VESDA-E STX PSU 0.5A (7-14AH) - SILVER"}, {"sku": "VPS-250-STX5-SLV", "desc": "VESDA-E STX PSU 3A (7-24AH )- SILVER"}, {"sku": "VPS-215-E5", "desc": "24Volt 0.5 amp Power Supply Unit\r\nSmaller enclosure with space for up to 7Ah batteries."}, {"sku": "VPS-220-E5", "desc": "24Volt 0.5 amp Power Supply Unit \r\nLarger enclosure with space for up to 12 Ah batteries."}, {"sku": "VPS-250-E5", "desc": "24Volt 3 amp Power Supply Unit\r\nWith space for up to 38Ah batteries"}, {"sku": "VLF-250-00", "desc": "Small Area Detector"}, {"sku": "VLF-500-00", "desc": "Smallish Area Detector"}, {"sku": "VSP-704", "desc": "VLF English & Icon Display"}, {"sku": "VSP-715", "desc": "VLF-500 Aspirator Assembly (2 fans)"}, {"sku": "VSP-722", "desc": "VLF-250 Aspirator Assembly (1 fan)"}, {"sku": "VLI-885", "desc": "VLI with VESDAnet"}, {"sku": "VLI-880", "desc": "VLI with relays and Ethernet only"}, {"sku": "VSP-032", "desc": "VLI Aspirator"}, {"sku": "VSP-033", "desc": "VLI Chamber Assembly"}, {"sku": "VSP-034", "desc": "VLI VESDAnet Card Spare Part"}, {"sku": "VSP-035", "desc": "VLI Remote Display Module"}, {"sku": "VSP-036", "desc": "VLI Ultrasonic Flow Sensor Manifold Spare"}, {"sku": "VSP-030", "desc": "VLI Intelligent Filter"}, {"sku": "VSP-031", "desc": "VLI Secondary filter"}, {"sku": "VRT-000", "desc": "Remote Mounting Box Only"}, {"sku": "VRT-100", "desc": "Remote Programmer"}, {"sku": "VRT-200", "desc": "Remote Display (7 relays)"}, {"sku": "VRT-300", "desc": "Remote VESDAnet socket"}, {"sku": "VRT-400", "desc": "Remote Scan display (7 relays)"}, {"sku": "VRT-500", "desc": "Remote Relays (7 Relays)"}, {"sku": "VRT-600", "desc": "Remote Display No Relays"}, {"sku": "VRT-700", "desc": "Remote Scanner Disp No Relays"}, {"sku": "VRT-800", "desc": "Remote Scanner Disp (12 Relays)"}, {"sku": "VRT-900", "desc": "Remote Relays (12 Relays)"}, {"sku": "VRT-J00", "desc": "Remote Compact Displays (7 Relays)"}, {"sku": "VRT-K00", "desc": "Remote Compact Displays (No relays)"}, {"sku": "VRT-E00", "desc": "Remote Relays (7 relays) Scanner Only"}, {"sku": "VRT-S07", "desc": "System Relay Module"}, {"sku": "VRT-V00", "desc": "VLF Remote Display with Relays"}, {"sku": "VRT-W00", "desc": "VLF Remote Display without Relays"}, {"sku": "VRT-Q00", "desc": "VLI Remote Display With Relays"}, {"sku": "VRT-T00", "desc": "VLI Remote Display without Relays"}, {"sku": "VIC-010", "desc": "VESDAnet Card for FOCUS"}, {"sku": "VIC-020", "desc": "Multi-function Control Card"}, {"sku": "VIC-030", "desc": "Multi-function Control Card with MPO"}, {"sku": "VHH-100", "desc": "Handheld programmer + leads"}, {"sku": "VHX-0200", "desc": "PC Link HLI + leads"}, {"sku": "VHX-1200", "desc": "V skt and HLI in enclosure"}, {"sku": "VHX-0300", "desc": "PC Link HLI + leads (Open Protocol)"}, {"sku": "VHX-0310", "desc": "PC Link HLI Open Protocol Master/Slave"}, {"sku": "VHX-0320", "desc": "PC Link HLI Access Protocol"}, {"sku": "VHX-1300", "desc": "Metal Box HLI - Peer to Peer"}, {"sku": "VHX-1310", "desc": "Metal Box HLI - Master-Slave"}, {"sku": "VHX-1320", "desc": "Metal Box HLI - Access Protocol"}, {"sku": "VHX-0400", "desc": "Modbus MK1 HLI"}, {"sku": "VHX-0410", "desc": "Modbus HLI for Darwish & Honeywell only"}, {"sku": "VHX-0420", "desc": "PC Link HLI Modbus MK3"}, {"sku": "VHX-1400", "desc": "Metal box HLI - Modbus Type 1"}, {"sku": "VHX-1410", "desc": "Metal box HLI - Modbus Type 2"}, {"sku": "VHX-1420", "desc": "Metal box HLI - Modbus Type 3"}, {"sku": "VSW-206", "desc": "First PC licence"}, {"sku": "VSW-216", "desc": "Additional PC licence / PC"}, {"sku": "VSW-346", "desc": "VESDAnet network connection"}, {"sku": "VSW-356", "desc": "VESDAnet Detector Connection per detector"}, {"sku": "VSW-366", "desc": "VESDAtalk/VESDAlink Detector Connection"}, {"sku": "VSW-501", "desc": "Text to speech (add voice message)"}, {"sku": "VSW-600", "desc": "Remote Notification by Email"}, {"sku": "VEA-040-A00", "desc": "VESDA-E VEA-40 Det with LEDs"}, {"sku": "VEA-040-A10", "desc": "VESDA-E VEA-40 Det with 3.5\" Display"}, {"sku": "VER-A40-40-STX", "desc": "VESDA-E VEA 40-Relay Local StaX"}, {"sku": "VSP-970", "desc": "VESDA-E VEA-40 Mounting Bracket Spare"}, {"sku": "VSP-971", "desc": "VESDA-E VEA-40 Smoke Sensor Module Spare"}, {"sku": "VSP-973", "desc": "VESDA-E VEA Pump MkII Spare"}, {"sku": "VSP-974", "desc": "VESDA-E VEA Rotary Valve MkII Spare"}, {"sku": "VSP-975", "desc": "VESDA-E VEA-040-A00 LED Front Cover Spare"}, {"sku": "VSP-976", "desc": "VESDA-E VEA-040-A10 LCD Front Cover Spare"}, {"sku": "VSP-972", "desc": "VESDA-E VEA Filter Spare"}, {"sku": "VSP-977", "desc": "VESDA-E VEA Filter Box of 10 Spare"}, {"sku": "VSP-990-NYLON-BLK", "desc": "VEA 6mm Microbore Nylon Black 100m"}, {"sku": "VSP-980-B", "desc": "VESDA-E VEA 6mm Standard Sampling Point Black"}, {"sku": "VSP-980-B22", "desc": "VESDA-E VEA 6mm Standard Sampling Point (22) Black"}, {"sku": "VSP-980-W", "desc": "VESDA-E VEA 6mm Standard Sampling Point White"}, {"sku": "VSP-980-W22", "desc": "VESDA-E VEA 6mm Standard Sampling Point (22) White"}, {"sku": "VSP-981-B", "desc": "VESDA-E VEA 4mm Standard Sampling Point Black"}, {"sku": "VSP-981-B22", "desc": "VESDA-E VEA 4mm Standard Sampling Point (22) Black"}, {"sku": "VSP-981-W", "desc": "VESDA-E VEA 4mm Standard Sampling Point White"}, {"sku": "VSP-981-W22", "desc": "VESDA-E VEA 4mm Standard Sampling Point (22) White"}, {"sku": "VSP-982-B", "desc": "VESDA-E VEA 6mm Surface Mount Sampling Point Black"}, {"sku": "VSP-982-B22", "desc": "VESDA-E VEA 6mm Surface Mount Sampling Point Pk of 22 Black"}, {"sku": "VSP-982-W", "desc": "VESDA-E VEA 6mm Surface Mount Sampling Point White"}, {"sku": "VSP-982-W22", "desc": "VESDA-E VEA 6mm Surface Mount Sampling Point Pk of 22 White"}, {"sku": "VSP-983-B", "desc": "VESDA-E VEA 4mm Surface Mount Sampling Point Black"}, {"sku": "VSP-983-B22", "desc": "VESDA-E VEA 4mm Surface Mount Sampling Point Pk of 22 Black"}, {"sku": "VSP-983-W", "desc": "VESDA-E VEA 4mm Surface Mount Sampling Point White"}, {"sku": "VSP-983-W22", "desc": "VESDA-E VEA 4mm Surface Mount Sampling Point Pk of 22 White"}, {"sku": "VSP-991", "desc": "VESDA-E VEA 4mm Microbore Tube 500ft UL Compliant - reel of 150m"}, {"sku": "VSP-990-330", "desc": "VESDA-E VEA 6mm Microbore Tube UL-compliant Plenum-rated (330ft)"}, {"sku": "VSP-998", "desc": "VESDA-E VEA 6mm Blanking Plug (50)"}, {"sku": "VSP-980-ST", "desc": "VESDA-E SS SPL PT VEA"}, {"sku": "VSP-1000", "desc": "VESDA-E VEA 6mm to 4mm Reducer (10)"}, {"sku": "VSP-1001", "desc": "VESDA-E VEA 6mm to 6mm Straight Union (10)"}, {"sku": "VSP-1002", "desc": "VESDA-E VEA 4mm to 4mm Straight Union (10)"}, {"sku": "VSP-1003", "desc": "VESDA-E VEA 6mm to 6mm RA Joiner (10)"}, {"sku": "VSP-1004", "desc": "VESDA-E VEA 4mm to 4mm RA Joiner (10)"}, {"sku": "VSP-1005", "desc": "VESDA-E 4-6mm SPL PT TUBE CONVERTER VEA"}, {"sku": "VSP-1006", "desc": "VESDA-E VOL CHAMBER VEA"}, {"sku": "VSP-1007", "desc": "VESDA-E SS SPL PT VEA INSTAL TOOL"}, {"sku": "VSP-1008", "desc": "VESDA-E SS SPL PT VEA DUCT KIT"}, {"sku": "VSP-1010", "desc": "VESDA-E REL PCA KIT VEA"}, {"sku": "VSP-978", "desc": "VEA Sample Point Head Removal Key"}, {"sku": "VSP-979", "desc": "VEA M/bore Tube Cutter 3 Pack"}, {"sku": "020-052", "desc": "19\ufffd Rack enclosure (2 rows)"}, {"sku": "020-055", "desc": "19\ufffd Rack enclosure (5  rows)"}, {"sku": "VSR-0000", "desc": "Sub-rack with 4 blanks"}, {"sku": "VSR-0031", "desc": "Sub-rack with 2 x blank plates, VESDAnet socket and a programmer"}, {"sku": "VSR-2200", "desc": "Sub-rack with 2 x VEP Displays with 2 x blanking plates"}, {"sku": "VSR-2220", "desc": "Sub-rack with 3 x VEP Displays with 1 x  blanking plate"}, {"sku": "VSR-2222", "desc": "Sub-rack with 4 VEP displays"}, {"sku": "VSP-000", "desc": "Blank Plate Non-EMC with Logo"}, {"sku": "VSP-001", "desc": "Programmer"}, {"sku": "VSP-002", "desc": "Display"}, {"sku": "VSP-003", "desc": "VESDAnet Socket Kit"}, {"sku": "VSP-004", "desc": "Scanner Display"}, {"sku": "VSP-005", "desc": "Filter Cartridge"}, {"sku": "VSP-007", "desc": "Remote Termination Card (no relay)"}, {"sku": "VSP-008", "desc": "Remote Termination Card (7 relays)"}, {"sku": "VSP-102", "desc": "Relay processor module"}, {"sku": "VSP-103", "desc": "Scanner Relay processor module"}, {"sku": "VSP-200", "desc": "Blank Plate EMC no Logo"}, {"sku": "VSP-208", "desc": "Remote Termination Card (12 relay)"}, {"sku": "VSP-509", "desc": "Laser COMPACT RO 9 pin lead"}, {"sku": "VSP-025", "desc": "Filters '20' pack"}, {"sku": "XCL-FILTER", "desc": "VESDA Sensepoint XCL Replacement Filter - Pack of 10"}, {"sku": "XCL-VEA-CAL", "desc": "VESDA Sensepoint XCL Calibration/Flow Cap for VEA"}, {"sku": "XCL-M20-CG", "desc": "VESDA Sensepoint XCL Cable Glands - Pack of 10"}, {"sku": "XCL-VEA-TUB", "desc": "VESDA Sensepoint XCL Tubing Interface for VEA"}, {"sku": "XCL-COVER", "desc": "VESDA Sensepoint XCL Sensor Cover with Gasket"}, {"sku": "XCL-VEA-CO-RA", "desc": "VESDA CO 300PPM 4-20mA REL VEA"}, {"sku": "XCL-VEA-CO-RA-5", "desc": "VESDA CO 300PPM 4-20mA REL XCL VEA\r\nPack of 5"}, {"sku": "XCL-VEA-CO-RM", "desc": "VESDA CO 300PPM MODBUS REL XCL VEA"}, {"sku": "XCL-VEA-CH4-RA", "desc": "VESDA CH4 0-100%LEL 4-20mA REL XCL VEA"}, {"sku": "XCL-VEA-CH4-RA-5", "desc": "VESDA CH4 0-100%LEL 4-20mA REL XCL VEA\r\nPack of 5"}, {"sku": "XCL-VEA-CH4-RM", "desc": "VESDA CH4 0-100%LEL MODBUS REL XCL VEA"}, {"sku": "XCL-VEA-H2-RA", "desc": "VESDA H2 1000PPM 4-20mA REL XCL VEA"}, {"sku": "XCL-VEA-H2-RA-5", "desc": "VESDA H2 1000PPM 4-20mA REL XCL VEA\r\nPack of 5"}, {"sku": "XCL-VEA-H2-RM", "desc": "VESDA H2 1000PPM MODBUS REL XCL VEA"}, {"sku": "XCL-VEA-CO2VV-RA", "desc": "VESDA CO2 5% V/V 4-20mA REL XCL VEA"}, {"sku": "XCL-VEA-CO2VV-RM", "desc": "VESDA CO2 5% V/V MODBUS REL XCL VEA"}, {"sku": "XCL-VEA-CO2PP-RA", "desc": "VESDA CO2 5000PPM 4-20mA REL XCL VEA"}, {"sku": "XCL-VEA-CO2PP-RM", "desc": "VESDA CO2 5000PPM MODBUS REL XCL VEA"}, {"sku": "XCL-SC-CO2VV", "desc": "VESDA RPL SENS CO2 5% V/V SP XCL"}, {"sku": "XCL-SC-CO2PP", "desc": "VESDA RPL SENS CO2 5000PPM SP XCL"}, {"sku": "XCL-LB-CH4-RA", "desc": "XCL Flammable 100 %LEL, (4-20mA Relays)"}, {"sku": "XCL-LB-O2-RA", "desc": "XCL Oxygen (O2) 0 to 25 %v/v, (4-20mA Relays)"}, {"sku": "XCL-LB-CO-RA", "desc": "XCL Carbon Monoxide (C0) 0-300PPM (4-20mA Relays)"}, {"sku": "XCL-LB-H2S-RA", "desc": "XCL Hydrogen Sulphide (H2S) 50ppm (4-20mA Relays)"}, {"sku": "XCL-LB-H2-RA", "desc": "XCL Hydrogen (H2) 1,000ppm (4-20mA Relays)"}, {"sku": "XCL-LB-NO2-RA", "desc": "XCL Nitrogen Dioxide (NO2) 20ppm (4-20mA Relays)"}, {"sku": "XCL-LB-NH3-RA", "desc": "XCL Ammonia (NH3) 100ppm (4-20mA Relays)"}, {"sku": "XCL-LB-CO2VV-RA", "desc": "XCL Carbon Dioxide (CO2) 5.0%V/V (4-20mA Relays)"}, {"sku": "XCL-LB-CO2PP-RA", "desc": "XCL Carbon Dioxide  (CO2) 5,000ppm (4-20mA Relays)"}, {"sku": "XCL-LB-CH4-RM", "desc": "XCL Flammable 100 %LEL, (Modbus & Relays)"}, {"sku": "XCL-LB-O2-RM", "desc": "XCL Oxygen (O2) 0 to 25 %v/v, (Modbus & Relays)"}, {"sku": "XCL-LB-CO-RM", "desc": "XCL Carbon Monoxide (C0) 0-300PPM (Modbus & Relays)"}, {"sku": "XCL-LB-H2S-RM", "desc": "XCL Hydrogen Sulphide (H2S) 50ppm (Modbus & Relays)"}, {"sku": "XCL-LB-H2-RM", "desc": "XCL Hydrogen Hydrogen (H2) 1,000ppm (Modbus & Relays)"}, {"sku": "XCL-LB-NO2-RM", "desc": "XCL Nitrogen Dioxide (NO2) 20ppm (Modbus & Relays)"}, {"sku": "XCL-LB-NH3-RM", "desc": "XCL Ammonia (NH3) 100ppm (Modbus & Relays)"}, {"sku": "XCL-LB-CO2VV-RM", "desc": "XCL Carbon Dioxide (CO2) 5.0%V/V (Modbus & Relays)"}, {"sku": "XCL-LB-CO2PP-RM", "desc": "XCL Carbon Dioxide  (CO2) 5,000ppm (Modbus & Relays)"}, {"sku": "XCL-LB-ELB", "desc": "XCL Large Bore 60\ufffd Pipe Elbow\r\nPack of 4"}, {"sku": "XCL-SC-CH4", "desc": "XCL Sensor-Flam Catalytic"}, {"sku": "XCL-SC-O2", "desc": "XCL/XRL Replacement Sensor-O2"}, {"sku": "XCL-XRL-SC-CO", "desc": "XCL/XRL Replacement Sensor - Oxygen (O2)"}, {"sku": "XCL-SC-H2S", "desc": "XCL/XRL Replacement Sensor Hydrogen Sulphide (H2S)"}, {"sku": "XCL-XRL-SC-H2", "desc": "XCL/XRL Replacement Sensor Hydrogen (H2)"}, {"sku": "XCL-SC-NO2", "desc": "XCL/XRL Replacement Sensor-Nitrogen Dioxide (NO2)"}, {"sku": "XCL-SC-NH3", "desc": "XCL/XRL Replacement Sensor-Ammonia (NH3)"}, {"sku": "XCL-LB-FLT-1", "desc": "XCL Spare Filter - LEL, NH3 & CO2 - pack of 10"}, {"sku": "XCL-LB-FLT-2", "desc": "XCL Spare Filter - CO, O2, H2S, H2 & NO2 - pack of 10"}, {"sku": "XCL-LB-CAP", "desc": "XCL Spare Flow Cap"}, {"sku": "XCL-LB-COV-1", "desc": "XCL Spare Sensor Cover - LEL, NH3 & CO2"}, {"sku": "XCL-LB-COV-2", "desc": "XCL Spare Sensor Cover - CO, O2, H2S, H2 & NO2"}, {"sku": "PIP-001-2.4", "desc": "25mm ABS Pipe 2.4m PK25 RED"}, {"sku": "PIP-002", "desc": "25mm ABS Socket Joiner 25MM PK10 RED"}, {"sku": "PIP-003", "desc": "25mm Socket Union PK10 RED"}, {"sku": "PIP-004", "desc": "Red ABS 3.4'' x 25mm Adaptor (Pack of 10)"}, {"sku": "PIP-005", "desc": "25mm ABS 90 Degree Slow Bend PK10 RED"}, {"sku": "PIP-006", "desc": "25mm ABS 45 Degree Elbow PK10 RED"}, {"sku": "PIP-007", "desc": "25mm ABS End Cap PK10 RED"}, {"sku": "PIP-008", "desc": "25mm ABS Equal Tee PK10 RED"}, {"sku": "PIP-009", "desc": "25mm ABS Pipe Clip PK20 RED"}, {"sku": "PIP-012", "desc": "ABS Solvent Cement 250ml"}, {"sku": "PIP-014", "desc": "PIPE CUTTER"}, {"sku": "PIP-015", "desc": "Flush Sample Point  Head Only (for 10mm OD Tube)"}, {"sku": "PIP-016", "desc": "25mm to 10mm ABS Capillary Tee PK10 RED"}, {"sku": "PIP-017", "desc": "25mm ABS 90 Degree Elbow PK10 RED"}, {"sku": "PIP-018", "desc": "25mm ABS End Cap Test Point PK10 RED"}, {"sku": "PIP-021", "desc": "25mm Flexible connector. 30CM RED"}, {"sku": "PIP-022", "desc": "25mm to 3/8\ufffd Female BSP Tee"}, {"sku": "PIP-019", "desc": "25mm Expansion socket"}, {"sku": "PIP-023", "desc": "25mm 2 way ball valve"}, {"sku": "PIP-024", "desc": "25mm Over Pressure Check Valve"}, {"sku": "PIP-025", "desc": "25 mm x 12\" Condensation Trap with Ball Valve"}, {"sku": "PIP-026", "desc": "25mm Flexible connector. 30CM RED"}, {"sku": "PIP-027", "desc": "Capillary Test Point with Cap"}, {"sku": "PIP-033", "desc": "25mm Clear condensation drain with manual bung (Short)"}, {"sku": "PIP-034", "desc": "25mm to 10mm Capillary Trunk Adapter"}, {"sku": "PIP-038", "desc": "25mm Manual Airline Purge Kit"}, {"sku": "PIP-044", "desc": "Xtralis Flush Sampling Kit"}, {"sku": "PIP-037", "desc": "25mm ABS to 22mm Copper Socket"}, {"sku": "PIP-039", "desc": "VESDA Exhaust Silencer"}, {"sku": "F-PC-0", "desc": "Standard-Clip for ASD pipework 0.0mm\r\nPack of 5"}, {"sku": "F-PC-2", "desc": "Standard-Clip for ASD pipework 2.0mm \r\nPack of 5"}, {"sku": "F-PC-2.5", "desc": "Standard-Clip for ASD pipework 2.5mm \r\nPack of 5"}, {"sku": "F-PC-3", "desc": "Standard-Clip for ASD pipework3.0mm\r\nPack of 5"}, {"sku": "F-PC-3.5", "desc": "Standard-Clip for ASD pipework 3.5mm\r\nPack of 5"}, {"sku": "F-PC-4", "desc": "Standard-Clipfor ASD pipework 4.0mm\r\nPack of 5"}, {"sku": "F-PC-4.5", "desc": "Standard-Clip for ASD pipework 4.5mm\r\nPack of 5"}, {"sku": "F-PC-5", "desc": "Standard-Clip for ASD pipework 5.0mm\r\nPack of 5"}, {"sku": "F-PC-5.5", "desc": "Standard-Clip for ASD pipework 5.5mm\r\nPack of 5"}, {"sku": "F-PC-6", "desc": "Standard-Clip for ASD pipework 6.0mm\r\nPack of 5"}, {"sku": "F-PC-6.5", "desc": "Standard-Clip for ASD pipework 6.5mm\r\nPack of 5"}, {"sku": "F-PC-HE-2", "desc": "Freezer clip for ASD pipework 2.0mm \r\nPack of 5"}, {"sku": "F-PC-HE-2.5", "desc": "Freezer clip for ASD pipework 2.5mm \r\nPack of 5"}, {"sku": "F-PC-HE-3", "desc": "Freezer clip for ASD pipework 3.0mm\r\nPack of 5"}, {"sku": "F-PC-HE-3.5", "desc": "Freezer clip for ASD pipework 3.5mm\r\nPack of 5"}, {"sku": "F-PC-HE-4", "desc": "Freezer clip for ASD pipework 4.0mm\r\nPack of 5"}, {"sku": "F-PC-HE-4.5", "desc": "Freezer clip for ASD pipework 4.5mm\r\nPack of 5"}, {"sku": "F-PC-HE-5", "desc": "Freezer clip for ASD pipework 5.0mm\r\nPack of 5"}, {"sku": "F-PC-HE-5.5", "desc": "Freezer clip for ASD pipework 5.5mm\r\nPack of 5"}, {"sku": "F-PC-HE-6", "desc": "Freezer clip for ASD pipework 6.0mm\r\nPack of 5"}, {"sku": "F-PC-HE-6.5", "desc": "Freezer clip for ASD pipework 6.5mm\r\nPack of 5"}, {"sku": "VSP-021", "desc": "Imperial Pipe Adaptors pack of 4"}, {"sku": "VSP-610", "desc": "Xtralis Tamperproof Sampling Point 25mm Standard Pipe"}, {"sku": "VSP-620-01", "desc": "ASD SPL PT TAMPER PROOF 6MM CAP"}, {"sku": "VSP-620-02", "desc": "ASD SPL PT TAMPER PROOF 8MM CAP"}, {"sku": "VSP-620-03", "desc": "Xtralis Tamperproof Sampling Point 10mm Capillary Tube"}, {"sku": "VSP-850-G", "desc": "In-Line Filter Grey"}, {"sku": "VSP-850-R", "desc": "In-Line Filter Red"}, {"sku": "VSP-855-4", "desc": "In-Line Filter Elements (4pk)"}, {"sku": "VSP-860", "desc": "Refrigerated storage sampling kit"}, {"sku": "VSP-871", "desc": "VESDA RESTRICTOR FLOW PK10"}, {"sku": "VSP-877", "desc": "Flush Mount Sampling Point Head Only \r\n(for 6mm, 8mm, 10mm Capillary tubing)\r\nWHITE"}, {"sku": "VSP-877-B", "desc": "Flush Mount Sampling Point Head Only \r\n(for 6mm, 8mm, 10mm Capillary tubing)\r\nBLACK"}, {"sku": "VSP-877-G", "desc": "Flush Mount Sampling Point Head Only \r\n(for 6mm, 8mm, 10mm Capillary tubing)\r\nGREY"}, {"sku": "RSV-R25", "desc": "Non Return Valve"}, {"sku": "VSP-870", "desc": "Inline Flow Restrictor Assembly for Refrigeration Sampling"}, {"sku": "801607", "desc": "3-Ways Ball Valve or Manual Blow Through Valve Set Complete"}, {"sku": "02-WT-01", "desc": "25 mm Red ABS Self Draining Water Trap"}, {"sku": "059-001", "desc": "Flush Sample Point Kit - 2m flexible 10mm tube, T piece and Head"}, {"sku": "059-007", "desc": "Conical Sample Kit  - 2m flexible 10mm tube, T piece and head"}, {"sku": "144-013", "desc": "Conical Sample Point Head only (for 10 mm OD tube)"}, {"sku": "221-035", "desc": "10mm Red Capillary Pipe 100m reel - RED"}, {"sku": "221-036", "desc": "10mm Red Capillary Pipe 100m reel - Clear"}, {"sku": "222-059", "desc": "10mm OD Clear DISCRETE END CAP PK10"}, {"sku": "128-014-XTR", "desc": "Label - Sampling Point"}, {"sku": "E700-SP-DCL", "desc": "Label - Sampling Point Wrap Round Label 23mm/4mmt hole"}, {"sku": "128-015", "desc": "Label - Smoke Detector Pipe"}, {"sku": "VSP-810", "desc": "Smoke Test Pen"}, {"sku": "VSP-811", "desc": "Smoke Test Pen Refill"}, {"sku": "VTT-10000-UK", "desc": "Test Transformer (Wire Burn)"}, {"sku": "251-001", "desc": "Test Wire 100m"}, {"sku": "251-002", "desc": "Test Matches 12Pk"}, {"sku": "251-003", "desc": "Smoke pellets (8 tablets)"}, {"sku": "PIP-001-2.4-W", "desc": "25mm ABS Pipe 2.4m PK25 WHITE"}, {"sku": "PIP-002-W", "desc": "25mm ABS Socket Joiner 25MM PK10 WHITE"}, {"sku": "PIP-003-W", "desc": "25mm Socket Union PK10 WHITE"}, {"sku": "PIP-005-W", "desc": "25mm ABS 90 Degree Slow Bend PK10 WHITE"}, {"sku": "PIP-006-W", "desc": "25mm ABS 45 Degree Elbow PK10 WHITE"}, {"sku": "PIP-007-W", "desc": "25mm ABS End Cap PK10 WHITE"}, {"sku": "PIP-008-W", "desc": "25mm ABS Equal Tee PK10 WHITE"}, {"sku": "PIP-009-W", "desc": "25mm ABS Pipe Clip PK20 WHITE"}, {"sku": "PIP-016-W", "desc": "25mm to 10mm ABS Capillary Tee PK10 WHITE"}, {"sku": "PIP-017-W", "desc": "25mm ABS 90 Degree Elbow PK10 WHITE"}, {"sku": "PIP-018-W", "desc": "25mm ABS End Cap Test Point PK10 WHITE"}, {"sku": "PIP-021-W", "desc": "25mm Flexible connector. 30CM White"}, {"sku": "PIP-026-W", "desc": "25mm Flexible connector. 30CM WHITE"}, {"sku": "059-001-W", "desc": "Flush Sample Point Kit - 2m flexible 10mm tube, T piece and Head(White)"}, {"sku": "059-007-W", "desc": "Conical Sample Kit  - 2m flexible 10mm tube, T piece and head(White)"}, {"sku": "581731", "desc": "12 V 150 Ah battery for VA/PA emergency PSU (must be used in pairs)"}, {"sku": "581730", "desc": "12 V 105 Ah battery for VA/PA emergency PSU (must be used in pairs)"}, {"sku": "581732", "desc": "12 V 65 Ah battery for VA/PA emergency PSU (must be used in pairs)"}, {"sku": "581730.PS", "desc": "POWERSONIC PGFT-12V105-FR BATTERY"}, {"sku": "581731.PS", "desc": "POWERSONIC PGFT-12V160-FR BATTERY"}, {"sku": "581732.PS", "desc": "POWERSONIC PS-12650 - FR BATTERY"}, {"sku": "4015-603-YFR", "desc": "Power Sonic Battery 7Ah - 6V Flame Retardant Used in Vigilon and Sentri zonal mimics"}, {"sku": "4015-517-YFR", "desc": "Power Sonic Battery 1.2Ah - 12V Flame Retardant"}, {"sku": "4015-502-YFR", "desc": "Power Sonic Battery 2.1Ah - 12V Flame Retardant Used in Xenex 2&4 Zone panels, FP595 2&4 zone, S4-34440-02 & 78302-02NM MPI's"}, {"sku": "4015-509-YFR", "desc": "Power Sonic Battery 3.4Ah - 12V Flame Retardant Used in Xenex 8 zone & FP595 8 zone panels"}, {"sku": "4015-501-YFR", "desc": "Power Sonic Battery 7Ah - 12V Flame Retardant Used in VIG & Sentri Repeat, Nano & Sentri1 panels"}, {"sku": "4015-514-YFR", "desc": "Power Sonic Battery 12Ah - 12V Flame Retardant Used in Vigilon Compact, Sentri2 & S4-34440-12 MPI"}, {"sku": "4015-604-YFR", "desc": "Power Sonic Battery 14Ah - 12V Flame Retardant Used in S4-34440-ASD FAAST Interface"}, {"sku": "4015-504-YFR", "desc": "Power Sonic Battery 17Ah - 12V Flame Retardant"}, {"sku": "4015-602-YFR", "desc": "Power Sonic Battery 21Ah - 12V Flame Retardant Used in Vigilon & Sentri4 panels"}, {"sku": "NP1.2-12", "desc": "YUASA NP Battery 1.2 AH-12V Flame Retardant"}, {"sku": "NP2.8-12", "desc": "YUASA NP Battery 2.8 AH-12V Flame Retardant (Used in Morley Horizon Panels)"}, {"sku": "NP7-12", "desc": "YUASA NP Battery 7 AH-12V Flame Retardant (Used in Horizon, DXc & ZXSe Panels)"}, {"sku": "NP12-12", "desc": "YUASA NP Battery 12 AH-12V Flame Retardant (Used in ZXSe panels)"}, {"sku": "NP17-12", "desc": "YUASA NP Battery 17 AH-12V Flame Retardant (Used in DXc & ZXSe Panels)"}, {"sku": "NP24-12", "desc": "YUASA NP Battery 24 AH-12V Flame Retardant"}, {"sku": "NP38-12", "desc": "YUASA NP Battery 38 AH-12V Flame Retardant"}, {"sku": "NP65-12", "desc": "YUASA NP Battery 65 AH-12V Flame Retardant"}, {"sku": "EACIE1", "desc": "Coming soon in 2026 - please contact sales support for more information\r\nEvac Smart EACIE 1 BS8629 Panel (12 Zone) Loop based, requires FACP, excluding Gerda box. Includes Battery"}, {"sku": "EACIE2", "desc": "Coming soon in 2026 - please contact sales support for more information\r\nEvac Smart EACIE 2 BS8629 Panel (24 Zone) Loop based, requires FACP, excluding Gerda box. Includes Battery"}, {"sku": "EACIE3", "desc": "Coming soon in 2026 - please contact sales support for more information\r\nEvac Smart EACIE 3 BS8629 Panel (36 Zone) Loop based, requires FACP, excluding Gerda box. Includes Battery"}, {"sku": "EACIE4", "desc": "Coming soon in 2026 - please contact sales support for more information\r\nEvac Smart EACIE 4 BS8629 Panel (48 Zone) Loop based, requires FACP, excluding Gerda box. Includes Battery"}, {"sku": "HON-CGW-MBB", "desc": "Fixed CLSS Gateway (Ethernet and Wi-Fi)"}, {"sku": "CCM2-GLOBAL", "desc": "GSM Module"}, {"sku": "CLSS-BC", "desc": "CLSS Bar Codes, roll of 1000"}, {"sku": "VIG-UPGR-CLSS", "desc": "Vigilon Bundle - Contains Gateway, GSM Module, I/O card, PSU and batteries. Bundle price for existing Vigilon installations."}, {"sku": "DXC-UPGR-CLSS", "desc": "Morley DXC Bundle - Contains Gateway, GSM Module and RS232 card. Bundle price for existing DXc installations."}, {"sku": "GATEWAY SUBSCRIPTION SINGLE PANEL", "desc": "Yearly Gateway Connection Fee for a Single Panel\r\nIncludes GSM Data Charges and Unlimited Professional Technician Licenses. \r\nCurrently only available to order via CLSS SITE MANAGER"}, {"sku": "GATEWAY SUBSCRIPTION NETWORK SYSTEM", "desc": "Yearly Gateway Connection Fee for a single Network (Domain).\r\nIncludes GSM Data Charges and Unlimited Professional Technician Licenses.\r\nCurrently only available to order via CLSS SITE MANAGER"}, {"sku": "GATEWAY SUBSCRIPTION \r\nPRO FM", "desc": "Yearly Gateway Professional Facility Manager License\r\nAccess to end user MCP testing and Panel Controls - 1 License per User\r\nCurrently only available to order via CLSS SITE MANAGER"}, {"sku": "GATEWAY SUBSCRIPTION VESDA", "desc": "Vesda Detector Connection to CLSS (requires a Gateway)\r\n1 VESDA license per Detector\r\nCurrently only available to order via CLSS SITE MANAGER"}, {"sku": "ST-LICENSE-1Y", "desc": "Self-Test 1 Year License\r\n1 required per ST device\r\nUnlimited testing for 1 year\r\nOrder via Quotation or E-commerce Portal"}, {"sku": "ST-LICENSE-3Y", "desc": "Self-Test 3 Year License\r\n1 required per ST device\r\nUnlimited testing for 3 years\r\nOrder via Quotation or E-commerce Portal"}, {"sku": "ST-LICENSE-5Y", "desc": "Self-Test 5 Year License\r\n1 required per ST device\r\nUnlimited testing for 5 years\r\nOrder via Quotation or E-commerce Portal"}, {"sku": "ST-LICENSE-10Y", "desc": "Self-Test 10 Year License\r\n1 required per ST device\r\nUnlimited testing for 10 years\r\nOrder via Quotation or E-commerce Portal"}, {"sku": "ST-LICENCE-14Y", "desc": "Self-Test 14 Year License\r\n1 required per ST device\r\nUnlimited testing for 14 years\r\nOrder via Quotation or E-commerce Portal"}, {"sku": "13270-02LB", "desc": "2 Zone conventional panel, EN54 less batteries"}, {"sku": "13270-04LB", "desc": "4 Zone conventional panel, EN54 less batteries"}, {"sku": "13270-08LB", "desc": "8 Zone conventional panel, EN54 less batteries"}, {"sku": "13271-08LB", "desc": "8 Zone repeat indicator, less batteries"}, {"sku": "XEN-FFR", "desc": "Fire Fault Relay Unit"}, {"sku": "XENS-SPARE", "desc": "Spares pack for Xenex Panels"}, {"sku": "XENS-FLAP", "desc": "Replacement Mouldings and Cover Plates"}, {"sku": "13270-29", "desc": "Flush Plate for 1-8 Panel and Repeat Panel Variants"}, {"sku": "002-492-222", "desc": "HRZ-2e, 2 zone Non-Addressable fire alarm control panel. 2 detection zones, 2 sounder outputs, surface mounting, fire and fault relays. 318 x 356 x 92mm (H x W xD)"}, {"sku": "002-492-242", "desc": "HRZ-4e, 4 zone Non-Addressable fire alarm control panel. 4 detection zones, 2 sounder outputs, surface mounting, fire and fault relays. 318 x 356 x 92mm (H x W x D)"}, {"sku": "002-492-282", "desc": "HRZ-8e, 8 zone Non-Addressable fire alarm control panel. 8 detection zones, 2 sounder outputs, surface mounting, fire and fault relays. 318 x 356 x 92mm (H x W x D)"}, {"sku": "020-713", "desc": "Fire & fault relay module for NFS2-8"}, {"sku": "020-747", "desc": "8-way input / output card. Provides up to 8 configurable relay outputs or up to 4 command inputs and 4 outputs"}, {"sku": "020-772", "desc": "4-way sounder output module (1.5A Max)"}, {"sku": "020-743", "desc": "Capacitor kit for detectors not compatible with capacitive EOL monitoring. Includes 8 x 10\ufffd\ufffd capacitors. Active EOL's required - See part number 020-417"}, {"sku": "020-417", "desc": "Active end of line monitor module"}, {"sku": "020-745-008", "desc": "Spare installation kit. Includes 8 capacitive end of lines, battery leads, Allen key, panel controls key and sounder end of line resistors"}, {"sku": "020-865", "desc": "Spare red controls key - Pack of 10"}, {"sku": "805590", "desc": "Detector Base. Can be used for ES Conventional and Intrinsically safe detection.\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"}, {"sku": "805590-D", "desc": "Detector Base With Diode"}, {"sku": "800371", "desc": "Optical Smoke Detector\ufffd"}, {"sku": "800171", "desc": "Fixed Heat Detector"}, {"sku": "800177", "desc": "Fixed Heat Detector Class B"}, {"sku": "800271", "desc": "Rate of Rise Heat Detector\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd"}, {"sku": "2020B", "desc": "Standard detector mounting base for Vision detectors"}, {"sku": "2020BSD", "desc": "Detector mounting base fitted with Schottky diode. For Vision detectors"}, {"sku": "2020DBSD", "desc": "DEEP BASE SCHOT DIODE VISION S"}, {"sku": "2020PT", "desc": "Optical thermal multi criteria conventional detector"}, {"sku": "2020P", "desc": "Optical conventional detector"}, {"sku": "2020R", "desc": "Rate of rise thermal A1R (58\ufffdC) conventional detector"}, {"sku": "2020F", "desc": "Fixed temperature thermal A2S (58\ufffdC) conventional detector"}, {"sku": "2020HF", "desc": "High fixed temperature thermal BS (78\ufffdC) conventional detector"}, {"sku": "ECO1000RTU A", "desc": "Remote LASER tester for Vision detectors"}, {"sku": "M1A-R470SF-G017-01", "desc": "MCP1A-RED-470-SURFACE-BC136R-FE1140-F222"}, {"sku": "M1A-R470FG-G017-01", "desc": "Flush MCP 470 Ohms, Glass (supplied without back box)"}, {"sku": "W1A-R470SF-G017-01", "desc": "Weatherproof MCP 470 Ohms, Glass (supplied with back box)"}, {"sku": "MUS156", "desc": "Spare Glasses Conventional MCP (Pack of 10)"}, {"sku": "K21SRS-01", "desc": "Key Operated MCP (Supplied without back box) N/O contact"}, {"sku": "SC070", "desc": "Pack of test keys (pack of 10)"}, {"sku": "M1A-R470SG-STCK-01", "desc": "Surface call point with 470 Ohm resistor and N.O. contact. Complete with glass. (Old PN: MCP1A-R470SG-01)"}, {"sku": "M1A-Y470SF-K013-11", "desc": "Yellow conventional KAC manual Call point"}, {"sku": "W1A-R470SG-STCK-01", "desc": "Surface outdoor call point with 470 Ohm resistor and N.O. contact. Complete with glass. (Old PN: WCP1A-R470SG-01)"}, {"sku": "PS031W", "desc": "BOX MCP SURFACE MOUNT RED 1 TERMINAL"}, {"sku": "MUS158", "desc": "Call point glass (Old PN: KG1X50)  Pack of 10"}, {"sku": "PS230", "desc": "Resettable element for Conventional MCP (pack of 10)"}, {"sku": "PS200", "desc": "Call point cover."}, {"sku": "6500-LRK", "desc": "Long range reflector kit for 70-100m"}, {"sku": "6500-MMK", "desc": "Multi Mount Kit for IR reflective beam. Provides ceiling and wall mount swivel brackets. Note: Requires 6500-SMK"}, {"sku": "6500-SMK", "desc": "Surface Mount Kit for IR reflective beam detector. Allows direct surface cable entry"}, {"sku": "BEAMHK", "desc": "Heater kit for reflective beam detector. Requires 24V supply"}, {"sku": "BEAMHKR", "desc": "Heater kit for beam reflector. Requires 24V supply"}, {"sku": "OSE-SP-01", "desc": "Emitter - Alkaline Battery\r\nAlkaline Battery for Standard Power Emitter"}, {"sku": "OSE-HP-01", "desc": "Emitter - High Power, Alkaline Battery\r\nAlkaline Battery for High Power Emitter"}, {"sku": "OSE-HPW", "desc": "Emitter - High Power, Wired\r\n24 Vdc Power Supply for High Power Emitter. Enables double the detection ranges on the OSI- 90"}, {"sku": "OSE-SPW", "desc": "Emitter - Standard Power, Wired\r\n24 Vdc Power Supply for Standard Power Emitter"}, {"sku": "OSI-10", "desc": "Imager - 7\ufffd coverage\r\nImager with a 7\ufffd field of view providing distances 30m to 150 m.\r\nNB: Not suitable for use with High Powered Emitters."}, {"sku": "OSI-90", "desc": "Imager - 80\ufffd coverage-Imager with an 80\ufffd field of view providing distances 6m to 68m. Distances: 6-34m with OSE-SP-01 / OSE-SPW, 12-68m with OSE-HPW, 12-50m with OSE-HP-01. OSI-90 can operate with up to 7 Emitters."}, {"sku": "OSID-EHE", "desc": "Emitter environmental housing IP66\r\nIP66-rated Environmental Housing for Emitters. Protects OSID Emitters from dust and water ingress"}, {"sku": "OSID-EHI", "desc": "Imager environmental housing IP66\r\nIP66-rated Environmental Housing for Emitters. Protects OSID Imagers from dust and water ingress."}, {"sku": "OSEH-ACF", "desc": "Anti-condensation film for OSID-EHE and OSID-EHI environmental housings. An easy applicable film that provides condensation resistance for the lenses of OSID Environmental Housings"}, {"sku": "OSE-RBA", "desc": "Spare alkaline battery pack for Emitter units. Replacement Alkaline Battery pack for Emitters."}, {"sku": "OSE-ACF", "desc": "Anti-condensation film for Emitters. An easy applicable film that provides condensation resistance for the lenses of OSID Emitters."}, {"sku": "OSP-001", "desc": "FTDI Cable 1.5m. 1.5m cable for connecting a PC to the Imager for use with OSID Diagnostic software. Cable may be extended by a further 20m when using an active USB amplifier."}, {"sku": "OSP-002", "desc": "Laser Alignment tool. A simple and effective tool for fast alignment of OSID devices. Aligns and locks the eyeball. Also activates Emitters when locked."}, {"sku": "OSID-INST", "desc": "OSID Installation Kit. Kit including: Laser Alignment Tool, Test Filter, PC Cable, Cleaning Cloth, Reflectors and Manual."}, {"sku": "OSID-WG", "desc": "Wire Guard. Steel cage to protect OSID Imagers and Emitters from damage."}, {"sku": "OSP-003", "desc": "OSID FILTER ACRYLIC TEST PK10"}, {"sku": "OSP-003-200", "desc": "OSID FILTER ACRYLIC TEST PK200"}, {"sku": "RTS151KEY", "desc": "BEAM IMAGER RESET FLUSH MT"}, {"sku": "RTS151KIT", "desc": "OSID IMAGER RESET STATION SURF MT"}, {"sku": "WM2348E", "desc": "Single terminal back box for mounting RTS151KEY"}, {"sku": "OSP-004", "desc": "TEST FILTER 10 PK FOR OSID-R"}, {"sku": "OSI-RE-SS", "desc": "Conventional Reflective Beam. Uses the same accessories as the 6500 conventional beams. Please see conventional section to find these accessories"}, {"sku": "OSI-RWG", "desc": "OSID-R BEAM WIRE GUARD"}, {"sku": "2351E A", "desc": "Low profile Non-Addressable optical smoke detector compatible with the D2E duct detector.\r\nFor accessories please see Morley Addressable devices."}, {"sku": "D2E", "desc": "Duct detector housing complete with B401 base for Non-Addressable detectors. (Detector not supplied). Requires DSTXX duct sampling tube and sensor.\r\nFor accessories please see Morley Addressable devices."}, {"sku": "DST1", "desc": "Metal sampling tube duct width up to 0.3m (Not compatible with DH400E and DH400ACDC-E)"}, {"sku": "DST1.5", "desc": "Metal sampling tube duct widths 0.3 to 0.6m (Not compatible with DH400E and DH400ACDC-E)"}, {"sku": "DST3", "desc": "Metal sampling tube duct widths 0.6 to 1.2m (Not compatible with DH400E and DH400ACDC-E)"}, {"sku": "DST5", "desc": "Metal sampling tube duct widths 1.2 to 2.4m (Not compatible with DH400E and DH400ACDC-E)"}, {"sku": "DST10", "desc": "Metal sampling tube duct widths 2.4 to 3.7m (Not compatible with DH400E and DH400ACDC-E)"}, {"sku": "781814", "desc": "Remote LED for ES Detect"}, {"sku": "RI/W/3V", "desc": "Remote LED (flush mounting). Requires a single gang backbox for mounting"}, {"sku": "RI/W/BB", "desc": "Surface Mount Base for RI/W/3V Remote LED indicator"}, {"sku": "CWW", "desc": "White Deep IP65 Base Pack of 5"}, {"sku": "DBS1224B4W", "desc": "Ceiling mounting base sounder, four tone (white), no cover. If required the SC085 (white lid) to be ordered separately"}, {"sku": "CSR", "desc": "Red low profile base, provides multiple cable entry points and a range of fixing centres, suitable for use with all commonly encountered fire cable sizes & ranges. Pack of 5"}, {"sku": "CWR", "desc": "Red Deep IP65 base,  provides cable access for indoor surface & applications up to IP65, suitable for use with all commonly encountered fire cable sizes & ranges. Pack of 5"}, {"sku": "PS188", "desc": "Deep Base O-Ring (Can be added to the conventional AV base to make it IP65 rated)"}, {"sku": "PS189", "desc": "Deep base Gasket accessory can be installed between the base and the mounting surface to provide the appropriate seal. Pack of 5"}, {"sku": "SC076", "desc": "Earth strap. Pack of 5"}, {"sku": "SC085", "desc": "White cover plate for DBS1224B4W ceiling mounting sounder. Pack of 10"}, {"sku": "CWSO-RR-S1", "desc": "Sounder Red & Low Profile Base"}, {"sku": "CWSO-RR-W1", "desc": "Sounder Red IP65 & Deep Base"}, {"sku": "CWSO-WW-S1", "desc": "Sounder White & Low Profile Base"}, {"sku": "CWST-RW-S5", "desc": "VAD-Red Base- White Flash"}, {"sku": "CWST-RW-W5", "desc": "VAD-Red Base- White Flash & IP65 Base"}, {"sku": "CWST-RR-S5", "desc": "VAD-Red Base- Red Flash"}, {"sku": "CWST-RR-W5", "desc": "VAD-Red Base- Red Flash & IP65 Base"}, {"sku": "CWSS-RW-S5", "desc": "Sounder VAD-Red Base- White Flash"}, {"sku": "CWSS-RW-W5", "desc": "Sounder VAD-Red Base- White Flash & IP65 Base"}, {"sku": "CWSS-RR-S5", "desc": "Sounder VAD-Red Base- Red Flash"}, {"sku": "CWSS-RR-W5", "desc": "Sounder VAD-Red Base- Red Flash & IP65 Base"}, {"sku": "CWSS-WW-S5", "desc": "Sounder VAD-White Base- White Flash"}, {"sku": "CWSS-WW-W5", "desc": "White body with cool white flash, IP65 deep base, EN54-Pt.3 and Pt.23 W-2.4-8.9 and C-3-10 / C-6-10 class approved sounder strobe with clear lens, provides omni directional wall and ceiling mounting, comes with soft start feature as standard and suitable for 12 and 24V systems. Deep base included"}, {"sku": "74333-50NM", "desc": "Bell 240V Grey weather resistant"}, {"sku": "74430-88NM", "desc": "Bell 24V Red"}, {"sku": "74431-66NM", "desc": "Bell 12V Grey"}, {"sku": "74432-88NM", "desc": "BELL 24V Red weather resistant"}, {"sku": "KFB6", "desc": "6\"Fire Bell, 24Vdc, 15mA, 94dBA @ 1m"}, {"sku": "REL/T/245", "desc": "Wall-Mounted Addressable Wireless Sounder VAD - Red/Red. Powered by 4x CR123A 3V batteries"}, {"sku": "K20SRS-11", "desc": "Wall-Mounted Addressable Wireless Sounder VAD - White/Red. Powered by 4x CR123A 3V batteries"}, {"sku": "K20SWS-11", "desc": "Indoor key switch white, key removable in both positions, single pole"}, {"sku": "19107-52", "desc": "24Vdc DPCO Relay c/w High Profile Enclosure"}, {"sku": "19104-52", "desc": "Relay 24V DC Base & Diode"}, {"sku": "19106-02", "desc": "Timer Octal Base 2-32 Secs. DOE 24V DC C/W Base"}, {"sku": "19100-02", "desc": "High Profile Enclosure with DIN rail 125x125x100mm."}, {"sku": "FS20X-211-23-6", "desc": "Flame IR2/UV 60m Zone 1 Red Aluminium"}, {"sku": "FS20X-211-24-6", "desc": "Flame IR2/UV 60m Zone 1 Stainless Steel"}, {"sku": "FS24XP-AMGXX", "desc": "FS24X Tripe IR flame detector Aluminium (Red) M25"}, {"sku": "FS24XP-SMGXX", "desc": "FS24X Tripe IR flame detector Stainless Steel M26"}, {"sku": "FSL100-UV", "desc": "Flame UV 25m Zone 2/22 Red"}, {"sku": "FSL100-UVIR", "desc": "Flame UV/IR 25m Zone 2/22 Red"}, {"sku": "FSL100-IR3", "desc": "Flame IR3 35m Zone 2/22 Red"}, {"sku": "FS20X-211-10-6", "desc": "Flame Electronics Module for FS20X Detector"}, {"sku": "TL-2055", "desc": "Flame FS20X/24X Test lamp Hazardous Area"}, {"sku": "TL-1055", "desc": "Flame FS20X/24X Test lamp Safe Area"}, {"sku": "SM4", "desc": "Flame FS20X/24X Swivel Mount SS."}, {"sku": "DASA6-N", "desc": "FS24XP Flame detection Airshield (Prevents dust build up on Flame Detector Lens)"}, {"sku": "FSX-A001", "desc": "Flame FSX Diagnostic Kit c/w Interface Module, RS485/USB Cable, PSU, Win PC Software"}, {"sku": "FSX-A006", "desc": "Flame IR Bulb for TL Test Lamps"}, {"sku": "PSU-12", "desc": "Flame Charger kit for TL test lamp"}, {"sku": "SH-001", "desc": "Flame FS20X/24X Sunshield"}, {"sku": "FSL100-SM21", "desc": "Flame FSL100 Swivel Mount"}, {"sku": "FSL100-TL", "desc": "Flame FSL100 Test Lamp"}, {"sku": "FSL100-TLBT", "desc": "Flame 12V DC Battery for FSL test lamp"}, {"sku": "FSL100-TLBU", "desc": "Flame H3 Bulb for FSL test lamp"}, {"sku": "FSL100-TLCH", "desc": "Flame Charger kit for FSL test lamp"}, {"sku": "NANO-24", "desc": "Nano Single Loop Control Panel. Non networkable. Batteries not included - requires 2 x 4015-501-YFR (Power Sonic Flame Retardant 12V 7Ah) to meet compliance regulations."}, {"sku": "NANO-FLUSH", "desc": "Flush Mounting Bezel for Nano-24"}, {"sku": "NS-SPARE", "desc": "Spares Pack for Nano"}, {"sku": "COMPACT-PLUS", "desc": "Vigilon Compact Plus 1-2 loop Control Panel c/w 1 loop card & supplied in black. \r\nBatteries not included - requires 2 x 4015-514-YFR (Power Sonic Flame Retardant 12V 12Ah) to meet compliance regulations."}, {"sku": "COMPACT-LPC-EN", "desc": "Additional Loop card (2km) for COMPACT-24-N"}, {"sku": "COMPACT-NC", "desc": "Network Card for Vigilon Compact (EN Networks only)"}, {"sku": "COMPACT-FLUSH", "desc": "Control Panel Flush Surround (supplied in Black)"}, {"sku": "COMPACT-FLUSH-SS", "desc": "Main Control Panel Stainless Steel Flush Mounting Kit"}, {"sku": "PRINTER-HAND", "desc": "Hand Held Printer - Thermal Type 58mm"}, {"sku": "PRINTER-H-PAPER", "desc": "Spare Paper Roll - 58mm"}, {"sku": "VCS-MCB-PLUS", "desc": "Replacement Main Control PCB for Compact Plus Control Panel"}, {"sku": "VCS-PSU-N", "desc": "Replacement PSU for Compact Control Panel"}, {"sku": "VCS-IDOOR-PLUS", "desc": "Replacement Inner Door Assembly for Compact Plus and Compact-24 Panel (supplied in Black)"}, {"sku": "VCS-ODOOR-PLUS", "desc": "Compact Plus Outer Door Assembly (supplied in Black)"}, {"sku": "VS-IDOOR-SCREW", "desc": "Vigilon & Compact Inner Door Screw and Fastener, Pack of 10"}, {"sku": "VCS-SPARE", "desc": "Spares pack for Vigilon Compact (Fuses, Battery leads etc.)"}, {"sku": "VCS-CABLES", "desc": "Spare Ribbon Cable set for Compact Panel"}, {"sku": "VCS-ODOOR", "desc": "Vigilon Compact 24hr Outer Door Assembly (supplied in Grey)"}, {"sku": "VIGPLUS-24-NP", "desc": "1 to 4 Loop Vigilon Plus Control Panel without printer c/w 1 loop card & supplied in black. \r\nRecommend the use of fixed CLSS Gateway HON-CGW-MBB as a digital printer. \r\nBatteries not included - requires 2 x 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations."}, {"sku": "VIGPLUS-24", "desc": "1 to 4 Loop Vigilon Plus Control Panel c/w 1 loop card & supplied in Black. \r\nBatteries not included - requires 2 x 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations."}, {"sku": "VIGPLUS-72", "desc": "1 to 6 Loop Vigilon Plus Control Panel c/w 1 loop card & supplied in black.\r\nBattery Enclosure not included (VS-BATTBOX-72).\r\nBatteries not included - requires 4 x 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations."}, {"sku": "VIGPLUS-72-NP", "desc": "1 to 6 Loop Vigilon Plus Control Panel without printer c/w 1 loop card & supplied in black.\r\nRecommend the use of fixed CLSS Gateway HON-CGW-MBB as a digital printer.  \r\nBattery Enclosure not included (VS-BATTBOX-72).\r\nBatteries not included - Requires 4X 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations."}, {"sku": "VIG-LPC-EN", "desc": "Loop Card for VIGPLUS-24 and VIGPLUS-72 Vigilon Panels (EN54)"}, {"sku": "VS-LSIM", "desc": "Vigilon loop simulator"}, {"sku": "VIG-IOC-DOM", "desc": "Input/Output Card for VIGPLUS-24 and VIGPLUS-72 Vigilon Panels (EN54)"}, {"sku": "VIG-NC", "desc": "Network Card for VIGPLUS-24 and VIGPLUS-72 Vigilon Panels (EN54)"}, {"sku": "VIG-NC-FO", "desc": "Fibre Optic Network Card for VIG1-24 and VIG1-72 Vigilon Panels (EN54 & V3+)"}, {"sku": "VIG-NC-DOM-FO", "desc": "Secure Domain Bridge Card for VIG1-24 and VIG1-72 Vigilon Panels (EN54 & V3+)"}, {"sku": "VIG-NC-SMF", "desc": "SMF Network Card"}, {"sku": "VIG-COMM-LEAD", "desc": "USB Commissioning Lead and Dongle"}, {"sku": "VIG-24-FLUSH", "desc": "Flush Surround (Main Control Panel and Terminal Node)"}, {"sku": "VIG-DOOR-SS", "desc": "Stainless Steel Door for Vigilon Main Control Panel"}, {"sku": "VIG-FLUSH-SS", "desc": "Vigilon Main Control Panel Flush Mounting Kit (Stainless Steel)"}, {"sku": "VIG-19-RACK", "desc": "Rack Mounting Frame for VIGPLUS-24 in a 19\" Rack"}, {"sku": "VIG72-UPGR", "desc": "Upgrade Kit to convert Vigilon 24 to Vigilon 72. Batteries not included - requires 4 x 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations. Also requires additional Battery Enclosure VS-BATTBOX-72."}, {"sku": "VS-BATTBOX-72", "desc": "Battery Box for VIGPLUS-72 & VIGPLUS-72-NP.\r\nBatteries not included - 72hr panels require 4 x 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations."}, {"sku": "VS-PSU-24", "desc": "Replacement PSU for VIG1-24"}, {"sku": "VS-PSU-72", "desc": "Replacement PSU for VIG1-72"}, {"sku": "VS-IDOOR-PLUS", "desc": "Replacement Inner Door for VIGPLUS-24 and VIGPLUS-72 (supplied in Black)"}, {"sku": "VS-ODOOR-PLUS", "desc": "Outer Door for VIGPLUS-24 & VIGPLUS-72 (supplied in Black)"}, {"sku": "VS-PRIN", "desc": "Replacement Printer Assembly for Vigilon Panels"}, {"sku": "VS-PROLL", "desc": "Printer Roll For Vig & 34000"}, {"sku": "VS-ODOOR", "desc": "Vigilon Compact 24hr Outer Door Assembly (supplied in Grey)"}, {"sku": "VS-KEY", "desc": "Spare Key for Vigilon and Compact Outer Door  (Pack of 10)"}, {"sku": "VS-ODLOCK", "desc": "Replacement Lock for Vigilon Outer Door"}, {"sku": "VIGPLUS-MCC", "desc": "MCC Control Card for VIGPLUS-24 & VIGPLUS-72 (EN54) C/W Micro SD flash memory card"}, {"sku": "VS-BPLANE", "desc": "Replacement Backplane PCB for Vigilon Panels (VIGPLUS, VIGPLUS-24, VIGPLUS-72)"}, {"sku": "VS-BATT-PCB", "desc": "Vigilon Replacement Battery Box PCB"}, {"sku": "VS-TCARD", "desc": "Vigilon Replacement Terminal Card"}, {"sku": "VS-FILTER-72", "desc": "Battery Filter PCBa/Cable For VIGPLUS-72"}, {"sku": "VS-SPARE-24", "desc": "Replacement Spares Pack for Vigilon Control Panels - VIGPLUS-24 & VIGPLUS-72"}, {"sku": "VS-CABLE-24", "desc": "Replacement Ribbon Cables For VIGPLUS-24 and VIGPLUS-72 Panel"}, {"sku": "VS-BATT-CABLE", "desc": "Battery Lead Pack  For VIGPLUS-72"}, {"sku": "COMPACT-NODE", "desc": "Compact Plus Terminal Node for Vigilon networks supplied in black. \r\nBatteries not included - requires 2 x 4015-514-YFR (Power Sonic Flame Retardant 12V 12Ah) to meet compliance regulations."}, {"sku": "VIGPLUS-NODE", "desc": "Vigilon Plus Terminal Node (EN54 version) for use with multiple IO cards and Fibre networks. Supplied in black. \r\nBatteries not included - requires 2 x 4015-602-YFR (Power Sonic Flame Retardant 12V 21Ah) to meet compliance regulations."}, {"sku": "VIG-MIM-A3", "desc": "A3 Zonal and Graphic Mimic BS & EN compatible supplied in grey. \r\nBatteries not included - requires 2 x 4015-603-YFR (Power Sonic Flame Retardant 6V 7Ah) to meet compliance regulations."}, {"sku": "S4-34600", "desc": "LED Driver Board for special Mimics"}, {"sku": "S4-34494", "desc": "Connection convertor for S4-34412 and S4-34600 (26 core ribbon to Terminal block)"}, {"sku": "VIGPLUS-RPT", "desc": "Vigilon Plus Repeat Panel supplied in black. Batteries not included - requires 2 x 4015-501-YFR (Power Sonic Flame Retardant 12V 7Ah) to meet compliance regulations."}, {"sku": "VIG-RPT-FLUSH", "desc": "Repeat Panel Flush Surround"}, {"sku": "VIG-RPT-DOOR-SS", "desc": "Stainless Steel Door for Vigilon Repeat"}, {"sku": "VIG-RPT-FLUSH-SS", "desc": "Stainless Steel Repeat Panel Flush Mounting Kit"}, {"sku": "VSRPT-IDOOR-PLUS", "desc": "Vigilon EN54 Repeat Panel Inner Door Assembly (supplied in Black)"}, {"sku": "VSRPT-ODOOR", "desc": "Vigilon EN54 Repeat Panel Outer Door Assembly (supplied in Grey)"}, {"sku": "VSRPT-MRC-72", "desc": "Replacement MRC for new repeat, A3 & A2 mimic (BS & EN)"}, {"sku": "VSRPT-SPARE", "desc": "Spares Pack for Vigilon Repeat Panel"}, {"sku": "VSRPT-CABLES", "desc": "Ribbon Cables for Vigilon Repeats"}, {"sku": "VIG-NPORT-100", "desc": "NPORT 100 - RS232 to IP device (single unit 2 required per link)"}, {"sku": "VIG-BNG", "desc": "BACnet Gateway Assembly for Vigilon & Compact"}, {"sku": "VIG-BNG-RW", "desc": "BACnet Gateway Assembly for Vigilon & Compact with Controls & Command Builds"}, {"sku": "VIG-BNG-DINKIT", "desc": "BACnet Gateway Din Rail Mounting Kit for Mains powered interfaces S4-344402/12"}, {"sku": "COMPACT-LPC", "desc": "Additional Loop card for COMPACT-24-N. Supports 3400, 34000 & Pre-VAD Squad devices."}, {"sku": "VIG-LPC", "desc": "Loop Card for VIG1-24 and VIG1-72 Vigilon Panels (EN54). Supports 3400, 34000 & Pre-VAD Squad devices."}, {"sku": "VIG-MCC-EN", "desc": "Vigilon Main Control Card EN54 Zonal Display"}, {"sku": "VIG-MCC-UPGR", "desc": "Main Control Card - Vigilon EN 54 panels all doors (PLCC extractor necessary)"}, {"sku": "VIG-MCC-EN-NOD-UPG", "desc": "Main Control Card - EN 54 Network Node all doors (PLCC extractor necessary)"}, {"sku": "VS-PSU-RPL", "desc": "Backwards compatible PSU for old style Vigilon Panels"}, {"sku": "VS-BATTBOX", "desc": "Battery Box for Vigilon Panel (excludes batteries)"}, {"sku": "77821-01NM", "desc": "Commissioning Lead For Vigilon Panel"}, {"sku": "VIG-NC-HYBRID", "desc": "Vigilon Hybrid Network Card"}, {"sku": "VIG-BSKIT-NODE", "desc": "Conversion Kit For VIG-NODE-24 EN 54 to BS V3+ Functionality"}, {"sku": "VIG-BSKIT", "desc": "Conversion Kit for VIG1-24 EN 54 to BS / V3+ functionality"}, {"sku": "VIG-NC-V3+", "desc": "Network Card V3+"}, {"sku": "VIG-LPC-V3+", "desc": "Loop Card V3+"}, {"sku": "VIG-IOC-V3+", "desc": "Input/Output Card for Vigilon V3+"}, {"sku": "VIG-MCC-V3+", "desc": "Vigilon Main Control Card V3+ For 8 Line Display"}, {"sku": "VS-Extractor", "desc": "Recommended extractor tool for changing Eproms on Panel cards"}, {"sku": "2211-191-4", "desc": "Software V4 for PGM VIGPLUS-MCC"}, {"sku": "2211-192-4", "desc": "Software V4 for PGM COMPACT"}, {"sku": "2211-143", "desc": "8 Line LCD (Current Display) since March 2005"}, {"sku": "2211-155", "desc": "16 line display (no zonal indicators)"}, {"sku": "2211-152", "desc": "8 Line Display (current)"}, {"sku": "2211-144", "desc": "8 Line LCD (Current Display) since March 2005"}, {"sku": "2211-150", "desc": "16 line display"}, {"sku": "2211-180", "desc": "8 Line zonal display (current) since 2003"}, {"sku": "2211-129", "desc": "EN 54 Loop Vigilon EN and Compact"}, {"sku": "2211-130", "desc": "BS Loop -Vigilon  V3+ and 3400"}, {"sku": "2211-139", "desc": "EN 54 Network - Vigilon EN and Compact"}, {"sku": "2211-140", "desc": "BS Network Vigilon V3+ and 3400"}, {"sku": "2211-132", "desc": "Vigilon EN Panels and Nodes"}, {"sku": "2211-133", "desc": "Vigilon BS Panels and Nodes"}, {"sku": "2250-025", "desc": "Epsilon"}, {"sku": "2211-200", "desc": "Software V3 for PGM VIGPLUS-NC-HYBRID"}, {"sku": "2211-187", "desc": "HIGH POWERED EN54 LOOP VIG EN AND COM"}, {"sku": "S4-700", "desc": "Base - Common for all S-Quad Sensors"}, {"sku": "S4-701", "desc": "IP21 base and base cover (pack of 1)"}, {"sku": "S4-705", "desc": "IP21 base covers (pack 5)"}, {"sku": "S4BK-700", "desc": "Black Base - Common for all S-Quad Sensors"}, {"sku": "S4BK-705", "desc": "Black IP21 base covers (pack 5)"}, {"sku": "ALD-302", "desc": "Anti ligature base for the S Quad Sensor (Requires S4-700 base)"}, {"sku": "S4-FLUSH", "desc": "S-Quad Semi-Flush Mounting Kit"}, {"sku": "S4-700-34K", "desc": "34000 S-Quad Adapter Base"}, {"sku": "S4T-BASE-PROGRAM", "desc": "Programmer Base for S4/T/M and S3 Voice Sounders"}, {"sku": "S4T-DEMO", "desc": "S4T Self Test Demonstration kit. Includes, S4T-711 O2H ST detector, S4T Programmer Base, Metal Stand, Power supply & leads"}, {"sku": "781550", "desc": "S-Quad Protective cage"}, {"sku": "805589ST", "desc": "Dust cover to support S4, S4T and S4M device mouldings.\r\nPack of 50"}, {"sku": "805580", "desc": "S-Quad Removal Tool Kit"}, {"sku": "805576", "desc": "S-Quad Base Label Plate (pack of 10)"}, {"sku": "CustomMessage", "desc": "Bespoke Messages Male only or Female only"}, {"sku": "34701", "desc": "T Breaker Unit"}, {"sku": "S4T-720", "desc": "S4 SELF TEST Heat Sensor"}, {"sku": "S4T-710", "desc": "S4 SELF TEST Optical Heat Sensor"}, {"sku": "S4T-711", "desc": "S4 SELF TEST Dual Optical Heat Sensor"}, {"sku": "S4T-780-S", "desc": "S4 SELF TEST Heat Sensor + Sounder"}, {"sku": "S4T-770-S", "desc": "S4 SELF TEST Optical Heat Sensor + Sounder"}, {"sku": "S4T-771-S", "desc": "S4 SELF TEST Dual Optical Heat Sensor + Sounder"}, {"sku": "S4T-711-V", "desc": "S4 SELF TEST Dual Optical Heat Sensor + Voice Sounder"}, {"sku": "S4T-711-VAD-HPR", "desc": "S4 SELF TEST Dual Optical Heat Sensor + High Power Red VAD"}, {"sku": "S4T-720-V-VAD-HPR", "desc": "S4 SELF TEST Heat Sensor + Voice Sounder & High Power Red VAD"}, {"sku": "S4T-711-V-VAD-HPR", "desc": "S4 SELF TEST Dual Optical Heat Sensor + Voice Sounder & High Power Red VAD"}, {"sku": "S4TB-711-V-VAD-HPR", "desc": "S4 SELF TEST Black Dual Optical Heat Sensor + Voice Sounder & High Power Red VAD"}, {"sku": "S4-720", "desc": "S4 Heat Sensor"}, {"sku": "S4-715", "desc": "S4 Optical Detector"}, {"sku": "S4-710", "desc": "S4 Optical Heat Sensor"}, {"sku": "S4-711", "desc": "S4 Dual Optical Heat Sensor"}, {"sku": "S4BK-711", "desc": "S4 Black Dual Optical Heat Sensor"}, {"sku": "S4-901", "desc": "S4 CO Dual Optical Heat Sensor"}, {"sku": "13449-01", "desc": "Remote LED (for use with common base S4-700)"}, {"sku": "S4-711-VAD-HPR", "desc": "S4 Dual Optical Heat Sensor High Power red VAD"}, {"sku": "S4-780-S", "desc": "S4 Heat Sensor Sounder"}, {"sku": "S4-770-S", "desc": "S4 Optical Heat Sensor Sounder"}, {"sku": "S4-771-S", "desc": "S4 Dual Optical Heat Sensor Sounder"}, {"sku": "S4-711-V", "desc": "S4 Dual Optical Heat Sensor Voice Sounder"}, {"sku": "S4BK-711-V", "desc": "S4 Black Dual Optical Heat Sensor Voice Sounder"}, {"sku": "S4-720-V-VAD-HPR", "desc": "S4 Heat Sensor Voice Sounder High Power red VAD"}, {"sku": "S4-711-V-VAD-LPR", "desc": "S4 Dual Optical Heat Sensor Voice Sounder Standard Power red VAD"}, {"sku": "S4-711-V-VAD-HPW", "desc": "S4 Dual Optical Heat Sensor Voice Sounder High Power White VAD"}, {"sku": "S4-711-V-VAD-HPR", "desc": "S4 Dual Optical Heat Sensor Voice Sounder High Power red VAD"}, {"sku": "S4BK-711-V-VAD-HPR", "desc": "S4 Black Dual Optical Heat Sensor Voice Sounder High Power red VAD"}, {"sku": "S4-911-V-VAD-HPW", "desc": "S4 CO Dual Optical Heat Sensor Voice Sounder High Power White VAD"}, {"sku": "S4-911-V-VAD-HPR", "desc": "S4 CO Dual Optical Heat Sensor Voice Sounder High Power red VAD"}, {"sku": "S4M-VAD-LPR", "desc": "S4M Low Power C Class VAD Red."}, {"sku": "S4M-V-VAD-LPR", "desc": "S4M Voice Sounder Low Power C Class VAD Red."}, {"sku": "S4M-S", "desc": "S4M Sounder only"}, {"sku": "S4-34805", "desc": "Vigilon Manual Call Point with Resettable Element (excludes back box)"}, {"sku": "S4-34800", "desc": "Vigilon Manual Call Point with Glass Element IP 43  (excludes back box)"}, {"sku": "S4-34890", "desc": "Resettable Element for Vigilon MCP (sold in packs of 10) price per pack"}, {"sku": "S4-34891", "desc": "Replacement Glass for S4-34800 (sold in pack of 10) price per pack"}, {"sku": "S4-34892", "desc": "Protective Cover for S4-34800 and S4- 34805  (sold in pack of 20) price per pack"}, {"sku": "S4-34895", "desc": "Surface Back Box (red) for S4-34800 range of MCP's (Sold in packs of 10) price per pack"}, {"sku": "S4-34899", "desc": "Test Key for S4-34800 range of MCP (sold in packs of 25) price per pack"}, {"sku": "S4-34805-EP", "desc": "IP67 Vigilon Manual Call Point with Resettable Element"}, {"sku": "S4-34845", "desc": "Vigilon Manual Call Point with Resettable Element and Protective Cover (excludes back box)"}, {"sku": "S4-34842", "desc": "Vigilon Manual Call Point with Glass Element and Protective Cover  (excludes back box)"}, {"sku": "S4-34896", "desc": "Anti-Tamper Enclosure for MCP (IP66)"}, {"sku": "704952", "desc": "Yellow Fascia for key Switch MCP (for use with S4-34807)"}, {"sku": "704982", "desc": "Yellow Surface mount back box for key Switch MCP (for use with S4-34807)"}, {"sku": "S4-34807", "desc": "Vigilon Key switch MCP (supplied without back box)"}, {"sku": "S4-34740", "desc": "Beam Sensor Pair (Transmitter and Receiver) excl bracket and Base"}, {"sku": "S4-34741", "desc": "Beam Sensor Transmitter"}, {"sku": "S4-34742", "desc": "Beam Sensor Receiver"}, {"sku": "S4-34741-01", "desc": "34740 Angle Bracket + Base"}, {"sku": "S4-34741-03", "desc": "34740 Parallel Bracket + Base"}, {"sku": "S4-34741-50", "desc": "Obscuration test card set"}, {"sku": "S4-34741-99", "desc": "Light Shields for Beam Receiver (pack of 5)"}, {"sku": "S3-BASE-SR", "desc": "S3 red Shallow base (pack of 5)"}, {"sku": "S3-BASE-SW", "desc": "S3 White Shallow base (pack of 5)"}, {"sku": "S3-GASKET-IP55", "desc": "Gasket kit for S3 deep base - increases particle ingress from IP21 to IP55 (Pack of 10)"}, {"sku": "S3-CONTROL", "desc": "HandiLink IR Remote Control for the S-Cubed Range of Sounders"}, {"sku": "S3-VAD-HPR-R", "desc": "S3 red Body High Power red VAD"}, {"sku": "S3EP-VAD-HPR-R", "desc": "S3 EP (IP66) red Body High Power red VAD"}, {"sku": "S3-S-R", "desc": "S3 Sounder red Body"}, {"sku": "S3-S-W", "desc": "S3 Sounder White Body"}, {"sku": "S3EP-S-R", "desc": "S3 EP (IP66) Sounder red Body"}, {"sku": "S3-V-R", "desc": "S3 Voice Sounder red Body"}, {"sku": "S3-V-W", "desc": "S3 Voice Sounder White Body"}, {"sku": "S3-S-VAD-LPR-R", "desc": "S3 red Body Sounder Standard Power red VAD"}, {"sku": "S3-S-VAD-HPR-R", "desc": "S3 red Body Sounder High Power red VAD"}, {"sku": "S3-S-VAD-HPR-W", "desc": "S3 White Body Sounder High Power red VAD"}, {"sku": "S3-V-VAD-HPR-R", "desc": "S3 red Body Voice Sounder High Power red VAD"}, {"sku": "S3-V-VAD-HPW-R", "desc": "S3 red Body Voice Sounder High Power White VAD"}, {"sku": "S3EP-V-VAD-HPR-R", "desc": "S3 EP (IP66) red Body Voice Sounder High Power red VAD"}, {"sku": "S3EP-V-VAD-HPW-R", "desc": "S3 EP (IP66) red Body Voice Sounder High Power White VAD"}, {"sku": "SAFE-WHITE-S-KIT", "desc": "SAFE 1 button white plus interface"}, {"sku": "SAFE-SS-D-KIT", "desc": "SAFE 2 button Stainless Steel plus inter"}, {"sku": "SAFE-WHITE-D-KIT", "desc": "SAFE 2 button White plus interface"}, {"sku": "SAFE-RED-D-KIT", "desc": "SAFE 2 button Stainless Steel plus inter"}, {"sku": "SAFE-WHITE-D-SPARE", "desc": "SAFE 2 button White plus loom"}, {"sku": "SAFE-RED-D-SPARE", "desc": "SAFE 2 button Red plus loom"}, {"sku": "SAFE-SS-D-SPARE", "desc": "SAFE 2 button Stainless Steel plus loom"}, {"sku": "SAFE-WHITE-S-SPARE", "desc": "SAFE 1 button white plus loom"}, {"sku": "S4-34410", "desc": "Single Channel Interface, LV Input only (no enclosure)"}, {"sku": "S4-34412", "desc": "12 input Interface module (supervisory inputs only)"}, {"sku": "S4-34420", "desc": "LV Interface 1 Output & 1 Input (no enclosure)"}, {"sku": "S4-34450", "desc": "4 Channel Interface (input/output) (no enclosure)"}, {"sku": "S4-34415", "desc": "Single Channel (output only) Interface c/w Relay and Enclosure"}, {"sku": "S4-34411", "desc": "Single Channel (output only) Interface c/w Relay - DIN Mounting"}, {"sku": "S4-34401", "desc": "Single channel Mains switching interface (c/w enclosure)"}, {"sku": "S4-34404", "desc": "Four channel Mains switching interface (c/w enclosure)"}, {"sku": "S4-34440-02", "desc": "Mains Powered Interface - max o/p power 1.5A. Batteries not included - requires 2 x 4015-502-YFR (Power Sonic Flame Retardant 12V 2.1Ah) to meet compliance regulations."}, {"sku": "S4-34440-12", "desc": "Mains Powered Interface - max o/p power 2.5A. Batteries not included - requires 2 x 4015-514-YFR (Power Sonic Flame Retardant 12V 12Ah) to meet compliance regulations."}, {"sku": "VSINTSC-PCB01", "desc": "Spare PCB for S4 Single channel Mains Switching I/F (S4-34401)"}, {"sku": "VSINTSC-PCB04", "desc": "Spare PCB for S4 Four channel Mains Switching I/F (S4-34404)"}, {"sku": "VSINTM-PCB02", "desc": "Spare PCB for S4 Mains Powered Interface - 1.5A (S4-34440-02)"}, {"sku": "VSINTM-PCB12", "desc": "Spare PCB for S4 Mains Powered Interface - 2.5A (S4-34440-12)"}, {"sku": "S4-34418", "desc": "Key switch Interface (Single Channel) c\\w blue Enclosure"}, {"sku": "S4-34499", "desc": "Set of 2 Keys for Key switch Interface & MCP"}, {"sku": "S4-34490", "desc": "Interface Enclosure Large (Plastic)"}, {"sku": "S4-34496", "desc": "Interface enclose Plastic houses 6 interfaces"}, {"sku": "S4-34492", "desc": "Interface Enclosure - Small (metal) with 20mm and 25mm knockout"}, {"sku": "M200E-SMB", "desc": "Interface Enclosure (Small) Plastic Previously listed as S4-34493"}, {"sku": "S4-34491", "desc": "Pack of 5 DIN Rail Brackets for LV Interface"}, {"sku": "S4-34760", "desc": "Duct Housing (Inc S Quad BASE AND 0.6M TUBE)"}, {"sku": "S4-34760-15", "desc": "1.5m Venturi Tube"}, {"sku": "S4-34760-28", "desc": "2.8m Venturi Tube"}, {"sku": "S4-34760-99", "desc": "Mounting Bracket"}, {"sku": "14112-09EN", "desc": "Spare Square Glasses Pack of 10 - EN54 Pt11 Version"}, {"sku": "14115-KEY", "desc": "Spare Bulgin key for 14115-08 key operated (pack of 10)"}, {"sku": "14112-10", "desc": "Pack Of 10 Plastic Test Keys for 34800-EN and 14112-08 MCP"}, {"sku": "14111-99", "desc": "MCP 1106(1102) Glass Pack"}, {"sku": "S2IP-SN-W3", "desc": "Backwards compatible sounder (WHITE) - Replacement for 34203 3way Sounder"}, {"sku": "S2IP-SN-R3", "desc": "Backwards compatible sounder (RED) - Replacement for 34203 3way Sounder"}, {"sku": "VSINTM-PCB-UPG", "desc": "Replacement Card for Mains Powered Interface (34440)"}, {"sku": "VSINT-KEY", "desc": "Spare Key Pack for 34450 & 34440 (2 keys)"}, {"sku": "VSRPT-MRC", "desc": "Vigilon Repeat Panel MRC for repeats pre-2007 (BS & EN)"}, {"sku": "WINMAG-SMALL", "desc": "Winmag basic package for up to 10 panels.\r\nGuide Price \ufffd1959.08\r\nPart number is for quote purposes only - please speak to Sales Support for a quotation containing all the correct parts to order."}, {"sku": "WINMAG-MEDIUM", "desc": "Winmag basic package for up to 30 panels.\r\nGuide Price \ufffd2449.08\r\nPart number is for quote purposes only - please speak to Sales Support for a quotation containing all the correct parts to order."}, {"sku": "WINMAG-LARGE", "desc": "Winmag basic package for up to 150 panels.\r\nGuide Price \ufffd3804.91\r\nPart number is for quote purposes only - please speak to Sales Support for a quotation containing all the correct parts to order."}, {"sku": "WM1001", "desc": "WINMAG plus Installation Media"}, {"sku": "WM2010", "desc": "WINMAG plus base package 500. Gent Licence provides 7,500 data points."}, {"sku": "WM2020", "desc": "WINMAG plus base package 1500. Gent Licence provides 22,500 data points."}, {"sku": "WM2030", "desc": "WINMAG plus base package 2500. Gent Licence provides 37,500 data points."}, {"sku": "WM2040", "desc": "WINMAG plus base package 10000. Gent Licence provides 150,000 data points."}, {"sku": "WM2050", "desc": "WINMAG plus base package 20000. Gent Licence provides 300,000 data points."}, {"sku": "WM2060", "desc": "WINMAG plus base package 50000. Gent Licence provides 750,000 data points."}, {"sku": "WM2110", "desc": "Additional  500. Gent Licence provides additional 7,500 data points."}, {"sku": "WM2120", "desc": "Additional 2500. Gent Licence provides additional 37,500 data points."}, {"sku": "WM2130", "desc": "Additional 5,000. Gent Licence provides additional 75,000 data points."}, {"sku": "WM2140", "desc": "Additional 10,000 data points"}, {"sku": "WM2200", "desc": "WINMAG plus Client - single license"}, {"sku": "WM2210", "desc": "WINMAG plus Client - licenses  5 pcs"}, {"sku": "WM2220", "desc": "WINMAG plus Client - licenses, 10 pcs"}, {"sku": "WM2230", "desc": "WINMAG plus Client - licenses, 25 pcs"}, {"sku": "WM2310", "desc": "WINMAG plus upgrade to newest version. 2500 Data Points."}, {"sku": "WM2320", "desc": "WINMAG plus upgrade to newest version. 10,000 Data Points."}, {"sku": "WM2330", "desc": "WINMAG plus upgrade to newest version. 20,000 Data Points."}, {"sku": "WM2340", "desc": "WINMAG plus upgrade to newest version. 50,000 Data Points."}, {"sku": "WM3120", "desc": "Option Fire system Gent"}, {"sku": "WM3130", "desc": "Option Fire system Notifier"}, {"sku": "WM3140", "desc": "Option Variodyn D1"}, {"sku": "WM4030", "desc": "Option Multi-Monitor"}, {"sku": "WM4040", "desc": "Option Auto-CAD\ufffd"}, {"sku": "WM4120", "desc": "Option Notification"}, {"sku": "WM4130", "desc": "Option Escalation"}, {"sku": "WM5100", "desc": "WINMAG plus OPC Server"}, {"sku": "WM5200", "desc": "WINMAG plus OPC Client"}, {"sku": "WM5300", "desc": "OPC/BACnet 500 Tags"}, {"sku": "WM5600", "desc": "WINMAG plus BACnet Server"}, {"sku": "WM5700", "desc": "WINMAG plus BACnet  Client"}, {"sku": "WM5800", "desc": "Software universal gateway for PC"}, {"sku": "764744", "desc": "Z-System Zener barrier for intrinsically safe detectors"}, {"sku": "764746", "desc": "Z-System Zener barrier for AV device (Drives one sounder or two strobes)"}, {"sku": "803271.EX", "desc": "Intrinsically Safe Heat Detector (Rate of Rise) - Please use base 805590."}, {"sku": "803371.EX", "desc": "Intrinsically Safe Optical Smoke Detector - Please use base 805590."}, {"sku": "803374.EX", "desc": "Intrinsically Safe Dual Angle Optical Heat Detector - Please use base 805590."}, {"sku": "M1A-R470SG-K013-81", "desc": "intrinsically safe indoor call point, 470 ohm. ATEX Approved."}, {"sku": "W1A-R470SG-K013-81", "desc": "Intrinsically safe outdoor call point, 470 ohm."}, {"sku": "SOUNDER-EX", "desc": "Banshee Excel IS28 MK6 ATEX approved sounder (No EN54-3 approval) Monitored"}, {"sku": "VID-EX", "desc": "IS Flashdome\ufffdATEX Approved Visual indicating device\ufffd\ufffd(No EN54-23 Approval) Monitored"}, {"sku": "LT-SEN-M", "desc": "Monitoring sensor"}, {"sku": "LT-ACC-TST", "desc": "DEC Bump Test Bottle"}, {"sku": "LT-ACC-ERO-16", "desc": "Ethernet Relay Output 16 port"}, {"sku": "LT-ACC-ETS-16", "desc": "Ethernet Switch 16 port"}, {"sku": "LT-ACC-ETS-5", "desc": "Ethernet Switch 5 port"}, {"sku": "LT-ACC-ETS-8", "desc": "Ethernet Switch 8 port"}, {"sku": "LT-ACC-HUB-POE-HON", "desc": "Hub PoE LT Gen 3"}, {"sku": "LT-ACC-HUB-PWR-HON", "desc": "Hub Direct Power LT Gen 3"}, {"sku": "LT-ACC-NCL-10", "desc": "RJ45 Cable 10' LT Gen 3"}, {"sku": "LT-ACC-NCL-100", "desc": "RJ45 Cable 100' LT Gen 3"}, {"sku": "LT-ACC-NCL-25", "desc": "RJ45 Cable 25' LT Gen 3"}, {"sku": "LT-ACC-NCL-3", "desc": "RJ45 Cable 3' LT Gen 3"}, {"sku": "LT-ACC-NCL-5", "desc": "RJ45 Cable 5' LT Gen 3"}, {"sku": "LT-ACC-NCL-50", "desc": "RJ45 Cable 50' LT Gen 3"}, {"sku": "LT-ACC-POE-24", "desc": "Ethernet Switch PoE, 24 ports"}, {"sku": "LT-ACC-POE-4", "desc": "Ethernet Switch PoE, 4 ports"}, {"sku": "LT-ACC-PWR-12", "desc": "Power Supply 12VDC"}, {"sku": "LT-ACC-PWR-48", "desc": "Power Supply 48VDC"}, {"sku": "LT-ACC-SAK", "desc": "Spare 4xTerminators 1xScrew Adapter"}, {"sku": "LT-CTR-SML", "desc": "Ctr LT Gen 3"}, {"sku": "LT-CTR-SML-DMK", "desc": "Ctr Small DIN-Mount Kit LT Gen 3"}, {"sku": "LT-SEN-M3", "desc": "Sensor Monitoring LT Gen 3"}, {"sku": "LT-SEN-R3", "desc": "Sensor Reference LT Gen 3"}, {"sku": "LT-ACC-ERO-MKT", "desc": "Relay Output DIN-Rail Mount Kit"}, {"sku": "LT-ACC-HUB-MKT", "desc": "Hub DIN-Rail Mount Kit"}, {"sku": "LT-ACC-POE-24-ADR", "desc": "PoE Switch 24 port, IEC Power Adapter"}, {"sku": "LT-SEN-MOS", "desc": "Li-ion Tamer Multi Output System"}, {"sku": "LT-SEN-IM-UL", "desc": "Li-ion Tamer Interface Module UL"}, {"sku": "LT-SEN-M-L", "desc": "Li-ion Tamer GEN2+ monitoring sensor"}, {"sku": "MA-1000-01", "desc": "Morley-IAS Max Single loop (non-networkable) For System Sensor & Apollo protocol"}, {"sku": "MA-1000-03", "desc": "Morley-IAS Max Single loop (non-networkable) For Morley-IAS, System Sensor & Apollo protocol"}, {"sku": "MA-1BZL", "desc": "Morley-IAS Max MA-1000 Bezel"}, {"sku": "MA-2000-01", "desc": "Morley-IAS Max two loop (networkable) For System Sensor & Apollo protocol"}, {"sku": "MA-2000-03", "desc": "Morley-IAS Max Stwo loop (networkable) For Morley-IAS, System Sensor & Apollo protocol"}, {"sku": "MA-2BZL", "desc": "Morley-IAS Max MA-2000 Bezel"}, {"sku": "MA-8000-01", "desc": "Morley-IAS Max four loop, expandable to eight (networkable) For System Sensor & Apollo protocol"}, {"sku": "MA-8000-03", "desc": "Morley-IAS Max four loop, expandable to eight (networkable) For Morley-IAS, System Sensor & Apollo protocol"}, {"sku": "MA-8BZL", "desc": "Morley-IAS Max MA-8000 Bezel"}, {"sku": "MA-LIB2-01", "desc": "Morley-IAS Max dual Loop card for MA-8000. includes mounting fixtures"}, {"sku": "E-SIB", "desc": "Morley-IAS Max Communication dongle for CAN Bus & Serial TPP enablement (MA-2000 & MA-8000 only)"}, {"sku": "5000.00.003", "desc": "MA-2000-XX & MA-8000-XX User terminal board"}, {"sku": "5000.00.005", "desc": "MA-2000-XX & MA-8000-XX Flat Ribbon Cable Kit"}, {"sku": "5000.00.006", "desc": "Max Battery Cables  &  temperature probe"}, {"sku": "5000.00.007", "desc": "MA-2000-XX PSU - Power Supply unit"}, {"sku": "5000.00.008", "desc": "MA-8000-XX PSU - Power Supply unit"}, {"sku": "5000.00.019", "desc": "MA-1000-XX User terminal board"}, {"sku": "5000.00.021", "desc": "MA-1000-XX PSU - Power Supply unit"}, {"sku": "5000.00.025", "desc": "MA-1000-XX Flat Ribbon Cable Kit"}, {"sku": "5000.00.022", "desc": "MA-1000-01 Main control board including display LCD - Region 1"}, {"sku": "5000.00.024", "desc": "MA-1000-03 Main control board including display LCD - Region 3"}, {"sku": "5000.00.010", "desc": "MA-2000-01 Main control board including display LCD - Region 1"}, {"sku": "5000.00.012", "desc": "MA-2000-03 Main control board including display LCD - Region 3"}, {"sku": "5000.00.013", "desc": "MA-8000-01 Main control board including display LCD - Region 1"}, {"sku": "5000.00.015", "desc": "MA-8000-03 Main control board including display LCD - Region 3"}, {"sku": "5000.00.016", "desc": "MA-8000-XX 3U Front battery Cover/Blank"}, {"sku": "5000.00.017", "desc": "MA-2000-XX & MA-8000-XX Front Door including screws. Ex PBC"}, {"sku": "5000.00.026", "desc": "MA-1000-XX  Front Door including screws. Ex PBC"}, {"sku": "MA-LCD7", "desc": "Max 7\" Touchscreen repeater/zonal mimic"}, {"sku": "PL-1000", "desc": "PLUS compact addressable fire panel"}, {"sku": "PL-LIB01S", "desc": "PLUS LOOP CARD V2"}, {"sku": "714-001-111", "desc": "DXc1 Single loop panel (no zone LEDs) 230Vac, 2 sounder circuits. Supports Apollo, System Sensor and Hochiki protocols.\r\n260 x 390 x 147mm (H x W x D)."}, {"sku": "714-001-221", "desc": "DXc2 2 Loop control  panel  (no zone LEDs) 230Vac, 2 sounder circuits.  Supports Apollo, System Sensor and Hochiki protocols.391.5 x 390 x 147mm (H x W x D)."}, {"sku": "714-001-241", "desc": "DXc4 4 Loop control  panel  (no zone LEDs) 230Vac, 2 sounder circuits.  Supports Apollo, System Sensor and Hochiki protocols.391.5 x 390 x 147mm (H x W x D)."}, {"sku": "795-102", "desc": "40 Zone LED Card, includes PCB, ribbon cable, zone number labels & fixings. Zone LED PCB is fitted to the lower half of the front door"}, {"sku": "795-124", "desc": "80 ZONE LED Card, includes PCB, ribbon cable, zone number labels & fixings. Zone LED PCB is fitted to the lower half of the front door"}, {"sku": "795-111", "desc": "DXc 2 Loop Expansion Card for use with the DXc4 only"}, {"sku": "795-121", "desc": "DXc extension Box  increases the enclosure size of a DXc1, DXc2, or DXc4 control panel to accommodate larger batteries, relays or other equipment by fitting the extension back box, 263 x 390 x 147 (H x W x D).This Extension Box is supplied without covers. Two covers must be used with the box. Any combination of the three listed below can be used: 795-101, 795-103, 795-116"}, {"sku": "795-101", "desc": "DXc Extension Box Cover Blank For Extension Box"}, {"sku": "795-103", "desc": "DXc Extension cover, comes with 80 zone LED card"}, {"sku": "795-116", "desc": "The custom key plate cover is supplied with a painted metal plate. The metal plate can be removed and drilled to accept key switches or indicators and labelled accordingly by the installer. The custom key plate cover can be used to replace the blank cover supplied with the DXc2/4 control panels or used with the extension backbox, part No. 795-121"}, {"sku": "795-118", "desc": "DXc key switch kit,  Control panels can be fitted with an optional key switch kit fitted by removing the existing label and replacing with a new label supplied with the kit. The flying lead (fitted with a plug) pushes on to the two pins situated at the bottom of the main display PCB"}, {"sku": "797-090", "desc": "DXc Extension EN54-4 compliant PSU backbox increases the enclosure size of a DXc2, or DXc4 control panel to accommodate an additional pair of 17Ah batteries to provide increased system battery standby of up to 34Ah at 24V(depending o the batteries fitted in the panel) . This unit is supplied with the backbox, two cover blanks and an additional power supply unit (PSU). 263 x 390 x 147 (H x W x D)"}, {"sku": "795-112", "desc": "Flush bezel kit for DXc1 (small enclosure)"}, {"sku": "795-113", "desc": "Flush bezel kit for DXc 2/4 (medium enclosure)"}, {"sku": "795-114", "desc": "Flush bezel kit for DXc 1 with the extension backbox fitted (small enclosure)"}, {"sku": "795-115", "desc": "Flush bezel kit for DXc 2/4 with the extension backbox fitted (medium enclosure)"}, {"sku": "795-120", "desc": "Rack Mount Bracket for DXc2/4"}, {"sku": "795-104", "desc": "DXc replacement door for DXc control panels. The spare door fits all three variants of the panel, DXc1, DXc2 & DXc4 and is supplied complete with display PCB, facia label, ribbon cable and lock."}, {"sku": "795-083", "desc": "Keyswitch kit. Keyswitch and 2x keys to mount into DX series control panels. Used for Level 2 access, class change and control of functions"}, {"sku": "795-099", "desc": "Kit DXc Network Card, In order to connect panels together to create a network a DXc Network card must be fitted to each panel"}, {"sku": "795-122", "desc": "DXc RS232 Card allows the connection of a serial device to the panel such as BMS system or our Visuleyez product range"}, {"sku": "795-132", "desc": "For use with DXc1-M (714-001-214) & DXc2-M (714-001-224) only. I/O card for EN54-13 compliant sounder circuits, Fire Routing interface, Fault Routing interface and Fire Protection interface.  Routing Termination units may be required depending on application. Allows compliance with EN54-2 OWR 7.9.1 and 7.9.2, OWR 7.10, OWR 8.9"}, {"sku": "020-773", "desc": "Routing Termination Unit 1 (RTU01).   Use on the Fault Routing output on the 795-132 to allow full monitoring of the transmission path to transmission device.  Allows compliance with EN54-2 OWR 8.9"}, {"sku": "795-097", "desc": "DXc Software programming kit (SPK) supports System Sensor, Apollo and Hochiki protocols"}, {"sku": "795-084", "desc": "Spare keys for 795-083 - Pack of 5"}, {"sku": "795-108-001", "desc": "DXc replacement text inserts,  pack includes all text inserts/slide-in labels including both blank and numbered labels for Zone LEDs. Pack also includes the User Reference Guide and the Quick Start Manual"}, {"sku": "795-109-001", "desc": "DXc 1 loop base card - Apollo, System Sensor and Hochiki protocols"}, {"sku": "795-110-001", "desc": "DXc 2 loop base card - Apollo, System Sensor and Hochiki protocols"}, {"sku": "795-110-002", "desc": "DXc 2 loop base card  - Morley Protocol"}, {"sku": "795-106", "desc": "DXc1 Spare Power supply unit (PSU) for 1 loop panel"}, {"sku": "795-107", "desc": "DXc2/4 Spare Power supply unit (PSU) 2/4 loop panel"}, {"sku": "722-001-301", "desc": "ZX1Se single loop control panel. 230Vac, 2 sounder circuits, 4 line display and networking capability. 400 x 400 x 135mm (H x W x D). Order loop cards separately. Languages supplied: English, Italian, Spanish, Portuguese, Polish, Dutch, Slovenian and Croatian. Supplied with 20 zonal LED's , not expandable"}, {"sku": "720-001-301", "desc": "ZX2Se 1-2 loop control panel. 230Vac, 2 sounder circuits, 4 line display and networking capability. 400 x 400 x 135mm (H x W x D). Order loop cards separately. Languages supplied: English, Italian, Spanish, Portuguese, Polish, Dutch, Slovenian and Croatian. Supplied with 20 zonal LED's , not expandable"}, {"sku": "721-001-301", "desc": "ZX5Se 1-5 loop control panel. 230Vac, 4 sounder circuits, 4 line display and networking capability. 6 Amp PSU with 460mA loop capability 500 x 500 x 195mm (H x W x D). Order loop cards separately. Languages supplied: English, Italian, Spanish, Portuguese, Polish, Dutch, Slovenian and Croatian. Supplied with 20 zonal LED's ,  expandable to 40 or 80 with part numbers 795-077-020 or 795-077-060"}, {"sku": "721-002-301", "desc": "ZX5Se 1-5 loop control panel complete with Stainless Steel door and bezel. 230Vac, 4 sounder circuits, 4 line display and networking capability. 400 x 400 x 135mm (H x W x D). Order loop cards separately. Languages supplied: English, Italian, Spanish, Portuguese, Polish, Dutch, Slovenian and Croatian. Supplied with 20 zonal LED's ,  expandable to 40 or 80 with part numbers 795-077-020 or 795-077-060"}, {"sku": "721-001-140", "desc": "ZX5Se 1-5 loop 140 Zone LED control panel. 230Vac, 4 sounder circuits, 4 line display and networking capability. 6 Amp PSU with 460mA loop capability 500 x 500 x 195mm (H x W x D). Order loop cards separately. Languages supplied: English, Italian, Spanish, Portuguese, Polish, Dutch, Slovenian and Croatian. supplied with 140 Zone led's"}, {"sku": "721-001-200", "desc": "ZX5Se 1-5 loop 200 Zone LED control panel. 230Vac, 4 sounder circuits, 4 line display and networking capability. 6 Amp PSU with 460mA loop capability 500 x 500 x 195mm (H x W x D). Order loop cards separately. Languages supplied: English, Italian, Spanish, Portuguese, Polish, Dutch, Slovenian and Croatian. supplied with 200 Zone LED's"}, {"sku": "795-068-100", "desc": "Loop driver card for ZX panels, System Sensor protocol, 460mA"}, {"sku": "795-066-100", "desc": "Loop driver card for Apollo Discovery or XP95 protocols, 460mA"}, {"sku": "795-058-105", "desc": "Loop driver card for Hochiki ESP protocol, 460mA"}, {"sku": "795-068", "desc": "ZXe Loop driver card for System Sensor protocol"}, {"sku": "795-072", "desc": "ZXe Loop driver card for Morley protocol"}, {"sku": "795-048", "desc": "ZXe Loop driver card for Apollo Series 90 or XP95 protocol"}, {"sku": "795-066", "desc": "ZXe Loop driver card for Apollo Discovery or XP95 protocol"}, {"sku": "795-058-005", "desc": "ZXe Loop driver card for Hochiki ESP protocol"}, {"sku": "795-044-001", "desc": "ZXe Loop driver card for Nittan protocol"}, {"sku": "795-077-020", "desc": "20 Zone LED Card, includes PCB, ribbon cable & fixings. Zone LED PCB is fitted below the display card and increases the total number of zone LEDs to 40"}, {"sku": "795-077-060", "desc": "60 Zone LED Card, includes PCB, ribbon cable & fixings. Zone LED PCB is fitted below the display card and increases the total number of zone LEDs to 80"}, {"sku": "795-051-001", "desc": "Internal Printer for use with ZX5Se panels."}, {"sku": "796-017", "desc": "Printer paper roll and printer ribbon for ZXe/ZXSe internal printer. (795-051-001)"}, {"sku": "796-042", "desc": "Thermal printer paper roll for ZX External printer 795-060-002"}, {"sku": "020-820", "desc": "Replacement printer paper roll"}, {"sku": "795-014", "desc": "4-way, Programmable Output Relay Module, PCB only. Requires 24 Vdc supply and an RS485 card to be fitted in the control panel"}, {"sku": "795-015", "desc": "4-way, Programmable Sounder Module, PCB only. Requires 24 Vdc supply and an RS485 card to be fitted in the control panel"}, {"sku": "797-077", "desc": "ZX1(S)e & 2(S)e Battery box or mounting enclosure. Size 400 x 400 x 135mm (H x W x D)"}, {"sku": "797-078", "desc": "ZX5(S)e Battery box or mounting enclosure. Size 500 x 500 x 185mm (H x W x D)"}, {"sku": "797-076", "desc": "L' shaped mounting bracket to fit peripheral PCB's into Zxe/ZX5e/ZXSe"}, {"sku": "797-061", "desc": "ZX1(S)e/ZX2(S)e Bezel kit. Semi-flush mounting kit for ZX1(S)e or ZX2(S)e control panel. Bezel dimensions 450 x 450 mm (H x W)"}, {"sku": "797-063", "desc": "ZX1SE and ZX2Se Glass Door Kit, comprises a new inner door and plexiglass window allowing controls to protected and recessed within the existing enclosure"}, {"sku": "797-062", "desc": "ZX5Se Bezel kit. Semi-flush mounting kit for ZX5(S)e control panel. Bezel dimensions 550 x 550mm (H x W)"}, {"sku": "797-064", "desc": "ZX5Se Glass Door Kit, comprises a new inner door and plexiglass window allowing controls to protected and recessed within the existing enclosure"}, {"sku": "796-183", "desc": "ZX1/2Se Retrofit 4 line display kit including display plate and overlay"}, {"sku": "795-136", "desc": "ZX1/2SE Back Box. Includes the metal work only"}, {"sku": "795-141", "desc": "ZX1/2SE Door. Metal work only"}, {"sku": "795-137", "desc": "ZX5SE Back Box. Metal work only"}, {"sku": "795-142", "desc": "ZX5SE Door. Metal work only"}, {"sku": "020-825", "desc": "Lock and key for ZX series control panels"}, {"sku": "796-181", "desc": "ZX5Se Retrofit 4 line display including display plate and overlay"}, {"sku": "020-891", "desc": "Morley-IAS USB Upload/Download Lead. The lead provides the interface between a PC and any Morley-IAS fire alarm control panel"}, {"sku": "795-016", "desc": "Sounder booster PSU. Enclosure comprising 24Vdc PSU/Charger and single sounder circuit controller. 500 x 500 x 180mm (H x W x D)"}, {"sku": "795-004-001", "desc": "RS 485 Communication module"}, {"sku": "795-005", "desc": "RS 232 communication module"}, {"sku": "795-057", "desc": "MODBUS interface module. Requires an RS485 card to be fitted in the control panel"}, {"sku": "795-045", "desc": "RS485 to RS232 converter"}, {"sku": "795-038-001", "desc": "Hi-485 communication module, PCB only. Requires an RS485 card to be fitted in the control panel"}, {"sku": "796-860", "desc": "ZX Series V8.60 replacement software (set of two EPROMS)"}, {"sku": "796-855", "desc": "ZX Series V8.55 replacement software (set of two EPROMS)"}, {"sku": "796-845", "desc": "ZX Series V8.45 replacement software (set of two EPROMS)"}, {"sku": "796-706", "desc": "ZX Series V7.06 replacement software (set of two EPROMS)"}, {"sku": "797-021", "desc": "Spare key for ZX series control panels. Quantity 1"}, {"sku": "796-171", "desc": "Single loop base PCB for ZX1Se"}, {"sku": "796-170", "desc": "2 loop base card for ZX2Se"}, {"sku": "796-162", "desc": "5 loop base PCB for ZX5e/ZX5Se"}, {"sku": "796-045", "desc": "Micro processor pcb (CPU) for ZX series control panels. Supplied without software"}, {"sku": "796-177", "desc": "2 Amp PSU for post-Jan 2010 ZX1Se/2Se. PSU only this part does not come with chassis plate"}, {"sku": "796-178", "desc": "Spare PSU for ZX5Se post-Jan 2010. PSU only this part does not come with chassis plate"}, {"sku": "796-175", "desc": "ZX1/2Se retrofit PSU kit including chassis"}, {"sku": "796-184", "desc": "ZX2Se retrofit PSU & base card PCB kit"}, {"sku": "796-176", "desc": "ZX5Se retrofit PSU kit including chassis"}, {"sku": "796-180", "desc": "Retrofit PSU & base card PCB kit"}, {"sku": "709-601-001", "desc": "Morley-IAS Active Repeater. Silence, Mute, Reset, Accept, Evacuate and Test Controls. Requires 24 Vdc supply and a RS485 card when used with a ZX control panel. 165 x 254 x 50mm (H x W x D)"}, {"sku": "709-701-001", "desc": "Morley-IAS Passive Repeater. Requires 24 Vdc supply and a RS485 card when used with a ZX control panel. 165 x 254 x 50mm (H x W x D)"}, {"sku": "020-600-002", "desc": "Bezel kit for Active or Passive repeaters. Semi-flush mounting, 218 x 307 mm (H x W)"}, {"sku": "020-835", "desc": "Spare key switch and keys (901) for Morley repeaters 709-601-001"}, {"sku": "POL-200-TS", "desc": "Intelligent hand-held diagnostic test unit for analogue loops. Supplied complete with internal rechargeable battery and power supply"}, {"sku": "B501AP", "desc": "Analogue sensor base with SEMS screw connections for isolated and non-isolated detectors and address identification label. PURE WHITE"}, {"sku": "B524IEFT-1", "desc": "Deep analogue sensor base with built in FET isolator, with SEMS screw connections and address identification label"}, {"sku": "BPW", "desc": "Addressable deep base for detector and AV. Pure White Body"}, {"sku": "BRR", "desc": "Addressable deep base for detector and AV. Red"}, {"sku": "WRR", "desc": "Addressable sealed deep base for detector and AV. Red"}, {"sku": "WPW", "desc": "Addressable sealed deep base for detector and AV. Pure White Body"}, {"sku": "RMK400AP", "desc": "Recess mounting kit suitable for flush mounting bases into a false ceiling"}, {"sku": "IBS-LIDPW", "desc": "Pure White cover plate for base sounders. Pack of 10"}, {"sku": "WB-1AP", "desc": "Wet base shroud for use with standard bases to allow condensation run off and rear seal. Conduit entry only. Pure White Body"}, {"sku": "5.21E-22", "desc": "Heat sensor. 58 \ufffdC, no Isolator  - White. Type A1R. Requires B501AP, base"}, {"sku": "52051EI-26", "desc": "Heat sensor. 58 \ufffdC and Rate of Rise c/w Isolator - White. Type A1R. Requires B501AP base"}, {"sku": "52051HTE-26", "desc": "Heat high temperature sensor, 78 \ufffdC, no Isolator - White. Type BS. Requires  B501AP base"}, {"sku": "52051RE-26", "desc": "Heat sensor. 58 \ufffdC and Rate of Rise, no Isolator - White. Type A1R. Requires B501AP base"}, {"sku": "2.21E-22", "desc": "Low profile Optical Smoke Sensor, no Isolator - White. Requires B501AP base"}, {"sku": "22051EI-26", "desc": "Low profile Optical Smoke Sensor c/w Isolator - White. Requires B501AP base"}, {"sku": "22051TE-26", "desc": "Multi-sensor combined optical smoke sensor and thermal sensor in a single housing, no Isolator - White, Requires B501AP base"}, {"sku": "22051TEI-26", "desc": "Multi-sensor combined optical smoke sensor and thermal sensor c/w Isolator in a single housing, - White, Requires B501AP base"}, {"sku": "22051TLE-26", "desc": "Smoke/Thermal/IR Sensor, no Isolator - White"}, {"sku": "22051TLEI-26", "desc": "Smoke/Thermal/IR Sensor c/w Isolator - White"}, {"sku": "W5A-RP01SG-K013-01", "desc": "Addressable waterproof call point, no Isolator, IP 67 (Old PN: WCP5A-RP01SG-01)"}, {"sku": "W5A-RP02SG-K013-01", "desc": "Addressable waterproof call point c/w Isolator, IP 67 (Old PN: WCP5A-RP02SG-01)"}, {"sku": "M5A-RP01FF-K013-01", "desc": "Addressable manual call point no Isolator. Flexible element included. Requires PS031W for surface mounting or a single gang backbox for flush mounting (Old PN: MCP5A-RP01FF-01)"}, {"sku": "M5A-RP02FF-K013-01", "desc": "Addressable manual call point c/w Isolator. Flexible element included. Requires PS031W for surface mounting or a single gang backbox for flush mounting (Old PN: MCP5A-RP02FF-01)"}, {"sku": "M5A-RP01FG-K013-01", "desc": "Addressable manual call point no Isolator. Glass element included. Requires PS031W for surface mounting or a single gang backbox for flush mounting (Old PN: MCP5A-RP01FG-01)"}, {"sku": "M5A-RP02FG-K013-01", "desc": "Addressable manual call point c/w Isolator. Glass element included. Requires PS031W for surface mounting or a single gang backbox for flush mounting."}, {"sku": "TB011", "desc": "Flush mounting terminal tray for KAC units (Old PN: ETT-P)"}, {"sku": "6.50E-23", "desc": "Optical beam detector based on reflective technology. Supplied as a combined transmitter/receiver unit with a reflector. Suitable for distances from 10m to 70m.\r\nFor Beam accessories please see 6500 range in the conventional section."}, {"sku": "DNRE", "desc": "Duct detector housing complete with B501AP base for Addressable MI-PSE-S2 or MI-PSE-S2I detectors. (Detector not supplied). Requires DSTXX duct sampling tube and MI-PSE-S2 or MI-PSE-S2I detectors.\r\nFor Duct accessories please see Duct range in the conventional section."}, {"sku": "PS340", "desc": "10 X IP 21 SEAL(C 934) BRH/BRS/BGL"}, {"sku": "BSO-PP-N00", "desc": "Pure White Body no Isolator. Base Sounder - Addressable loop powered base sounder, EN54-3 approved."}, {"sku": "BSO-PP-I00", "desc": "Pure White Body c/w Isolator. Base Sounder - Addressable loop powered base sounder, EN54-3 approved."}, {"sku": "BGL-PC-I00", "desc": "Red Flash, Pure White Body, Clear Lens, c/w Isolator. Loop-powered EN54-23 C Category - Detector Base Strobe. EN54-23 certified. Coverage volume code: C-3-8.5"}, {"sku": "DSS-PC-N00", "desc": "Red Flash, Pure White Body, Clear Lens, no Isolator. Loop-powered EN54-23 Open Category Detector Base Sounder Strobe in pure with white. Non-isolated version. Requires a B501AP base for fast and simple installation for System Sensor detectors and a choice of sound output levels and tones selectable from the device or panel"}, {"sku": "DSS-PC-I00", "desc": "Red Flash, Pure White Body, Clear Lens c/w Isolator. Loop-powered EN54-23 Open Category Detector Base Sounder Strobe in pure white. Requires a B501AP base for fast and simple installation for System Sensor detectors and a choice of sound output levels and tones selectable from the device or panel"}, {"sku": "BRS-PC-I00", "desc": "Red Flash, Pure White Body, Clear Lens, c/w Isolator. Loop-powered EN54-23 C Category - Standard Performance Detector Base Sounder Strobe. EN54-23 certified. Coverage volume code: C-3-8.5 (Standard) / O-1-3 (Legacy)"}, {"sku": "BRH-PC-I00", "desc": "Body Colour - White                                                                           \r\nFlash - Red                                                                                                     \r\nLens - Clear                                                                                         \r\nIsolator - Yes                                                                                           \r\nHigh Performance Detector Base Sounder Strobe. Loop-powered EN54-23 C Category - EN54-23 certified. \r\nCoverage volume code: C-3-15 (High) / C-3-11 (Low) / C O-1-4 (Legacy)."}, {"sku": "WSO-PR-N00", "desc": "Red, no Isolator. Wall Sounder - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved."}, {"sku": "WSO-PR-I00", "desc": "Red c/w Isolation. Wall Sounder - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved."}, {"sku": "WSO-PP-N00", "desc": "White, no Isolator. Wall Sounder - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, Not isolated"}, {"sku": "WSO-PP-I00", "desc": "White, c/w isolator, Wall Sounder - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved."}, {"sku": "WST-PC-N00", "desc": "Red Flash, Pure White Body, Clear Lens, non-Isolated. Wall VAD - Wall mounted, addressable loop powered EN54-23 O class compliant  (W-1.68-1.68)."}, {"sku": "WSS-PC-N00", "desc": "Red Flash, Pure White Body, Clear Lens, non-Isolated. Wall Sounder Strobe - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, with Visual Alarm Device (VAD), EN54-23 O class compliant (W-1.9-1.9)."}, {"sku": "WSS-PR-N00", "desc": "Red Flash, Pure White Body, Red Lens, no Isolator. Wall Sounder - Addressable loop powered base sounder, EN54-3 approved, with visual indicating device (VID). This product is not approved to EN54-23 (Visual Alarm Device) and must not be used as a visual alarm device to provide a primary warning notification of fire."}, {"sku": "WSS-PR-I00", "desc": "Red Flash, Pure White Body, Red Lens c/w Isolation. Wall Sounder VID - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, with visual indicating device (VID). This product is not approved to EN54-23 (Visual Alarm Device) and must not be used as a visual alarm device to provide a primary warning notification of fire"}, {"sku": "WRA-PC-I00", "desc": "Body Colour - White                                                                     \r\nFlash - Red                                           \r\nLens - Clear                                                                                         \r\nIsolator - Yes                              \r\nWall Sounder VAD - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, with Visual Alarm Device (VAD), EN54-23 W & O class compliant.\r\nEN 54-23 COVERAGE STANDARD OUTPUT MODE: W-3.6-10.5, W-2.4-10.5 \r\nEN 54-23 COVERAGE HIGH OUTPUT MODE: W-4.2-11.5, W-2.4-11.5 \r\nEN 54-23 COVERAGE LEGACY MODE: O-2.4-3"}, {"sku": "WRA-RC-I00", "desc": "Body Colour - Red                                                                       \r\nFlash - Red                                                                                                    \r\nLens - Clear                                                                                         \r\nIsolator - Yes                             \r\nWall Sounder VAD - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, with Visual Alarm Device (VAD), EN54-23 W & O class compliant.\r\nEN 54-23 COVERAGE STANDARD OUTPUT MODE: W-3.6-10.5, W-2.4-10.5 \r\nEN 54-23 COVERAGE HIGH OUTPUT MODE: W-4.2-11.5, W-2.4-11.5 \r\nEN 54-23 COVERAGE LEGACY MODE: O-2.4-3"}, {"sku": "WWA-PC-I00", "desc": "Body Colour - White                                                                       \r\nFlash - White                                                                                                     \r\nLens - Clear                                                                                         \r\nIsolator - Yes                             \r\nWall Sounder VAD - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, with Visual Alarm Device (VAD), EN54-23 W & O class compliant.\r\nEN 54-23 COVERAGE STANDARD OUTPUT MODE: W-3.8-9, W-2.4-9 \r\nEN 54-23 COVERAGE HIGH OUTPUT MODE: W-4-11.5, W-2.4-11.5\r\nEN 54-23 COVERAGE LEGACY MODE:  O-2.4-3"}, {"sku": "WWA-RC-I00", "desc": "Body Colour - Red                                                                       \r\nFlash - White                                                                                                     \r\nLens - Clear                                                                                        \r\nIsolator - Yes                             \r\nWall Sounder VAD - Wall-mounted, addressable, loop-powered sounder, EN54-3 approved, with Visual Alarm Device (VAD), EN54-23 W & O class compliant.\r\nEN 54-23 COVERAGE STANDARD OUTPUT MODE: W-3.8-9, W-2.4-9 \r\nEN 54-23 COVERAGE HIGH OUTPUT MODE: W-4-11.5, W-2.4-11.5\r\nEN 54-23 COVERAGE LEGACY MODE:  O-2.4-3"}, {"sku": "WRL-RC-I00", "desc": "Body Colour - Red                                                                       \r\nFlash - Red                                                                                                     \r\nLens - Clear                                                                                         \r\nIsolator - Yes                              \r\nWall VAD - Wall-mounted, addressable, with Visual Alarm Device (VAD), EN54-23 W class compliant.\r\nEN 54-23 COVERAGE: W-3.6-10.5, W-2.4-10.5"}, {"sku": "WRL-PC-I00", "desc": "Body Colour - White                                                                       \r\nFlash - Red                                                                                                     \r\nLens - Clear                                                                                         \r\nIsolator - Yes                              \r\nWall VAD - Wall-mounted, addressable, with Visual Alarm Device (VAD), EN54-23 W class compliant.\r\nEN 54-23 COVERAGE: W-3.6-10.5, W-2.4-10.5"}, {"sku": "WWL-PC-I00", "desc": "Body Colour - White                                                                       \r\nFlash - White                                                                                                     \r\nLens - Clear                                                                                         \r\nIsolator - Yes                              \r\nWall VAD - Wall-mounted, addressable, with Visual Alarm Device (VAD), EN54-23 W class compliant.\r\nEN 54-23 COVERAGE: W-3.8-9, W-2.4-9"}, {"sku": "WWL-RC-I00", "desc": "Body Colour - Red                                                                       \r\nFlash - White                                                                                                     \r\nLens - Clear                                                                                        \r\nIsolator - Yes                              \r\nWall VAD - Wall-mounted, addressable, with Visual Alarm Device (VAD), EN54-23 W class compliant.\r\nEN 54-23 COVERAGE: W-3.8-9, W-2.4-9"}, {"sku": "M210EA", "desc": "SINGLE INPUT MODULE - SYSTEM SENSOR"}, {"sku": "M220EA", "desc": "DUAL INPUT MODULE - SYSTEM SENSOR"}, {"sku": "M221EA", "desc": "2 INPUT, 1 OUT MODULE - SYSTEM SENSOR"}, {"sku": "M210EA-CZ", "desc": "Analogue addressable monitor module for supervision of a conventional zone equipped with capacitive EOL element"}, {"sku": "M210EA-CZR", "desc": "Analogue addressable monitor module for supervision of a conventional zone equipped with EOL resistor"}, {"sku": "IM-10EA", "desc": "Ten input monitor module to provide an interface to a normally open contact devices such as plant outputs or flow switches. Requires back box 797-065"}, {"sku": "M501MEA", "desc": "Addressable \"mini\" input module.  It will interface with contact devices such as security contacts and waterflow switches, suitable for mounting inside monitored equipment"}, {"sku": "MMX-10ME", "desc": "10 way Addressable monitor (input) card (unboxed) complete with end of line resistors, individual input disable switches, plug in screw connections and on board LED's with the facility for external LED's.\r\n(Use only as spares/replacements and for extensions of existing sites)"}, {"sku": "MCX-55ME", "desc": "5-way Addressable monitor (input) & 5 way relay control (output) card (unboxed) complete with end of line resistors, individual input disable switches, plug in screw connections and on board LED's with the facility for external LED's. Requires back box 797-065"}, {"sku": "CMX-10RME", "desc": "10-way relay control (output) card (unboxed PCB.) contact rating 30 Vdc, 1 A. Complete with individual input disable switches, plug in screw connections and on board LED's with the facility for external LED's"}, {"sku": "M201EA-240", "desc": "Output control module System Sensor Protocol. \r\n240V ac relay contact rating, no longer comes with an enclosure e.g. M200E-SMB"}, {"sku": "CR-6EA", "desc": "six way changeover relay output with built-in loop isolation. Complete with rotary address switch and plug-in terminal blocks. Requires M200-SMB-MM for mounting"}, {"sku": "M201EA", "desc": "SINGLE OUTPUT MODULE - SYSTEM SENSOR"}, {"sku": "M200SMB", "desc": "Deep Module enclosure"}, {"sku": "SMB6-V0", "desc": "Surface mount box for up to 6 M2xx modules"}, {"sku": "M200E-DIN", "desc": "DIN rail mounting clip for M2xx series modules"}, {"sku": "SMB500", "desc": "Surface Mount Module Box. Plastic, not suitable for M7xx modules"}, {"sku": "797-065", "desc": "Multi-Mount Enclosure. Metal, Morley light grey"}, {"sku": "SSE-DRS-1", "desc": "BS7273 Door Release system. Comprising DRM-1 door release module and M201 single output model prewired and mounted in SMB6-V0 surface mount box. Used provide a compliant solution to BS7273-4 Category A requirements.  Powered from the 12-24v door magnet supply. System Sensor protocol"}, {"sku": "DRM-1", "desc": "BS7273 Door Release Module, additional failsafe to be used in conjunction with Morley-IAS output modules to provide a compliant solution to BS7273-4 Category A requirements. Powered from the 12-24v door magnet supply"}, {"sku": "M200XE", "desc": "Loop isolation module. Requires M200E-SMB for surface mounting or M200E-DIN for mounting to DIN rails"}, {"sku": "580248.11", "desc": "Power amplifier 4 x 300 W / 100 V, Class D, 24 V DC"}, {"sku": "580249.11", "desc": "Power amplifier 4 x 500 W / 100 V, Class D, 24 V DC"}, {"sku": "583520", "desc": "DCS Plus - digital call station for routine and emergency paging with redundancy option"}, {"sku": "583526", "desc": "DKM Plus - 18 button digital key module for use with DCS Plus"}, {"sku": "583527", "desc": "ETCS - Ethernet touchscreen call station"}, {"sku": "583503.RE", "desc": "DCSF12 - Fireman's emergency microphone (12 Buttons) with redundancy option"}, {"sku": "583504.RE", "desc": "DCSF1 - Fireman's emergency microphone - single button with redundancy option"}, {"sku": "583506", "desc": "DKM18 - Fireman's emergency microphone extension module"}, {"sku": "583318", "desc": "Clear plastic button covers (spares)"}, {"sku": "584963", "desc": "Replacement lock cylinder for DCSF protective cabinet"}, {"sku": "583361.22IPMSG", "desc": "DOM4-8 - digital output module for up to 8 loudspeaker circuits"}, {"sku": "583362.22IPMSG", "desc": "DOM4-24 - digital output module for up to 24 loudspeaker circuits"}, {"sku": "583381.31", "desc": "SCU - System communication unit"}, {"sku": "583496", "desc": "EOL - end of line module for all 100 V speaker circuits"}, {"sku": "585052", "desc": "Power Supply 1U - 24VDC/ 380A"}, {"sku": "585053", "desc": "Power Supply 2U - 24VDC/ 640A"}, {"sku": "583311", "desc": "Key Cover Flap KCF3"}, {"sku": "585000", "desc": "INC w/o any optional modules"}, {"sku": "585000.31", "desc": "INC w/ DAL Module 8 DAL ports & 12 GPIOs"}, {"sku": "585000.32", "desc": "INC w/ DANTE Module 8X8 & 12 GPIOs"}, {"sku": "585000.33", "desc": "INC w/ Aud In/ Out Module & 12 GPIOs"}, {"sku": "585001", "desc": "Universal Interface Module"}, {"sku": "585020", "desc": "8 Speaker Line Module"}, {"sku": "585030", "desc": "4 Ch 125W Class D Amp w/ Inbuilt Batt Ch"}, {"sku": "585031", "desc": "4 Ch 250W Class D Amp w/ Inbuilt Batt Ch"}, {"sku": "585033", "desc": "4 Ch 1200W Class D Amp w/ Power Sharing"}, {"sku": "585034", "desc": "4 Ch 2000W Class D Amp w/ Power Sharing"}, {"sku": "585301", "desc": "8 Channel amplifier output cable"}, {"sku": "585302", "desc": "4 Channel amplifier output cable"}, {"sku": "585305", "desc": "Amplifier backup cable - 1 channel"}, {"sku": "585306", "desc": "Amplifier backup cable - 2 channel"}, {"sku": "LSC-506", "desc": "6 watt ceiling loudspeaker c/w metal rear cover (5.5\ufffd)"}, {"sku": "582401", "desc": "6 watt IP 55 rated ceiling speaker (6.5\") c/w metal rear cover BS EN 54-24"}, {"sku": "582407.SAFE", "desc": "6 watt ceiling speaker for shallow ceiling voids (5\") BS EN 54-24"}, {"sku": "582407.FD", "desc": "Metal rear cover for 582407.SAFE BS EN 54-24"}, {"sku": "582408.SAFE", "desc": "6 watt ceiling speaker for shallow ceiling voids (6.5\") BS EN 54-24"}, {"sku": "582408.FD", "desc": "Metal rear cover for 582408.SAFE BS EN 54-24"}, {"sku": "LSC-606", "desc": "6 watt ceiling loudspeaker c/w metal rear cover (6.5\ufffd) BS EN 54-24"}, {"sku": "LSC-606/DC", "desc": "6 watt ceiling loudspeaker c/w metal rear cover with DC blocking capacitor (6.5\ufffd) BS EN 54-24"}, {"sku": "582480", "desc": "24 watt coaxial 2-Way ceiling loudspeaker c/w metal rear cover (6.5\ufffd) BS EN 54-24"}, {"sku": "582423", "desc": "10 watt surface mounted round loudspeaker BS EN 54-24"}, {"sku": "582425", "desc": "6 watt flush mounted wall loudspeaker (6.5\") BS EN 54-24"}, {"sku": "582426", "desc": "6 watt IP 54 rated ABS wall mounted cabinet speaker (6.5\") BS EN 54-24"}, {"sku": "582470", "desc": "6 watt wall mounted metal cabinet loudspeaker (4\ufffd) BS EN 54-24"}, {"sku": "582473", "desc": "10 watt uni-directional sound projector BS EN 54-24"}, {"sku": "582474", "desc": "20 watt uni-directional sound projector BS EN 54-24"}, {"sku": "582475", "desc": "20 watt bi-directional sound projector BS EN 54-24"}, {"sku": "582476", "desc": "20 watt column loudspeaker BS EN 54-24"}, {"sku": "582477", "desc": "40 watt column loudspeaker BS EN 54-24"}, {"sku": "582451", "desc": "IC Audio TS-C 20-500/T-EN54 20 watt column speaker BS EN 54-24"}, {"sku": "582452", "desc": "IC Audio TS-C 30-700/T-EN54 30 watt column speaker BS EN 54-24"}, {"sku": "582453", "desc": "IC Audio TS-C 50-1000/T-EN54 50 watt column speaker BS EN 54-24"}, {"sku": "582432", "desc": "30 watt horn loudspeaker BS EN 54-24"}, {"sku": "582433", "desc": "30 watt music horn loudspeaker BS EN 54-24"}, {"sku": "582479", "desc": "15 watt horn loudspeaker BS EN 54-24"}, {"sku": "582460", "desc": "16watt EN54-24 approved Sound Sphere"}, {"sku": "805595.1", "desc": "Wireless Transceiver Interface for communicating with Wireless devices (EN54 pt 25)"}, {"sku": "805593.1", "desc": "Wireless Detector Base (EN54 pt 25)"}, {"sku": "803271", "desc": "Heat Sensor Rate Of Rise"}, {"sku": "803374", "desc": "Dual Optical Heat Smoke sensor"}, {"sku": "803371", "desc": "Optical Sensor (Compatible device with radio base)"}, {"sku": "803-MCP-KIT", "desc": "Wireless Manual Call Point including MCP and Wireless Interface"}, {"sku": "789862.1", "desc": "Programming PC Interface for Wireless Transponder"}, {"sku": "805597", "desc": "Replacement Battery Pack for 805593 & 805601"}, {"sku": "M200G-RF-26", "desc": "Agile Gateway. Loop-powered Gateway device for System Sensor Agile wireless system. Up to 8 Gateways may be used on the same loop. This requires a B501AP base. Compatible with DXc panels only"}, {"sku": "B501RF", "desc": "Agile Wireless Detector/Repeater Base. Base for Agile wireless detectors, repeater and sounder"}, {"sku": "B501RF-RR", "desc": "Agile Wireless Detector/Repeater Base. Base for Agile wireless sounders red"}, {"sku": "22051E-RF-26", "desc": "Agile Photo Detector. Wireless optical smoke detector for the System Sensor Agile wireless system. Powered by 4 x CR123A 3v batteries"}, {"sku": "22051TLE-RF-26", "desc": "Agile Photo-Thermal-IR Detector. Wireless Optical, Thermal & Infra-Red detector for the System Sensor Agile wireless system. Powered by 4 x CR123A 3v batteries"}, {"sku": "52051RE-RF", "desc": "Agile Rate of Rise Heat Detector. Wireless 'Rate of Rise' heat detector for the System Sensor Agile wireless system. Powered by 4 x CR123A 3v batteries"}, {"sku": "52051E-RF", "desc": "Agile 58\ufffdC Fixed Temperature Heat Detector. Wireless fixed temperature (58\ufffdc) heat detector for the System Sensor Agile wireless system. Powered by 4 x CR123A 3v batteries"}, {"sku": "R5A-RF", "desc": "Agile WCP call point. Waterproof Manual Call Point for the System Sensor Agile wireless system. With magnetic anti-tamper mechanism and IP67-rating. Powered by 4 x CR123A 3v batteries"}, {"sku": "WSO-RR-RF", "desc": "Agile Wireless Wall Mounted Addressable Sounder - RED for the System Sensor Agile wireless system. \r\nPowered by 4 x CR123A 3v batteries"}, {"sku": "WSO-WW-RF", "desc": "Agile Wireless Wall Mounted Addressable Sounder - WHITE for the System Sensor Agile wireless system. Powered by 4 x CR123A 3v batteries"}, {"sku": "M200F-RF", "desc": "Agile Repeater. Network Repeater for extending the range of System Sensor Agile wireless networks. Powered by 4 x CR123A 3v batteries"}, {"sku": "M200I-RF", "desc": "Agile Wireless Remote Indicator for System Sensor Agile wireless systems. Indicates the status of up to four System Sensor Agile wireless detectors via three coloured LEDs"}, {"sku": "M200WC-RF-PRO", "desc": "Agile USB Dongle RF 868 MHz System Sensor PRO"}, {"sku": "POLE HWKIT", "desc": "POLE. Telescopic access pole for setup and maintenance of Agile wireless systems. Extends from 1.5 to 5.2m in length"}, {"sku": "CUP HWKIT", "desc": "CUP. Cup for setup and maintenance of Agile wireless detectors. For use with telescopic pole (POLE HWKIT)"}, {"sku": "SOLOADAPT HWKIT", "desc": "Adapter for No Climb Solo poles - for use with CUP HWKIT"}];
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var storageKey = 'mfd_quote_items';
+            var skuInput = document.getElementById('quick-sku');
+            var qtyInput = document.getElementById('quick-qty');
+            var addButton = document.getElementById('quick-add-btn');
+            var list = document.getElementById('quick-add-list');
+            var submitBtn = document.getElementById('quote-submit');
+            var submitHelp = document.getElementById('quote-help');
+            var itemsField = document.getElementById('quote-items');
+            var submitStep = document.getElementById('quick-continue-btn');
+            var contact = document.getElementById('quote-contact');
+            var form = document.querySelector('.quote-form');
+            var suggestList = document.getElementById('sku-suggest-list');
+            var items = [];
+            var activeIndex = -1;
+
+            function sanitize(text) {
+                return (text || '').replace(/\s+/g, ' ').trim();
+            }
+
+            function findDescription(sku) {
+                var target = sku.toLowerCase();
+                for (var i = 0; i < SKU_DATA.length; i += 1) {
+                    if (SKU_DATA[i].sku.toLowerCase() === target) {
+                        return sanitize(SKU_DATA[i].desc);
+                    }
+                }
+                return '';
+            }
+
+            function saveItems() {
+                localStorage.setItem(storageKey, JSON.stringify(items));
+            }
+
+            function renderList() {
+                list.innerHTML = '';
+                if (itemsField) {
+                    itemsField.value = items.map(function (item) {
+                        var desc = item.desc ? item.desc : 'Description not available';
+                        return item.sku + ' x ' + item.qty + ' — ' + desc;
+                    }).join('\n');
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = items.length === 0;
+                }
+                if (submitHelp) {
+                    submitHelp.style.display = items.length === 0 ? 'block' : 'none';
+                }
+
+                items.forEach(function (item, index) {
+                    var row = document.createElement('tr');
+                    var skuCell = document.createElement('td');
+                    var descCell = document.createElement('td');
+                    var qtyCell = document.createElement('td');
+                    var actionCell = document.createElement('td');
+                    skuCell.textContent = item.sku;
+                    descCell.textContent = item.desc || '';
+                    qtyCell.textContent = item.qty;
+                    var remove = document.createElement('button');
+                    remove.type = 'button';
+                    remove.className = 'quick-add-remove';
+                    remove.setAttribute('aria-label', 'Remove item');
+                    remove.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>';
+                    remove.addEventListener('click', function () {
+                        items.splice(index, 1);
+                        saveItems();
+                        renderList();
+                    });
+                    actionCell.appendChild(remove);
+                    row.appendChild(skuCell);
+                    row.appendChild(descCell);
+                    row.appendChild(qtyCell);
+                    row.appendChild(actionCell);
+                    list.appendChild(row);
+                });
+            }
+
+            function addItem() {
+                var sku = sanitize(skuInput.value);
+                var qty = parseInt(qtyInput.value, 10);
+                if (!sku) {
+                    skuInput.focus();
+                    skuInput.select();
+                    return;
+                }
+                if (!qty || qty < 1) {
+                    qty = 1;
+                    qtyInput.value = '1';
+                }
+                items.push({ sku: sku, qty: qty, desc: findDescription(sku) });
+                saveItems();
+                renderList();
+                skuInput.value = '';
+                qtyInput.value = '1';
+                skuInput.focus();
+                skuInput.select();
+            }
+
+            function buildSuggestions(term) {
+                var normalized = term.toLowerCase();
+                if (!normalized) {
+                    suggestList.style.display = 'none';
+                    suggestList.innerHTML = '';
+                    activeIndex = -1;
+                    return;
+                }
+
+                var matches = SKU_DATA.map(function (item) {
+                    var sku = item.sku.toLowerCase();
+                    var desc = (item.desc || '').toLowerCase();
+                    var score = null;
+                    if (sku.indexOf(normalized) === 0) score = 0;
+                    else if (sku.indexOf(normalized) >= 0) score = 1;
+                    else if (desc.indexOf(normalized) >= 0) score = 2;
+                    if (score === null) return null;
+                    return { sku: item.sku, desc: sanitize(item.desc), score: score };
+                }).filter(Boolean);
+
+                matches.sort(function (a, b) {
+                    if (a.score !== b.score) return a.score - b.score;
+                    return a.sku.localeCompare(b.sku);
+                });
+
+                var top = matches.slice(0, 5);
+                suggestList.innerHTML = '';
+                top.forEach(function (item, index) {
+                    var row = document.createElement('div');
+                    row.className = 'sku-suggest-item' + (index === activeIndex ? ' active' : '');
+                    row.dataset.index = index;
+                    row.innerHTML = '<strong>' + item.sku + '</strong> — ' + item.desc;
+                    row.addEventListener('mousedown', function (event) {
+                        event.preventDefault();
+                        skuInput.value = item.sku;
+                        suggestList.style.display = 'none';
+                        qtyInput.focus();
+                        qtyInput.select();
+                    });
+                    suggestList.appendChild(row);
+                });
+
+                if (top.length > 0) {
+                    var more = document.createElement('a');
+                    more.className = 'sku-suggest-more';
+                    more.href = '/products/?q=' + encodeURIComponent(term);
+                    more.textContent = 'Show more...';
+                    suggestList.appendChild(more);
+                    suggestList.style.display = 'block';
+                } else {
+                    suggestList.style.display = 'none';
+                }
+            }
+
+            function updateActive(delta) {
+                var itemsNodes = suggestList.querySelectorAll('.sku-suggest-item');
+                if (!itemsNodes.length) return;
+                activeIndex = activeIndex + delta;
+                if (activeIndex < 0) activeIndex = itemsNodes.length - 1;
+                if (activeIndex >= itemsNodes.length) activeIndex = 0;
+                itemsNodes.forEach(function (node, idx) {
+                    node.classList.toggle('active', idx === activeIndex);
+                });
+            }
+
+            if (skuInput) {
+                skuInput.addEventListener('input', function () {
+                    activeIndex = -1;
+                    buildSuggestions(skuInput.value);
+                });
+                skuInput.addEventListener('keydown', function (event) {
+                    if (event.key === 'ArrowDown') {
+                        event.preventDefault();
+                        updateActive(1);
+                        return;
+                    }
+                    if (event.key === 'ArrowUp') {
+                        event.preventDefault();
+                        updateActive(-1);
+                        return;
+                    }
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        var active = suggestList.querySelector('.sku-suggest-item.active');
+                        if (active) {
+                            skuInput.value = active.querySelector('strong').textContent;
+                        }
+                        suggestList.style.display = 'none';
+                        qtyInput.focus();
+                        qtyInput.select();
+                    }
+                });
+            }
+
+            document.addEventListener('click', function (event) {
+                if (!suggestList.contains(event.target) && event.target !== skuInput) {
+                    suggestList.style.display = 'none';
+                }
+            });
+
+            if (qtyInput) {
+                qtyInput.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        addItem();
+                    }
+                });
+            }
+
+            if (addButton) {
+                addButton.addEventListener('click', function () {
+                    addItem();
+                });
+            }
+
+            if (submitStep) {
+                submitStep.addEventListener('click', function () {
+                    if (items.length === 0) {
+                        renderList();
+                        return;
+                    }
+                    if (contact) {
+                        contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        var nameField = contact.querySelector('input[name="name"]');
+                        if (nameField) {
+                            nameField.focus();
+                        }
+                    }
+                });
+            }
+
+            if (form) {
+                form.addEventListener('submit', function () {
+                    if (items.length > 0) {
+                        localStorage.removeItem(storageKey);
+                    }
+                });
+            }
+
+            var stored = localStorage.getItem(storageKey);
+            if (stored) {
+                try {
+                    items = JSON.parse(stored) || [];
+                } catch (e) {
+                    items = [];
+                }
+            }
+            items = items.map(function (item) {
+                if (!item.desc) {
+                    item.desc = findDescription(item.sku);
+                }
+                return item;
+            });
+
+            var params = new URLSearchParams(window.location.search);
+            var skuParam = params.get('sku');
+            var qtyParam = params.get('qty');
+            if (skuParam && skuInput) {
+                skuInput.value = skuParam;
+                if (qtyParam && qtyInput) {
+                    qtyInput.value = qtyParam;
+                    addItem();
+                    if (history.replaceState) {
+                        history.replaceState({}, document.title, window.location.pathname);
+                    }
+                } else if (qtyInput) {
+                    qtyInput.focus();
+                    qtyInput.select();
+                }
+            }
+
+            renderList();
+        });
+    </script>
     <script src="js/script.js"></script>
 </body>
 </html>
+
+<!-- DEBUG_MARKER_QUOTE: 2026-01-12T15:49:21.0700478+00:00 -->
+

@@ -485,6 +485,10 @@ body {
     background: #fff;
 }
 
+.products-section:has(.product-list) {
+    padding-bottom: 50px;
+}
+
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1233,6 +1237,82 @@ textarea:focus-visible {
     .form-group {
         margin-bottom: 15px;
     }
+}
+
+/* Category List Pages */
+.hero-intro {
+    max-width: 52rem;
+    margin: 0.75rem auto 0;
+    line-height: 1.6;
+}
+
+.product-list {
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.product-list li {
+    margin: 0.35rem 0;
+}
+
+@media (min-width: 900px) {
+    .product-list {
+        columns: 2;
+        column-gap: 2.5rem;
+    }
+
+    .product-list li {
+        break-inside: avoid;
+    }
+}
+
+.trade-cta {
+    padding: 2rem 0;
+}
+
+.trade-cta .cta-box {
+    border: 1px solid #e6e6e6;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.trade-cta .cta-box h3 {
+    margin: 0 0 0.5rem;
+}
+
+.trade-cta .cta-box p {
+    margin: 0 0 1rem;
+}
+
+.utility-links {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 1.25rem;
+}
+
+.utility-links a {
+    color: #666;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.utility-links a:hover {
+    text-decoration: underline;
+}
+
+/* SEO overview placeholder (quiet reference style) */
+.overview-placeholder {
+    max-width: 48rem;
+    margin: 0.75rem auto 1.25rem;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.hero-content h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
 }
 
 /* Print Styles */
